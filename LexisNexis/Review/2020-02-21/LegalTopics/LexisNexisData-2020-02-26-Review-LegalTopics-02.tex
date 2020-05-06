@@ -1,0 +1,175 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage{setspace}
+\usepackage[letterpaper, margin=1.0in]{geometry}
+\addtolength{\topmargin}{-0.25in}
+%\usepackage{tocloft}
+\usepackage{titlesec}
+%\titleformat*{\section}{\large\bfseries}
+\titleformat*{\section}{\large}
+\titleformat*{\subsection}{\normalsize}
+\usepackage{longtable}
+\usepackage{float} % H causes tables and figures to appear where specified
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amsmath}   % includes \boldmath(), \boldsymbol{()}
+\usepackage{bm}        % math fonts, \boldmath{}, \boldsymbol{}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{subcaption}
+\usepackage{xcolor, colortbl}
+\definecolor{gray}{gray}{0.9}
+\definecolor{ltBlue}{rgb}{0.75, 0.85, 0.975}
+\definecolor{medBlue}{rgb}{0.75, 0.8, 0.9}
+\definecolor{white}{rgb}{1, 1, 1}
+%\rowcolor{ltBlue}
+\usepackage{changepage}
+\usepackage{pdflscape}
+\bibliographystyle{plainnat}
+\usepackage[authoryear, round, semicolon]{natbib}
+\newcommand{\mt}[1]{\bm{#1}^{\prime}}
+\newcommand{\mtm}[2]{\bm{#1}^{\prime}\bm{#2}}
+\newcommand{\mi}[1]{\bm{#1}^{-1}}
+\newcommand{\mest}[1]{\hat{\bm{#1}}}
+\usepackage[bottom]{footmisc}
+\setlength{\skip\footins}{12pt}
+\setlength\parindent{0pt}
+
+\title{\vspace{-0.5in}\large LexisNexis Appeals Data Review\\[4pt]Legal Topics\\[4pt]
+       \normalsize Version 2.0, April 7, 2020\\[4pt]Tom Balmat, Duke University\\[-20pt]}
+
+%\author{Tom Balmat}
+\date{}
+
+\begin{document}
+    
+\begin{spacing}{1.0}
+
+\maketitle
+
+To date, two primary data sets have been received from LexisNexis (LN):  set A (3/13/2019) and set B (12/3/2019).  The following summarizes results of several tests of integrity of legal topics assigned to case records in these data sets.  Tests include:
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item Verification of topic ID format
+    \item Identification of topic IDs that do not appear in the master topic table
+    \item Verification that legal topics are not duplicated on any case
+    \item Comparison, between data sets A and B, of the distribution of legal topics by year
+    \item Comparison, between data sets A and B, of the distribution of legal topics by ID
+    \item Evaluation of topic IDs with a difference, between data sets A and B, in cases assigned 
+    \item Evaluation of cases with a difference, between data sets A and B, in legal topics assigned
+\end{itemize} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\section*{Legal topic ID format}
+
+Legal topic ID codes are Global Unique Identifiers (GUID) assigned by LN.  A valid GUID is a 128 bit binary integer with character representation as a string of 32 hexadecimal digits.  Valid hexadecimal digits are 0-9, A-F.  An example topic ID in hexadecimal is 0DFE2750D1294DBA936B6AAECB79C77F.  Observations:
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item There are 44,899 topics in the master table, each a valid hexadecimal GUID
+    \item 16,134 distinct legal topic IDs are assigned to cases in data set A,  each a valid hexadecimal GUID
+    \item 14,755 distinct legal topic IDs are assigned to cases in data set B, each a valid hexadecimal GUID
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\section*{Topic IDs that do not appear in the master topic table}
+
+Table \ref{tab:UnknownTopicID} lists topic IDs that are assigned to cases, but do not appear in the master topics table.  Note that, although frequencies differ, the set of unrecognized IDs is the same for both data sets, with the exception of ID C15FD5D77534430BBE65B9AE681A5282 appearing in data set B only.\\
+
+\begin{table}[H]
+    \centering
+    \caption{Data sets A and B legal topic IDs that do not appear in the master topic table}
+    \begin{tabular}{lrrr}
+        \hline\\[-6pt]
+        Topic ID & Length & n(Set A) & n(Set B)\\[2pt]
+        \hline\\[-6pt]
+        024C354AF46A4A2FA751B8986DD10471 & 32 & 20 & 22\\
+        1FD8BB9677D9467C9BADEB256362B109 & 32 & 1 & 1\\
+        25236D06A3164C7E8E6A590AA2BE6D48 & 32 & 23 & 29\\
+        4F449B05E21948F09AF3AF140AAF1B87 & 32 & 1 & 5\\
+        82FA08A9928B4CF0893760370FF80E2E & 32 & 1 & 6\\
+        8DDF4DB4FE4C487A97DCEED7E7F9D696 & 32 & 1 & 1\\
+        C0BE07E8370E4C76AB1D1976E848D4F2 & 32 & 3 & 25\\
+        C15FD5D77534430BBE65B9AE681A5282 & 32 & 0 & 2\\
+        DDF6E78E4E724C78865E235054136851 & 32 & 3 & 15\\
+        DFBA247750FF42F4AA2AC464EBCCE7DE & 32 & 1 & 3\\
+        \hline\\[-6pt]
+\end{tabular}
+\label{tab:UnknownTopicID}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\section*{Duplicate topic IDs by case}
+
+Duplicate case LNI, legal topic ID combinations have been observed in the records provided by LN.  Unique combinations of LNI and legal topic ID were imported into the SQL database.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\section*{Distribution of legal topics assigned by year}
+
+Figure \ref{fig:DistributionTopicsByYear} shows the distribution, by year, of the total number of topics assigned to all cases.  There is an apparent significant difference in the number of topics assigned between sets A and B for years 1974 through 2004.
+
+\vspace{10pt}
+
+\begin{figure}[H]
+    \includegraphics[width=4.25in, trim={0 0 0 0.0}, clip]{{DistributionNumberOfTopicsByYear}.png}
+    \centering
+    \caption{Distribution of total number of topics assigned by data set and year}
+    \label{fig:DistributionTopicsByYear}
+\end{figure} 
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\section*{Distribution of legal topics assigned by case}
+
+Figure \ref{fig:DistributionTopicsByCase} shows the distribution of cases by the number of topics assigned.  There is an apparent difference in assignment frequency, with cases in data set A generally having more topics assigned than those in data set B. 
+
+\vspace{12pt}
+
+\begin{figure}[H]
+    \includegraphics[width=4.25in, trim={0 0 0 0.0}, clip]{{DistributionNumberOfTopicsPerCase}.png}
+    \centering
+    \caption{Distribution of cases by data set and number of topics assigned}
+    \label{fig:DistributionTopicsByCase}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\clearpage
+
+\section*{Topics with a difference in cases assigned between data sets B and A}
+
+Figure \ref{fig:DistributionDifferenceInCasesByTopic} shows the distribution of the difference, between data sets B and A, in cases assigned by topic.  There is an apparent significant difference in the number of cases assigned a given topic between the two data sets.  Differences are number assigned in set B minus number assigned in set A, indicating that topics are typically assigned with lesser frequency in set B than they are in set A.  Note that topic ``US Legal Taxonomy$>$Civil Procedure$>$Appeals$>$Standards of Review$>$De Novo Review" has maximum assignment frequency in both data sets, with 34,670 and 86,582 case assignments, respectively (B and A).  The x-axis was truncated at -2,500.  All case frequencies corresponding to topic assignment with differences less than -2,500 are near 0.
+
+\vspace{12pt}
+
+\begin{figure}[H]
+    \includegraphics[width=4.25in, trim={0 0 0 0.0}, clip]{{DistributionDifferenceInCasesByTopic}.png}
+    \centering
+    \caption{Distribution of difference, between data sets B and A, in cases assigned by topic}
+    \label{fig:DistributionDifferenceInCasesByTopic}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\clearpage
+
+\section*{Cases with a difference in number of topics assigned between data sets B and A}
+
+Figure \ref{fig:DistributionDifferenceInTopicsByCase} shows the distribution of the difference, between data sets B and A, in number of topics assigned by case.  Differences are number of topics assigned in set B minus the number assigned in set A, indicating that cases typically have fewer topics assigned in set B than they do in set A.
+
+\vspace{12pt}
+
+\begin{figure}[H]
+    \includegraphics[width=4.25in, trim={0 0 0 0.0}, clip]{{DistributionDifferenceInTopicsByCase}.png}
+    \centering
+    \caption{Distribution of difference, between data sets B and A, in cases assigned by case}
+    \label{fig:DistributionDifferenceInTopicsByCase}
+\end{figure} 
+
+\end{spacing}
+
+\end{document} 

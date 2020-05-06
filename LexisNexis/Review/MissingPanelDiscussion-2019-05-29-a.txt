@@ -1,0 +1,11 @@
+Hi Stuart,
+
+Checking the cases you ask about below, I find:
+
+•	[Amoco Prod. Co. v. Davies, 1997 U.S. App. LEXIS 42415] does exist with a panel, but we also have [Amoco Prod. v. Davis, 127 F.3d 34] on record (same decision date).  Note the difference in title (“Davies” vs. “Davis”).  If LN revised their records (or recorded an update issued by a recorder) simply to correct a title then, perhaps, we do not want the erroneous record in our data.  LN may retain a history of case revisions in their data, but do we need that history?  If so, then we need some data from LN on revisions and case currency.
+•	[Pine v. FERC, 1996 U.S. App. LEXIS 3685] exists with a panel, so we have two records for the same case.  The only difference in case records are the LN titles - the one without panel is labeled [Pine v. FERC, 79 F.3d 169].
+•	[Coleman v. Chater, 1996] also appears twice, once with a panel (1996 U.S. App. LEXIS 17289) and once without (86 F.3d 1155).
+
+Each of the above have a “U.S. App” and “F.” versions and the “F.” cases are missing panels.  Do we need multiple titles?  Do multiple versions provide any useful info on cases?
+
+Tom

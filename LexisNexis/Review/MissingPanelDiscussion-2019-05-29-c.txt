@@ -1,0 +1,29 @@
+Hi Stuart,
+
+Attached is a sample of cases with no panel and decision date prior to 1/1/1981.  The earliest decision on record is from 1974.  Page 6 of the data review has a table of decisions by year.
+
+The results of matching cases by title did not go well.  There are too many differences in titles of what appear to be a single case.  My attempts typically matched less than half of the 200,000 cases without a panel.  In verifying matches, I routinely saw situations where apparent single cases have slight variations in title between records.  Following is an example for 9th Circuit, 5/13/1988:
+
+Case	Panel
+Badfoot v. Deukmejian, 1988 U.S. App. LEXIS 22040	y
+Badfoot v. Deukmejian, 846 F.2d 1382	y
+Berg v. Sportsman, 1988 U.S. App. LEXIS 21997	y
+Berg v. The Sportsman, 846 F.2d 1382	y
+Friedman v. United States, 1988 U.S. App. LEXIS 22018	y
+Friedman v. United States, 1988 U.S. App. LEXIS 6749	n
+Kauth v. Northwest Publ'ns, Inc., 1988 U.S. App. LEXIS 21999	y
+Kauth v. Northwest Publications, Inc., 846 F.2d 1382	y
+Reimers v. Oregon, 863 F.2d 630	y
+Salinas v. Milne Truck Lines, Inc., 846 F.2d 568	y
+Smith v. Moran, 846 F.2d 1383	y
+Smith v. United States, 1988 U.S. App. LEXIS 22050	y
+Smith v. United States, 846 F.2d 1383	y
+United States v. Bogard, 846 F.2d 563	y
+United States v. Crabtree, 1988 U.S. App. LEXIS 22076	y
+United States v. Crabtree, 846 F.2d 1383	n
+United States v. Licea Sandoval, 846 F.2d 1383	y
+United States v. Sandoval, 1988 U.S. App. LEXIS 22074	y
+
+Berg, Kauth, and Sandoval are problematic.  Also, note that Badfoot, Berg, Kauth, Smith (2), and Sandoval appear to be repeated, but each has a panel, although the panels are different for case instances.  Are these different opinions?  Is it possible that LN repeats cases for concurring and dissenting opinions?  We do not have concurring and dissenting judge IDs, so there isn’t much we can learn, in this regard, from our current data.  If the apparent duplicates above are actual dups, our rule of omitting supposed duplicate opinions due to missing panel does not cover all duplicate situations and, if that is the case, I continue to advocate for LN explaining scenarios for cases being duplicated and having them mitigate where possible.  We may never know all scenarios and adjusting for a partial set will leave duplicates for others.
+
+Tom

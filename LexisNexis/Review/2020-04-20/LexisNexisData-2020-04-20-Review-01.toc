@@ -1,0 +1,5 @@
+\contentsline {section}{\numberline {1}Opinion spikes near 1990 for the 4th and 11th circuits, figure 3 of RD1}{2}{section.1}
+\contentsline {section}{\numberline {2}Examination of outcome type ``Other" from figure 4 of RD1}{7}{section.2}
+\contentsline {section}{\numberline {3}Case duplication}{20}{section.3}
+\contentsline {section}{\numberline {4}Elimination of duplicate case records in figure 3 of RD1}{38}{section.4}
+\contentsline {section}{\numberline {5}Cases with top differences in legal topics counts between data sets B and A}{39}{section.5}

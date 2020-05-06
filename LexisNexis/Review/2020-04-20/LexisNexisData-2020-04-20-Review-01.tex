@@ -1,0 +1,1447 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage{setspace}
+\usepackage[letterpaper, margin=1.0in]{geometry}
+\addtolength{\topmargin}{-0.25in}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    %linkcolor=,
+    %citecolor=blue,
+    %urlcolor=blue
+    allcolors=[rgb]{0, 0, 0.65}
+}
+%\titleformat*{\section}{\large\bfseries}
+\titleformat*{\section}{\large}
+\titleformat*{\subsection}{\normalsize}
+\usepackage{longtable}
+\usepackage{float} % H causes tables and figures to appear where specified
+\usepackage{array} % ragged right alignment in table cells
+\usepackage{ragged2e} % ragged right alignment
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amsmath}   % includes \boldmath(), \boldsymbol{()}
+\usepackage{bm}        % math fonts, \boldmath{}, \boldsymbol{}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{subcaption}
+\usepackage{xcolor, colortbl}
+\definecolor{gray}{gray}{0.9}
+\definecolor{ltBlue}{rgb}{0.75, 0.85, 0.975}
+\definecolor{medBlue}{rgb}{0.75, 0.8, 0.9}
+\definecolor{white}{rgb}{1, 1, 1}
+%\rowcolor{ltBlue}
+\usepackage{changepage}
+\usepackage{pdflscape}
+\bibliographystyle{plainnat}
+\usepackage[authoryear, round, semicolon]{natbib}
+\newcommand{\mt}[1]{\bm{#1}^{\prime}}
+\newcommand{\mtm}[2]{\bm{#1}^{\prime}\bm{#2}}
+\newcommand{\mi}[1]{\bm{#1}^{-1}}
+\newcommand{\mest}[1]{\hat{\bm{#1}}}
+\usepackage[bottom]{footmisc}
+\setlength{\skip\footins}{12pt}
+\setlength\parindent{0pt}
+
+\title{\large LexisNexis Appeals Data Review\\[4pt]Followup Questions Resulting from April 16, 2020 Team Conference Call\\[4pt]\normalsize Version 1.0, April 20, 2020\\[4pt]Tom Balmat, Duke University\\[-20pt]}
+
+%\author{Tom Balmat}
+\date{}
+
+\begin{document}
+    
+\begin{spacing}{1.0}
+
+\maketitle
+
+The following summarizes several investigations resulting from questions raised during the April 16, 2020 conference call.
+
+\vspace{0.25in}
+
+Terms used in this document:
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item LN = LexisNexis
+    \item Data set A = Data set received from LN in March of 2019
+    \item Data set B = Data set received from LN in December of 2019
+    \item RD1 = LexisNexis Appeals Data Review (LNI Format, Court, Case Type, Opinions) document reviewed during the team's conference call of Apr 16, 2020
+\end{itemize}
+    
+%\vspace{0.25in}
+
+\renewcommand\cfttoctitlefont{\large}
+\renewcommand\cftsecfont{\normalsize}
+\renewcommand\cftsecpagefont{\normalsize}
+\renewcommand\cftsubsecfont{\normalsize}
+\renewcommand\cftsubsecpagefont{\normalsize}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand*\contentsname{List of Sections}
+%\begin{center}
+    \begin{minipage}{5.5in}
+        \tableofcontents
+    \end{minipage}
+%\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Opinion spikes near 1990 for the 4th and 11th circuits, figure 3 of RD1}
+
+Figure 3 of RD1 shows, for the 4th and 11th circuits, in the neighborhood of year 1990, apparent spikes in frequencies of cases with opinion authors but neither concurring nor dissenting authors.  Figure \ref{fig:4th-11th-Spikes}, here, reproduces graphs for the 4th and 11th circuits from figure 3 of RD1.  Interest was expressed in the possibility of a difference in the length of texts for opinions appearing around 1990 and for those of other years.  Since LN did not provide actual opinion text with either data set A or data set B, comparison of lengths is not possible.  However, as an alternative, the length of text appearing in the opinion author field of data set B was evaluated.\footnote{Note that a distinguishing feature of data set B is that, along with LN assigned judge IDs, as provided in data set A, textual versions of opinion, concurring, and dissenting authors were also included.  It is assumed that the textual versions were extracted from actual case records as provided to LN from their sources.}  Figures \ref{fig:Dist-4th-OpText-Length} and \ref{fig:Dist-11th-OpText-Length} show the distribution (data set B), for the 4th and 11th circuits, respectively, of opinion author text field length, by year.  The y-axes are on a log$_{10}$ scale, so that small differences in bar length can indicate a large actual difference (the distance between the first and second ticks corresponds to a 100-fold increase, while between the first and third ticks corresponds to a 10,000-fold increase).  Noticeable for both courts, through the period 1990-1994, are solid green spikes (representing opinions with no concurring or dissenting authors) at text length of approximately ten characters.  A review of opinion author content with character count between five and ten revealed a prevalence of the text ``per curiam" (ten characters).  Next, the proportion of cases with opinion author content containing the exact text ``per curiam" was computed.  Figure \ref {fig:Proportion-Per-Curiam-Opinions-By-Author} plots these proportions for each court and year.  Vertical, dashed lines outline the period 1990-1994 and high-proportion spikes appear in this region for the 1st, 4th, 5th, 8th, 11th, DC, Federal, and Temp Emergency circuits.  Of note is that spikes occur for various courts prior to 1990.  Also, ``per curiam" does not appear to have been used much in the opinion author field, in any court, after 1994.  A comparison was made of the proportion of cases with opinion author containing ``per curiam" and the proportion of cases with per curiam indicator set to a value of 1.  Figure \ref{fig:Proportion-Per-Curiam-Opinions-By-PerCuriam} plots these proportions by court and year.  It appears that, throughout the study period, LN employed different methods of identifying per curiam opinions, by using both ``per curiam" author and per curiam indicator for some courts and years (1st, 4th, 6th, and 8th circuits in 1994), strictly one of ``per curiam" author or per curiam indicator for others (6th and 11th circuits prior to 1990), or relative non-identification of per curiam opinions (11th circuit between 1994 and 2002).  Perhaps source data available to LN differed by court and year (per curiam indicator use by their data provider may have varied) and this may explain differences observed here, but the result for us is an apparent ambiguity in classifying actual per curiam decisions.
+
+%\vspace{0.25in}
+
+\begin{figure}[H]
+    \includegraphics[width=5.5in, trim={0 0 0 0.0}, clip]{{Fig3-4th-11th-Spikes}.png}
+    \centering
+    \caption{Spikes in 4th and 11th circuit opinions with no concurring or dissenting authors near 1990}
+    \label{fig:4th-11th-Spikes}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{Dist-4th-OpText-Length}.png}
+    \centering
+    \caption{Distribution of 4th circuit opinion author text field length by year}
+    \label{fig:Dist-4th-OpText-Length}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{Dist-11th-OpText-Length}.png}
+    \centering
+    \caption{Distribution of 11th circuit opinion author text field length by year}
+    \label{fig:Dist-11th-OpText-Length}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{Proportion-Per-Curiam-Opinions-By-Author}.png}
+    \centering
+    \caption{Proportion cases with opinion author exactly equal ``per curiam" by court and year}
+    \label{fig:Proportion-Per-Curiam-Opinions-By-Author}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{Proportion-Per-Curiam-Opinions-By-PerCuriam}.png}
+    \centering
+    \caption{Comparison of proportion cases with opinion author equal ``per curiam" and proportion cases with per curiam indicator set to 1, by court and year}
+    \label{fig:Proportion-Per-Curiam-Opinions-By-PerCuriam}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Examination of outcome type ``Other" from figure 4 of RD1}
+
+Case outcome type is assigned by the SQL import algorithm using the following classification rules (the first rule satisfied assigns outcome type):\\
+
+If outcome contains ``reversed" then outcome type = reversed\\
+Else if outcome contains ``vacated" then outcome type = vacated\\
+Else if outcome contains ``affirmed" then outcome type = affirmed\\
+Else if outcome contains ``denied" then outcome type = denied\\
+Else outcome type = other\\
+
+Figure \ref{fig:OutcomeType-Other} is reproduced from figure 4 of RD1 and plots the frequency, by year, of cases classified as having outcome type ``other."  Interest was expressed in examining the text contained in the outcome fields of such cases.  Inspection of outcome text (in data set B) revealed that, of the 677,892 cases classified with outcome type of ``other," 651,314 have no text in their outcome field.  Figure \ref{fig:Proportion-Outcome-Other-Empty-Text} plots, by court and year, the proportion of total cases with outcome type of ``other" (solid line) and the proportion of ``other" classified cases that have empty outcome text (dashed line).  Blue bars represent the proportion of total cases (all courts) for each court and year.  Figure \ref{fig:Proportion-Outcome-Other-Empty-Text-Neg} is a complementary graph showing the proportion of non ``other" outcomes along with proportion ``other" outcomes with non-empty text.  Of interest is that, for several courts (1st 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, 9th, 10th, DC, and Temp Emergency circuits), the lines generally track one another through the study period.  This may indicate that, using the above rules, simply having greater incidence of text improves classification, as opposed to requiring an increase in use of particular terms in the text.  Of the 26,578 cases with non-empty outcome text classified as ``other" (data set B), 12,517 contain the text ``dismiss."  Table \ref{tab:outcomeTextDismiss} lists a random sample of outcome text containing ``dismiss."  Table \ref{tab:outcomeTypeOtherNonDismiss} lists a random sample of outcomes that do not contain ``dismiss" and occur in cases with decision dates between 1993 and 2000, since this is the period with greatest incidence of ``other" outcomes.
+
+\vspace{0.5in}
+
+\begin{figure}[H]
+    \includegraphics[width=2.5in, trim={0 0 0 0.0}, clip]{{Fig4-OutcomeType-Other}.png}
+    \centering
+    \caption{Distribution, by year, of cases with outcome type classified as ``other"}
+    \label{fig:OutcomeType-Other}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{Proportion-Outcome-Other-Empty-Text}.png}
+    \centering
+    \caption{Proportion, by court and year, of total outcomes classified as ``other," along with the proportion of ``other" outcomes due to empty text.  Blue bars represent the proportion of total cases (all courts) for each court and year.}
+    \label{fig:Proportion-Outcome-Other-Empty-Text}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{Proportion-Outcome-Other-Empty-Text-Neg}.png}
+    \centering
+    \caption{Proportion, by court and year, of total outcomes classified as non ``other," along with the proportion of ``other" outcomes with non-empty tex.  Blue bars represent the proportion of total cases (all courts) for each court and year.}
+    \label{fig:Proportion-Outcome-Other-Empty-Text-Neg}
+\end{figure}
+
+\clearpage
+
+\begin{small}
+\begin{longtable}[H]{llp{5in}}
+    \caption{Example text of case outcomes containing ``dismiss"}\\
+    \hline\\[-6pt]
+    Court & Year & Outcome text\\[2pt]
+    \hline\\[-6pt]
+    \endhead
+    8th Circ & 1976 & The court dismissed the carrier's petition for review of an order of the Interstate Commerce Commission, which directed that it comply with Sub-No. 8 Household Regulations and suspended its authority to transport household goods for 30 days.\\[4pt]
+    10th Circ & 1980 & The court dismissed the city's appeal from the trial court's order and remanded the case to the trial court with instructions to vacate its judgment for want of jurisdiction.\\[4pt]
+    5th Circ & 1986 & The court dismissed the appeals and remanded the case. The court held that under the federal rules of civil procedure, it did not have jurisdiction over the claims of appellant immigration agents and the U.S. government, or over the cross claims of appellees, nonresident aliens. Setting the amount of attorney fees to be awarded to appellees would terminate the litigation in the district court and give the court jurisdiction.\\[4pt]
+    6th Circ & 1988 & The court granted the request of petitioners state secretary of revenue and county property valuation administrators for a writ of mandamus requiring the district court to dismiss respondent taxpayers' claim for lack of subject matter jurisdiction. The court dismissed the case due to principles of comity as it would have required the federal courts to intrude into a state taxation system when a plain, adequate, and complete state remedy existed.\\[4pt]
+    10th Circ & 1994 & The court dismissed petitioner inmate's appeal from the trial court's dismissal of his petition for a writ of habeas corpus because it found that petitioner failed to establish cause to overcome a procedural bar.\\[4pt]
+    Federal Circ & 1995 & The court waived the procedural requirements, granted the motion for leave to file an overlong motion, and granted the motion to dismiss. The court also granted the veteran's motion for an extension of time.\\[4pt]
+    6th Circ & 1995 & The court dismissed the appeal for lack of jurisdiction. The court held that district court's decision to reimburse appellant, the court-appointed attorney for defendant, only $ 33,693 in defense costs rather than the full $ 47,077 requested by appellant was not an appealable order. The Criminal Justice Act itself did not provide for appellate review of the fee determination.\\[4pt]
+    9th Circ & 1995 & The court dismissed defendant's appeal from his conviction of assault with a deadly weapon and his sentence of 60 months after his guilty plea, because defendant waived his right to appeal and the record showed that all parties bound by the plea agreement performed as promised.\\[4pt]
+    DC Circ & 1995 & The court granted the motion for summary affirmance and dismissed the request to determine the matter of frivolous de novo as moot.\\[4pt]
+    6th Circ & 1996 & The court dismissed the appeal.\\[4pt]
+    7th Circ & 1996 & The court dismissed appellant government's challenge to the district court's judgment granting appellee taxpayer's motion for summary judgment for want of jurisdiction. The court held that the judgment entered by the district court was not final and thus, not reviewable. The court reasoned that the judgment did not state the amount of the refund to which appellee was entitled to, thus an appeal of the judgment was premature.\\[4pt]
+    6th Circ & 1996 & The court dismissed the petition.\\[4pt]
+    6th Circ & 1996 & The court dismissed the appeal for lack of jurisdiction.\\[4pt]
+    7th Circ & 1998 & The court remanded two cases in which defendant was convicted of bank robberies, because the challenged departure was based on a misinterpretation of the applicable sentencing guideline. The court dismissed one appeal because a condition of defendant's plea agreement was that he would waive his right to appeal in that case.\\[4pt]
+    9th Circ & 1998 & The court dismissed the record keeper's appeal for lack of jurisdiction and transferred the appeal to the district court for further action.\\[4pt]
+    Federal Circ & 1999 & The court dismissed the appeal of appellant's service connection claim. The court held that it lacked jurisdiction over the appeal, because the issue on appeal was not raised in the court below.\\[4pt]
+    2nd Circ & 1999 & Plaintiff's discrimination claim against her employer was properly dismissed because the complained of conduct occurred prior to the effective date of the Civil Rights Act of 1991.\\[4pt]
+    9th Circ & 1999 & The court dismissed the petition for a writ of mandamus, because petitioner media coalition did not present issues that fell within the exception to mootness for questions that were capable of repetition but would evade review.\\[4pt]
+    2nd Circ & 1999 & Order dismissing plaintiff bank's complaint for lack of jurisdiction was remanded for a determination of whether plaintiff alleged an actionable tort and whether plaintiff met other requirements for personal jurisdiction, where the trial court erred by finding the injury alleged occurred outside of the state and personal jurisdiction was inappropriate, and the record was unclear whether plaintiff averred sufficient facts to establish a tort.\\[4pt]
+    Federal Circ & 1999 & Appeal dismissed; court lacked jurisdiction to review claimant's appeal for veteran's benefits because judicial review was statutorily limited to cases involving misinterpretation of constitutional provision, law or regulation.\\[4pt]
+    6th Circ & 1999 & The court granted plaintiff's motion to dismiss the appeal on grounds that the order was not appealable for lack of subject matter jurisdiction.\\[4pt]
+    DC Circ & 2000 & The appeal was dismissed; the order qualified as a judgment under the Federal Rules of Civil Procedure, so that appellant's appeal was untimely under the Federal Rules of Appellate Procedure.\\[4pt]
+    9th Circ & 2000 & In affirming the decision of the trial court, the appellate court held that appellant's habeas petition was properly dismissed as untimely since he failed to file within the statutory time limits and was not entitled to the Antiterrorism and Effective Death Penalty Act's longer limitation period.\\[4pt]
+    6th Circ & 2001 & The court granted defendant's motion to dismiss the appeal, finding that even though the case below was dismissed, sanctions were ordered and appealed from, but the amount of those damages were not yet established; plaintiff's appeal would be perfected after damages were imposed.\\[4pt]
+    Federal Circ & 2001 & The court granted OPM's motion to dismiss the employee's petition for review of the board's affirmance of OPM's disability benefit denial. The court also granted OPM's motion to waive a court rule.\\[4pt]
+    9th Circ & 2001 & The petition was dismissed, because petitioner was lawfully admitted as a legal permanent resident before he was convicted of committing an aggravated felony, and therefore subject to removal from the United States.\\[4pt]
+    9th Circ & 2002 & The appeal was dismissed.\\[4pt]
+    Federal Circ & 2002 & The Secretary's motion to dismiss was granted.\\[4pt]
+    9th Circ & 2003 & The appeal was dismissed.\\[4pt]
+    10th Circ & 2003 & Defendant's appeal was dismissed.\\[4pt]
+    9th Circ & 2004 & The court dismissed the Republic's appeal.\\[4pt]
+    4th Circ & 2004 & Defendant's appeal was dismissed.\\[4pt]
+    10th Circ & 2005 & The court dismissed the appeal.\\[4pt]
+    7th Circ & 2005 & The court dismissed the appeal for lack of appellate jurisdiction.\\[4pt]
+    7th Circ & 2005 & The appellate court dismissed the father's appeal.\\[4pt]
+    5th Circ & 2006 & The court dismissed the appeal as frivolous.\\[4pt]
+    DC Circ & 2006 & The petition for review was dismissed.\\[4pt]
+    7th Circ & 2008 & The court granted counsel's motion to withdraw and dismissed the appeals.\\[4pt]
+    7th Circ & 2008 & The court granted counsel's motion to withdraw and dismissed the appeal.\\[4pt]
+    10th Circ & 2008 & The court granted counsel permission to withdraw and dismissed the appeal.\\[4pt]
+    5th Circ & 2008 & The court dismissed the appeal.\\[4pt]
+    DC Circ & 2008 & The petition was dismissed for lack of jurisdiction.\\[4pt]
+    10th Circ & 2009 & The court dismissed the appeal.\\[4pt]
+    3rd Circ & 2010 & The court dismissed the consolidated appeals and remanded to the district court for further proceedings.\\[4pt]
+    Federal Circ & 2011 & The court dismissed for lack of jurisdiction.\\[4pt]
+    5th Circ & 2012 & The appeal was dismissed, without prejudice, for want of appellate jurisdiction.\\[4pt]
+    7th Circ & 2012 & Counsel's Anders motion to withdraw was granted, and the appeal was dismissed.\\[4pt]
+    7th Circ & 2016 & Appeal dismissed.\\[4pt]
+    Federal Circ & 2016 & The court once more dismissed the appeal for lack of jurisdiction.\\[4pt]
+    5th Circ & 2017 & Appeal dismissed.\\[4pt]
+    \hline\\
+    \label{tab:outcomeTextDismiss}
+\end{longtable}
+\end{small}
+
+\clearpage
+
+\begin{small}
+\begin{longtable}[H]{llp{5in}}
+    \caption{Example text of ``other" outcomes not containing ``dismiss," decisions in years 1993 through 2000}, \\
+    \hline\\[-6pt]
+    Court & Year & Outcome text\\[2pt]
+    \hline\\[-6pt]
+    \endhead
+    11th Circ & 1993 & The court held that, to the extent that the victims' claims against the company required a showing that the company's labeling and packaging caused the alleged injury, the claims were unavailing.\\[4pt]
+    9th Circ & 1993 & The court remanded with instructions. The court held that, under the circumstances, the record did not establish that the agents' display of authority was so intimidating that appellant could reasonably have believed that he was not free to leave. However, because the information they obtained was insufficient to warrant the conclusion that appellant was violating a criminal statute, the agents did not have probable cause to arrest appellant.\\[4pt]
+    11th Circ & 1993 & In vacating the trial court's decision and remanding, the court held that the trial court erred in reforming the jewelers' block insurance policy.\\[4pt]
+    3rd Circ & 1993 & The court modified its mandate in the case and directed that post-judgment interest was to be awarded from the date of the original judgment awarded to the injured victim.\\[4pt]
+    DC Circ & 1993 & The court granted the motion for disclosure of the final report upon completion of an appendix.\\[4pt]
+    4th Circ & 1993 & The board's petition of enforcement of its order was granted by the court.\\[4pt]
+    Federal Circ & 1993 & The court granted the United States' motion for a stay as well as its motion for leave to file a reply in an action between the United States and government contractors.\\[4pt]
+    4th Circ & 1993 & The court found that the release executed by plaintiff barred recovery and granted summary judgment in favor of defendant.\\[4pt]
+    10th Circ & 1993 & The court remanded defendant's conviction and sentence for conspiracy to possess with intent to distribute marijuana, the substantive offense, and possession of a firearm for the district court to make fact-findings on the reasonableness of the investigation that followed defendant's traffic stop. The court held that defendant did not have standing to challenge the search of the vehicle because its owner was present.\\[4pt]
+    9th Circ & 1993 & The court granted petitioner immigrant's motion for review and remanded to the Board of Immigration Appeals for review on the merits because his notice on appeal was sufficient to apprise the Board of Immigration Appeals of the issues he was challenging and the reasons therefore.\\[4pt]
+    2nd Circ & 1993 & The court certified the relevant questions regarding the property rights of appellee county to the Supreme Court of Connecticut, holding that Connecticut's supreme court was in a better position than the court to adjudicate issues of that state's law.\\[4pt]
+    9th Circ & 1993 & The court declined to enforce petitioner National Labor Relations Board's order and remanded the case for an evidentiary hearing because respondent should have conducted an evidentiary hearing on respondent employer's claims of election misconduct by the union.\\[4pt]
+    10th Circ & 1993 & Certificate of probable cause was issued, leave to proceed in forma pauperis was granted, and claim of prosecutorial misconduct was remanded for a determination of whether petitioner had exhausted his state claim that the prosecutor improperly referred to his failure to testify at trial because federal courts could not address mixed petitions.\\[4pt]
+    Federal Circ & 1993 & The court granted the contractor's motion for attorney fees under the Equal Access to Justice Act in the government's action against the contractor.\\[4pt]
+    6th Circ & 1994 & The court stayed retrial of the action pending the appeal and ordered the parties to address in their appellate briefs whether the court was to consider any evidence adduced at trial in determining the issue of qualified immunity.\\[4pt]
+    7th Circ & 1994 & The partial summary judgment grant to beneficiary was remanded. The court held that summary judgment was inappropriate because the record did not show sufficient facts to determine as a matter of law whether borrower's endorsement was a forgery within the meaning of the insurance blanket bond.\\[4pt]
+    7th Circ & 1994 & The court ordered that the mandate of the court should have been recalled and new counsel should have been appointed to represent defendants to determine whether petitions for review, including a writ of certiorari, were necessary.\\[4pt]
+    8th Circ & 1994 & The court did not have appellate jurisdiction over the qualified immunity issue and remanded for a final judgment.\\[4pt]
+    5th Circ & 1994 & The court held that it did not have jurisdiction to hear plaintiff's appeal because of an amendment to the rules of appellate procedure. The court held that the amendment should be given retroactive effect unless to do so would work a manifest injustice. Thus, because it would not work a manifest injustice, the court ruled that plaintiff's appeal would remain dormant until final disposition of his motion for relief from summary judgment.\\[4pt]
+    1st Circ & 1994 & The court remanded for reassignment to a different district court judge of the insured's action to collect insurance proceeds from the insurer. The district court judge, having recused himself, could not thereafter reconsider his recusal and reinstate the judgment.\\[4pt]
+    6th Circ & 1994 & The court granted the board's application for enforcement of its order for a new union election.\\[4pt]
+    5th Circ & 1995 & The court granted petitioner Federal Deposit Insurance Corporation's request for a writ of mandamus to the district court order denying its motion to quash notices of deposition issued to defendant three members of petitioner's board of directors. The court found that the magistrate judge had abused his discretion by permitting the depositions in the absence of findings of, and of a basis to find, exceptional circumstances.\\[4pt]
+    2nd Circ & 1995 & Orders issuing preliminary injunctions prohibiting appellants, the United States and the Secretary of Defense, from initiating separation proceedings against appellee homosexual servicemen under the "don't ask or tell" policy embodied in a federal statute remanded, as proper standard for issuing injunctions was a "likelihood of success," rather than "serious questions going to the merits," because this best reflected government's public policy.\\[4pt]
+    10th Circ & 1995 & The court remanded to permit the district court to supplement the record by making findings with regard to defendant's objection of the inclusion of the 953 pounds of marijuana distributed by his brother and accepted by his brother in the brother's sentencing as being the brother's responsibility.\\[4pt]
+    Federal Circ & 1995 & The court, sua sponte, granted the employee an extension of time to file an opposition, it granted OPM's motion for summary affirmance, and it granted the employee's motion for leave to supplement his informal brief.\\[4pt]
+    9th Circ & 1995 & Petitioner alien's request for review was granted because petitioner's notice of appeal from the decision of the immigration judge was filed within the time period required under regulations applicable to Board of Immigration Appeals.\\[4pt]
+    9th Circ & 1995 & The court remanded to the Board of Immigration Appeals for further proceedings. The immigration judge erred in failing to consider the hardship to petitioner alien that would ensue from being required to place her family in a position where they would be forced to choose between preserving their family unity and remaining in the United States.\\[4pt]
+    6th Circ & 1995 & The court granted leave to proceed in forma pauperis for the purposes of the appeal only and affirm the NTSB's decision.\\[4pt]
+    6th Circ & 1995 & The court entered an order enforcing the terms of the stipulation.\\[4pt]
+    Federal Circ & 1995 & The court granted the motion for summary affirmance.\\[4pt]
+    2nd Circ & 1995 & The judicial council conditionally approved the jury plan.\\[4pt]
+    9th Circ & 1995 & The petition for review of a decision from respondent, Board of Immigration Appeals, that upheld an order for the deportation of petitioner illegal alien was granted and the matter was remanded for proceedings consistent with the court's memorandum. The court held that petitioner had not intelligently and voluntarily waived the statutory right to counsel to which he was entitled.\\[4pt]
+    6th Circ & 1995 & The court granted respondent's motion for costs against plaintiff, who was not allowed to proceed on appeal in forma pauperis in its action against respondent. The court found, however, that plaintiff had challenged the costs due to his inability to pay. Therefore, the court remanded this issue to the district court to consider any possible relief from the award of costs.\\[4pt]
+    DC Circ & 1995 & The court remanded the matter for resentencing.\\[4pt]
+    6th Circ & 1995 & The court enforced the Board's order.\\[4pt]
+    9th Circ & 1995 & The court enforced the decision of petitioner National Labor Relations Board. The court held that the administrative law judge's finding that respondent employer violated the National Labor Relations Act by refusing to recognize and negotiate with the union approved by the employees of its predecessor was not arbitrary and capricious because the same employees were hired to do the same type of work.\\[4pt]
+    6th Circ & 1995 & The court ordered that the enforcement of the Board's decision and order.\\[4pt]
+    9th Circ & 1995 & The court granted the NLRB's application for enforcement.\\[4pt]
+    6th Circ & 1996 & The court remanded defendant's case to the district court to reevaluate its decision and determine if defendant established excusable neglect. With no showing of excusable neglect, the extension could not be granted. If there was excusable neglect shown, the district court was then to examine the questions of prejudice and bad faith.\\[4pt]
+    DC Circ & 1996 & The court consolidated the restitutionary funds and ordered the funds transferred to the transit authority.\\[4pt]
+    DC Circ & 1996 & The court granted the former President's application in part and awarded \$ 546,267 for attorneys' fees and \$ 15,844 for expenses, for a total award of \$ 562,111.\\[4pt]
+    8th Circ & 1996 & The court remanded the case to the district court to determine whether the time for filing the notice of appeal should be extended upon a showing of excusable neglect.\\[4pt]
+    Federal Circ & 1996 & The court granted the Board's motion for summary affirmance.\\[4pt]
+    6th Circ & 1996 & The court found that respondent employers were in civil contempt and therefore ordered respondents to reinstate one of the discharged employees, post a notice to other employees, expunge certain records, and post a bond with the court to ensure their compliance with the order.\\[4pt]
+    2nd Circ & 1996 & The court held that it lacked jurisdiction to review the portion of the decision finding petitioner employer liable for impermissibly interrogating its employees. The court remanded for a determination as to whether reinstatement was a proper remedy in light of the theft allegations.\\[4pt]
+    6th Circ & 1996 & The court granted the defendants' petition for writ of mandamus and directed the district court judge to decertify the plaintiff class, because the court found that the district judge's disregard of class action procedures was severe enough to warrant the issuance of the extraordinary writ.\\[4pt]
+    Federal Circ & 1996 & The court granted the Board's motion.\\[4pt]
+    Federal Circ & 1996 & The court granted the Board's motion.\\[4pt]
+    Federal Circ & 1996 & The court granted respondent's motion for summary affirmance.\\[4pt]
+    Federal Circ & 1996 & The court granted the motion for summary affirmance.\\[4pt]
+    Federal Circ & 1996 & The court granted the Board's motion.\\[4pt]
+    Federal Circ & 1996 & The court granted the Board's motion.\\[4pt]
+    6th Circ & 1996 & The court order the district court judge to file an answer to petitioner newspaper's writ of mandamus and in the interim, ordered that the district court was not to conduct the summary jury trial proceedings without permitting public access to the proceedings. There was a likelihood of success on the merits by petitioner, and a broad public interest was at stake.\\[4pt]
+    DC Circ & 1996 & The court reversd the decision of the district court and held that the Storage Act was constitutional.\\[4pt]
+    7th Circ & 1996 & The court issued a writ of mandamus removing the current trial judge from the case and requiring its assignment to a different judge. The trial judge was disqualified because he gained "personal" knowledge of disputed evidentiary facts from court appointed experts concerning plaintiff mental health advocates' class action against defendant state officials, challenging the constitutionality of the state mental health system.\\[4pt]
+    DC Circ & 1996 & The court granted the companies' petition for review and remanded the matter to the commission for clarification of its position on the companies' request for a technical conference.\\[4pt]
+    Federal Circ & 1996 & The court granted the Board's motion.\\[4pt]
+    6th Circ & 1996 & The court held that respondent National Labor Relations Board's charge of an unfair labor practice stemming from an overly broad distribution rule was time barred by federal statute and that the walk-out by the employees of petitioner employer was not a protected activity.\\[4pt]
+    2nd Circ & 1996 & Petitioner National Labor Relations Board's application for judicial enforcement of its order directing respondent employer to offer employment to employees who were not recalled due to their union involvement was granted, as substantial evidence supported petitioner's conclusion that respondent knew of its employees union involvement and that its failure to recall such employees was motivated by such involvement.\\[4pt]
+    Federal Circ & 1996 & The court granted the motion of the OPM for summary affirmance of the decision of the Board.\\[4pt]
+    9th Circ & 1997 & The judgment of the district court, which granted summary judgment for the officers in the inmate's civil rights action alleging the use of pepper spray constituted cruel and unusual punishment.\\[4pt]
+    11th Circ & 1997 & In order to resolve the appeal of summary judgment granted to defendants, federal court certified a question to state supreme court and requested an interpretation of state law that pertained to compulsory counterclaims.\\[4pt]
+    6th Circ & 1997 & The court upheld the district court's order granting summary judgment to the commissioner and affirming the commissioner's denial of the applicant's request for Social Security disability insurance benefits.\\[4pt]
+    4th Circ & 1997 & The court enforced the order of the Board.\\[4pt]
+    9th Circ & 1997 & The court granted the district court's grant of summary judgment in favor of the FAA in the employment applicant's employment discrimination action.\\[4pt]
+    9th Circ & 1997 & The court held that the appeal of denial of claims in application for writ of habeas corpus should proceed because the habeas corpus application of appellant petitioner was unaffected by enactment of new statutes.\\[4pt]
+    8th Circ & 1997 & The court remanded with instructions to remand to the bankruptcy court in order to determine whether debtor had an intent to defraud in connection with property transfers. The court held that an intent to hinder, delay, and to defraud was necessary to set aside debtor's bankruptcy homestead exemption.\\[4pt]
+    3rd Circ & 1997 & The order of the district court that awarded attorney fees to plaintiff tenants at the hourly rate of \$ 150 dollars was remanded for further proceedings because the district court failed to set an hourly rate based solely on a factual record.\\[4pt]
+    5th Circ & 1997 & The court remanded the case to the district court to consider defendant charterer's request for counter-security in accordance with the court's precedent. The court held that the district court erred in failing fully to consider the request. Because the appeal was from an order entered as the result of an erroneous application of the law, the court found that appellate jurisdiction was appropriate under the "collateral order doctrine."\\[4pt]
+    Federal Circ & 1997 & The court granted the motion for summary affirmance.\\[4pt]
+    DC Circ & 1998 & Because it was not clear whether the district court gave defendant a less significant departure because she never actually testified, the court remanded the case to the district court for it either to: (1) clarify that it did not discount defendant's putative testimony because of its hypothetical nature; or to (2) resentence defendant as it would have done had she been permitted to plead guilty and to testify.\\[4pt]
+    6th Circ & 1998 & Because appellees, Michigan Department of Corrections and its director, construed the court's previous opinion in a manner that was not intended, a supplementary opinion was written to clarify that the imposition of certain limitations on prisoner visitation.\\[4pt]
+    9th Circ & 1998 & The questions raised by this appeal were certified to the Supreme Court of Oregon because the existence of the tort of intentional interference with prospective inheritance and the nature of its elements may well have been dispositive of the case.\\[4pt]
+    DC Circ & 1998 & The court enforced the NLRB's bargaining order as to one intervenor, but remanded to the NLRB for explanation regarding its order to bargain with the second intervenor.\\[4pt]
+    5th Circ & 1998 & The case was remanded so that the trial court could determine from the record when petitioner delivered his notice of appeal to prison authorities.\\[4pt]
+    6th Circ & 1998 & The court ordered the enforcement of the decision of the NLRB ordering reinstatement of the employee to his position as a part-time security guard due to the demonstration of an unfair labor practice by the employer.\\[4pt]
+    8th Circ & 1998 & The court granted the motions of petitioners, utilities board and telecommunications companies, to enforce its previously entered mandate. The court ordered the Federal Communications Commission (FCC) to cease and desist from attempting to give effect to its interpretation of the substantive requirements of the telecommunications pricing statute. The state commissions, not the FCC, held the authority to determine the local competition rates.\\[4pt]
+    Federal Circ & 1998 & The court granted the patentee's petition for permission to appeal the district court's order in the patentee's civil action against the patent applicant.\\[4pt]
+    11th Circ & 1999 & The court certified a question to the state supreme court regarding whether a choice-of-law provision in a settlement agreement was valid. Choice of law questions were resolved according to the law of the state in which the suit was brought, and there was no clear state authority as to whether the choice of law provision in the settlement agreement was valid.\\[4pt]
+    9th Circ & 1999 & The court enforced petitioner's order because state law defined whether organizers were on protected property, and the National Labor Relations Act provided protection to non-employees who were picketing to inform the public truthfully that respondent was a non-union employer.\\[4pt]
+    9th Circ & 1999 & The court concluded that the order of respondent, the National Labor Relations Board, was to be enforced because petitioner's conduct constituted unfair labor practices.\\[4pt]
+    9th Circ & 1999 & Judgment of the trial court granting appellees' partial summary judgment on one count and summary judgment on the remaining breach of contract claim was proper, as appellants failed to raise a material issue of fact regarding the delayed discovery doctrine, and did not offer evidence that appellees acted in bad faith to hinder the conditions precedent set forth in the agreement. Appeals were frivolous, and appellees were granted double costs.\\[4pt]
+    1st Circ & 1999 & Concluding that defendant's prior convictions were predicate offenses for purposes of enhancing his sentence under the Armed Career Criminal Act, the court granted the government's motion for summary affirmance. The court explained that the fact that defendant's civil rights had been restored for his prior convictions was irrelevant because as an ex-felon, defendant was restricted from possessing firearms, regardless of the passage of time.\\[4pt]
+    7th Circ & 1999 & The court remanded the decision of the district court that held that appellant county lost its status as a party to the underlying action. The court held that appellant should have been allowed to argue its contentions to the district court because the district court had supplemental jurisdiction to consider appellant's state law issue.\\[4pt]
+    11th Circ & 1999 & The court certified particular issues to the Supreme Court of Florida since the cases involved determinative questions of state law for which no clear precedent existed. Specifically, the court certified the questions of whether a choice of law provision in one settlement agreement controlled disposition of the claim, and whether, under Florida law, a release in the settlement agreements barred plaintiffs' fraudulent inducement claims.\\[4pt]
+    8th Circ & 1999 & The court held defendant should have been given the option to amend his federal habeas petition to delete those claims for which he had not exhausted his state remedies before the expiration of the statutory limitations period and remanded the case with instructions to effect that outcome.\\[4pt]
+    9th Circ & 1999 & The appellate court remanded petitioner immigrant's case to the Board of Immigration Appeals (BIA) because petitioner failed to raise the issue argued on appeal before the BIA and, thus, did not exhaust her remedies with respect to that issue. Absent exhaustion, the appellate court lacked jurisdiction over petitioner's appeal.\\[4pt]
+    6th Circ & 1999 & The court set aside defendant sex offender's sentence and remanded for resentencing, holding that the trial court had discretion to depart downward if defendant's rehabilitation was so exceptional that it was not adequately taken into account by the guidelines' acceptance of responsibility provision.\\[4pt]
+    8th Circ & 1999 & The order of the trial court granting plaintiff's motion for summary judgment in her insurance benefits action was remanded to district court. The court reasoned that there was no final judgment as to all of the issues, because the district court did not consider present or future damages in its order. Moreover, as the determination of damages would be controversial, the court lacked jurisdiction.\\[4pt]
+    DC Circ & 2000 & Appellant's amended consent form did not comply with the court's order because it was unclear as to whether appellant actually granted consent for any withdrawals from his prison account.\\[4pt]
+    10th Circ & 2000 & Reversing the trial court, the appellate court ruled that the department of interior properly followed its statutory guidelines in its program to reintroduce an experimental population of gray wolves in Yellowstone Park.\\[4pt]
+    10th Circ & 2000 & Because the district court's procedural ruling was debatable, and because petitioner facially alleged the denial of a constitutional right, ineffective assistance of counsel, the court granted petitioner's request for a certificate of appealability.\\[4pt]
+    10th Circ & 2000 & District court erred in summarily denying defendant's motion to suppress. Case was remanded to the district court for further fact-finding regarding the legality of the traffic stop, whether defendant consented to the search, and whether state trooper exceeded defendant's consent.\\[4pt]
+    7th Circ & 2000 & Attorney was formally censured, suspended from the appointments list for 12 months, and fined \$ 1,000 for failing to comply with local rule to file copies of opinions with briefs and for falsely certifying that he had done so.\\[4pt]
+    9th Circ & 2000 & The court granted the petition for review, and the case was remanded for the exercise of the Attorney General's discretion with respect to the asylum claim, and for the withholding of deportation. The court held that petitioner was not only threatened with death, but two members of his family were murdered, he was shot at, and his mother beaten. Petitioner unquestionably demonstrated persecution, and that it was from his political opinion.\\[4pt]
+    9th Circ & 2000 & Petition granted and matter remanded because the Board of Immigration Appeals' decision was not supported by substantial evidence and any reasonable finder of fact would be compelled to conclude that petitioner refugees were the victims of persecution such that their life or freedom was threatened on account of their political opinion.\\[4pt]
+    DC Circ & 2000 & The court granted the petition for review because it determined that a portion of respondent's decision was unsupported by reasoned decisionmaking and the remainder of the decision was in conflict with Supreme Court and circuit precedent.\\[4pt]
+    DC Circ & 2000 & Upon petition for review, an Environmental Protection Agency document entitled "Periodic Monitoring Guidance for Title V Operating Permits Programs" (Guidance) on finding certain Guidance provisions should have been subject to the rulemaking procedures required under federal law.\\[4pt]
+    11th Circ & 2000 & Question certified; the court could not ascertain whether defendant's contacts with Georgia by only submitting an application with misappropriated trade secrets to the Federal Aviation Administration's Atlanta, Georgia office was sufficient for Georgia to exercise personal jurisdiction over defendant; therefore, it certified that question to the Georgia Supreme Court.\\[4pt]
+    9th Circ & 2000 & The judgment was remanded for resentencing; the federal crime of possession of a gun by an illegal alien did not describe the crime defined by the Washington statute; therefore appellant's state conviction was not an aggravated felony for federal sentencing purposes.\\[4pt]
+    \hline\\
+    \label{tab:outcomeTypeOtherNonDismiss}
+\end{longtable}
+\end{small}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Case duplication}
+
+This section continues an evaluation of duplicated case records begun by Byungkoo, using data set B.\\
+
+Three case titles appear in the LN data:  a brief title, an expanded title, and a title generated by LN that includes a reporter citation.  Table \ref{tab:exampleCaseTitles} contains sets of titles for a small, random selection of cases.  On examination of short case titles, various abbreviations were observed.  Table \ref{tab:titleSubPhrase} lists abbreviations identified along with potential expanded text with which to replace abbreviatons during duplicate title comparison.  Note that abbreviations and substitutions are intentionally listed in lower case.\\
+
+To identify potential duplicated cases, short case titles were converted to lower case, padded with leading and trailing single spaces, commas, colons, and semicolons were omitted, repeated spaces converted to a single space, then entries from the \textit{Abbrev} column of table \ref{tab:titleSubPhrase} appearing in titles were substituted with the corresponding \textit{Sub} value of table \ref{tab:titleSubPhrase}.  Prior to comparing titles, each \textit{Abbrev} value was padded with leading and trailing spaces so that only space-delimited abbreviations, not identical text strings appearing within a word, were substituted.\footnote{This substitutes ``Internal Revenue Service" for ``IRS" in ``Jones v. IRS" but leaves ``Franks v. First National" intact}  Finally, multiple cases with a common name (after abbreviation substitution), court, and decision date were identified.\\
+
+Observations:
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item Of the 1,124,500 case records in data set B, there exist 985,377 distinct combinations of court, decision date, and short title using original, unaltered text and 981,494 distinct combinations of court, decision date, and short title using substituted abbreviations.  The difference of 3,883 case titles composes 0.4\% of the original quantity, inidicating consistent use of abbreviations in titles of cases with mutiple records.  However, other differences, such as word swapping or rephrasing, may cause a single case to appear multiple times after abbreviation substitution.  This was not tested.
+    \item Example titles of cases with duplicate records after abbreviation substitution appear in table \ref{tab:exampleCaseTitlesDup} lists example titles of cases with duplicate records by court, decision date, and alternate (abbreviation substituted) short title.  The original short title appears in the \textit{Short title} column.  Various differences in long and LN titles are observed:
+    \begin{itemize}[noitemsep]
+        \item Long titles may differ, while LN titles are common, as in USA v. Nunn
+        \item Long titles may be common, while LN titles contain different reporter references, as in Guam v. Ibanez
+        \item Long titles and LN titles may be common, as in Norman v. Linaugh
+    \end{itemize}
+    \item 8,085 case records were identified with original short titles differing with cases of the same court and decision date, but sharing a common short title after abbreviation substitution.\footnote{Note that, for instance, if U.S. v. Smith, USA v. Smith, and United States v. Smith appear in the same court on the same date, then this apparent common case is counted three times in the 8,085 total}
+    \item Table \ref{tab:caseTitleDuplicateFreq} shows the distribution of case frequency (common court, date, and title) before and after abbreviation substitution.  Increased frequency (from original to substituted) indicates combining of apparent distinct cases into a single case, by title.  Note that, for instance, five distinct original titles for a single case may be collapsed into four, three, two, or one title after abbreviation substitution.
+    \item Figure \ref{fig:CaseTitleDuplicateCourtYearHeatMap} plots the distribution of case frequency (court, date, title) by court and year.  Duplicates tend to occur between 1986 and 2002 and are concentrated in the 4th and 9th circuits.
+    \item Of the 137,544 cases with two case records (one duplicate), 63,633 have no outcome, 72,170 have a single, common outcome, and 1,741 have two distinct outcomes.  This indicates that most once-duplicated cases share a common outcome, although many are empty.
+    \item Of the 1,492 cases with three case records (two duplicates), 707 have no outcome, 419 have a single, common outcome, 327 have two distinct outcomes, and 39 have three outcomes.  Most twice-duplicated cases share a common outcome, although many are empty.  However, the number of cases with two or three distinct outcomes is approximately equal to the number with a common, non-empty outcome.
+    \item Of the 713 cases with more than three case records, 363 have no outcome recorded and 130 have a single outcome.  It appears that as duplication frequency increases, the proportion of cases with single, common outcomes decreases.
+    \item Table \ref{tab:varFrequencyDupCases} lists frequencies of cases by number of distinct outcomes, panels, opinion authors, concurring authors, dissenting authors, per curiam indicators, and publication statii.  The \textit{n-distinct} column lists the number of distinct outcomes, panels, etc.) and the values appearing in remaining columns indicate the number of cases corresponding to the value in \textit{n-distinct}.  Cases are limited to those with at least one duplicate record by court, decision date, and alternate title.
+    \item Because duplicate case records (by court, decision date, and title) may correspond, simultaneously, to two or more outcomes, panels, etc., care must be taken in either selecting a single case record, when multiples exist, or by accounting for a case appearing multiple times, with different outcomes, concurring authors, etc.  Failure to account for synonymous titles may include a single case multiple times, increasing the statistical mass associated with the case, and introducing bias, especially in small data subsets.
+    \item Table \ref{tab:exampleCaseDiffOpinions} lists a sample of cases that have multiple outcomes, opinions, and authors.  In reviewing various cases with multiple records, it appears that each record refers to an individual opinion, either majority, concurring, or dissenting.  Note that, although to the human reader, text in corresponding author fields of two case records may be synonymous (``James Smith; H. Brown, Jr." and  ``Henry K. Brown; J. Smith, Circuit Court Judge Extraordinaire"), parsing these accurately with a systematic algorithm might be challenging.  Text in author fields such as ``The Court," ``per curiam," and ``In Part," suffixes such as ``Jr." and abbreviations of first names (``J." for ``James") must be considered when parsing panels and judge names. 
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \caption{Example case titles}
+    \footnotesize
+    %\raggedright
+    \begin{tabular}{>{\raggedright}p{1.5in}>{\raggedright}p{3in}>{\raggedright}p{1.5in}p{0in}}
+        \hline\\[-6pt]
+        Short title & Long title & LN title &\\[2pt]
+        \hline\\[-6pt]
+        Parker v. Ober & PATRICK PARKER, a/k/a Mustafa Muhjahid, Plaintiff - Appellant, v. DR. PETER OBER, Physician; DR. KING, Physician; LEONARD LEVIN; MICHELLE ROSSMAN, MD, Defendants - Appellees. & Parker v. Ober, 648 Fed. Appx. 364 &\\
+        & & &\\[-4pt]
+        Stanley v. Arnold & HENRY STANLEY, JR., Plaintiff-Appellant, v. COLLEEN F. ARNOLD; GEORGE S. BARRETT; GLENN A. BRITT; CARRIE S. COX; CALVIN DARDEN; BRUCE L. DOWNEY; JOHN F. FINN; DAVID P. KING; RICHARD C. NOTEBAERT; DAVID W. RAISBECK; JEAN G. SPAULDING; DAVE BING; R. KERRY CLARK; GEORGE H. CONRADES; PHILIP L. FRANCIS; JOHN F. HAVENS; J. MICHAEL LOSH; JOHN B. MCCOY; MICHAEL O'HALLERAN; MATTHEW D. WALTER; ROBERT D. WALTER; CARDINAL HEALTH, INC.; GREGORY KENNY, Defendants-Appellees. & Stanley v. Arnold, 531 Fed. Appx. 695 &\\
+        & & &\\[-4pt]
+        Abdul Rahman Umir Al Qyati v. Gates & Abdul Rahman Umir Al Qyati, Petitioner v. Robert M. Gates, U.S. Secretary of Defense, Respondent & Abdul Rahman Umir Al Qyati v. Gates, 2007 U.S. App. LEXIS 19762 &\\
+        & & &\\[-4pt]
+        United States v. Johnson & UNITED STATES OF AMERICA, Plaintiff-Appellee, v. ROBERT L. JOHNSON, Defendant-Appellant & United States v. Johnson, 1989 U.S. App. LEXIS 16853 &\\
+        & & &\\[-4pt]
+        USA v. LLano & USA v. LLano & USA v. LLano, 60 F.3d 810 &\\
+        & & &\\[-4pt]
+        Wiggs v. Sec'y of Army & MICHAEL R. WIGGS, Plaintiff - Appellant, v. SECRETARY OF THE ARMY, Defendant - Appellee & Wiggs v. Sec'y of Army, 927 F.2d 598 &\\
+        & & &\\[-4pt]
+        Schmitt-Doss v. Am. Regent, Inc. & NANCY A. SCHMITT-DOSS, Plaintiff - Appellant, v. AMERICAN REGENT, INC.; LUITPOLD PHARMACEUTICALS, INC., Defendants - Appellees, and DAIICHI SANKYO COMPANY, LTD OF JAPAN, Defendant. & Schmitt-Doss v. Am. Regent, Inc., 599 Fed. Appx. 71 &\\
+        & & &\\[-4pt]
+        Del. Riverkeeper Network v. FERC & DELAWARE RIVERKEEPER NETWORK AND MAYA VAN ROSSUM, THE DELAWARE RIVERKEEPER, PETITIONERS v. FEDERAL ENERGY REGULATORY COMMISSION, RESPONDENT, TRANSCONTINENTAL GAS PIPE LINE COMPANY, LLC, INTERVENOR & Del. Riverkeeper Network v. FERC, 857 F.3d 388 &\\
+        & & &\\[-4pt]
+        United States v. Faurisma & UNITED STATES OF AMERICA, Plaintiff-Appellee, versus JOCELYN FAURISMA, Defendant-Appellant. & United States v. Faurisma, 716 Fed. Appx. 932 &\\
+        & & &\\[-4pt]
+        United States v. Avila Payan & UNITED STATES OF AMERICA, Plaintiff - Appellee, v. VICTOR YOVANNY AVILA PAYAN, a.k.a. Victor Avila, Defendant - Appellant. & United States v. Avila Payan, 562 Fed. Appx. 578 &\\[4pt]
+        \hline\\[-6pt]
+    \end{tabular}
+    \label{tab:exampleCaseTitles}
+\end{table}
+
+\clearpage
+
+\begin{footnotesize}
+\begin{longtable}[H]{p{1in}>{\raggedright}p{2in} p{0.2in} p{1in}>{\raggedright}p{2in} p{0in}}
+    \caption{Abbreviations identified in short case titles along with substitution text}\\
+    \hline\\[-6pt]
+    Abbrev & Sub & & Abbrev & Sub & \\[2pt]
+    \hline\\[-6pt]
+    \endhead
+    u.s. & united states & & usa  & united states &\\
+    &  &  &  &  & \\[-6pt]
+    us & united states & & NLRB & national labor relations board &\\
+    &  &  &  &  & \\[-6pt]
+    e.e.o.c. & equal employment opportunity commission & & o.w.c.p. & office of workers' compensation programs &\\
+    &  &  &  &  & \\[-6pt]
+    sec. dep't of & secretary department of & & sec., dep't of & secretary, department of &\\
+    &  &  &  &  & \\[-6pt]
+    social sec. & social security & & employment sec. & employment security &\\
+    &  &  &  &  & \\[-6pt]
+    nat'l comm. & national committee & & aclu & american civil liberties union &\\
+    &  &  &  &  & \\[-6pt]
+    afscme & american federation of state, county and municipal employees & & batf & bureau of alcohol tobacco and firearms &\\
+    &  &  &  &  & \\[-6pt]
+    cia & central intelligence agency & & faa & federal aviation administration &\\
+    &  &  &  &  & \\[-6pt]
+    fbi & federal bureau of investigation & & fdic & federal deposit insurance corporation &\\
+    &  &  &  &  & \\[-6pt]
+    fha & federal housing authority & & frb & federal reserve board &\\
+    &  &  &  &  & \\[-6pt]
+    hud & housing and urban development & & ins & immigration and naturalization service &\\
+    &  &  &  &  & \\[-6pt]
+    irs & internal revenue service & & naacp & national association for the advancement of colored people &\\
+    &  &  &  &  & \\[-6pt]
+    nra & national rifle association & & nrc & nuclear regulatory commission &\\
+    &  &  &  &  & \\[-6pt]
+    nrdc & natural resources defense council & & ntsb & national transportation safety council &\\
+    &  &  &  &  & \\[-6pt]
+    nyse & new york stock exchange & & omb & office of management and budget &\\
+    &  &  &  &  & \\[-6pt]
+    opm & office of personnel management & & osha & occupational safety and health administration &\\
+    &  &  &  &  & \\[-6pt]
+    pbs & public broadcasting service & & sba & small business administration &\\
+    &  &  &  &  & \\[-6pt]
+    ssa & social security administration & & stb & surface transportation board &\\
+    &  &  &  &  & \\[-6pt]
+    uaw & united auto workers & & ufcw & united food and commercial workers &\\
+    &  &  &  &  & \\[-6pt]
+    ufw & united farm workers & & ups & united parcel service &\\
+    &  &  &  &  & \\[-6pt]
+    usda & united states department of agriculture & & usps & united states postal service &\\
+    &  &  &  &  & \\[-6pt]
+    va  & united states department of veterans affairs & & ag's & attorney general's &\\
+    &  &  &  &  & \\[-6pt]
+    admin'r & administrator & & adm'r & administrator &\\
+    &  &  &  &  & \\[-6pt]
+    ass'n & association & & assn's & associations &\\
+    &  &  &  &  & \\[-6pt]
+    att'y & attorney & & atty's & attorneys &\\
+    &  &  &  &  & \\[-6pt]
+    c'mmr & commissioner & & comm'n & commission &\\
+    &  &  &  &  & \\[-6pt]
+    comm'r & commissioner & & com'n & commission &\\
+    &  &  &  &  & \\[-6pt]
+    com'r & commissioner & & commr's & commissioners &\\
+    &  &  &  &  & \\[-6pt]
+    comn'r & commissioner & & comr's & commissioners &\\
+    &  &  &  &  & \\[-6pt]
+    cont'l & continental & & da's & district attorney's &\\
+    &  &  &  &  & \\[-6pt]
+    dep't & department & & enf't & enforcement &\\
+    &  &  &  &  & \\[-6pt]
+    emplr's'. & employers' & & emples'. & employees' &\\
+    &  &  &  &  & \\[-6pt]
+    emples.' & employees' & & eng'g & engineering &\\
+    &  &  &  &  & \\[-6pt]
+    eng'r & engineer & & entm't & entertainment &\\
+    &  &  &  &  & \\[-6pt]
+    env't & environment & & exam'r & examiner &\\
+    &  &  &  &  & \\[-6pt]
+    ex'r & examiner & & examr's & examiner's &\\
+    &  &  &  &  & \\[-6pt]
+    fed'n & federation & & fla.'s & florida's &\\
+    &  &  &  &  & \\[-6pt]
+    gen'l & general & & gen's & general's &\\
+    &  &  &  &  & \\[-6pt]
+    gen.'s & general's & & gov't & government &\\
+    &  &  &  &  & \\[-6pt]
+    govn't & government & & indp't & independent &\\
+    &  &  &  &  & \\[-6pt]
+    inter'l & international & & int'l & international &\\
+    &  &  &  &  & \\[-6pt]
+    intern'l & international & & intern'l. & international &\\
+    &  &  &  &  & \\[-6pt]
+    intrn'l & international & & inv'rs & investors &\\
+    &  &  &  &  & \\[-6pt]
+    mem'l & memorial & & mem'l. & memorial &\\
+    &  &  &  &  & \\[-6pt]
+    mfr.'s & manufacturer's & & na'l & national &\\
+    &  &  &  &  & \\[-6pt]
+    nat'l & national & & nt'l & national &\\
+    &  &  &  &  & \\[-6pt]
+    p'ship & partnership & & p'shp & partnership &\\
+    &  &  &  &  & \\[-6pt]
+    p'shp. & partnership & & prof'l & professional &\\
+    &  &  &  &  & \\[-6pt]
+    publ'g & publishing & & publ'n & publishing &\\
+    &  &  &  &  & \\[-6pt]
+    publ'ns. & publications & & publ'ns & publications &\\
+    &  &  &  &  & \\[-6pt]
+    publ'rs & publishers & & reg'l & regional &\\
+    &  &  &  &  & \\[-6pt]
+    sec't & secretary & & sec'y & secretary &\\
+    &  &  &  &  & \\[-6pt]
+    s'holders & shareholders & & sup'r & supervisor &\\
+    &  &  &  &  & \\[-6pt]
+    soc'y & society & & acc. & accident &\\
+    &  &  &  &  & \\[-6pt]
+    acci. & accident & & admin. & administration &\\
+    &  &  &  &  & \\[-6pt]
+    adver. & advertizing & & agric. & agriculture &\\
+    &  &  &  &  & \\[-6pt]
+    ala. & alabama & & am. & american &\\
+    &  &  &  &  & \\[-6pt]
+    appt. & apartment & & ariz. & arizona &\\
+    &  &  &  &  & \\[-6pt]
+    ark. & arkansas & & assn. & association &\\
+    &  &  &  &  & \\[-6pt]
+    asso. & association & & assoc. & association &\\
+    &  &  &  &  & \\[-6pt]
+    assocs. & associations & & assur. & assurance &\\
+    &  &  &  &  & \\[-6pt]
+    atty. & attorney & & attys. & attorneys &\\
+    &  &  &  &  & \\[-6pt]
+    auth. & authority & & auto. & automotive &\\
+    &  &  &  &  & \\[-6pt]
+    ave. & avenue & & balt. & baltimore &\\
+    &  &  &  &  & \\[-6pt]
+    bankr. & bankruptcy & & bhd. & brotherhood &\\
+    &  &  &  &  & \\[-6pt]
+    bldg. & building & & bldgs. & buildings &\\
+    &  &  &  &  & \\[-6pt]
+    bros. & brothers & & broth. & brothers &\\
+    &  &  &  &  & \\[-6pt]
+    bus. & business & & cal. & california &\\
+    &  &  &  &  & \\[-6pt]
+    chem. & chemical & & chems. & chemicals &\\
+    &  &  &  &  & \\[-6pt]
+    chgo. & chicago & & chi. & chicago &\\
+    &  &  &  &  & \\[-6pt]
+    civ. & civil & & cmty. & community &\\
+    &  &  &  &  & \\[-6pt]
+    cnty. & county & & co. & company &\\
+    &  &  &  &  & \\[-6pt]
+    cos. & companies & & colo. & colorado &\\
+    &  &  &  &  & \\[-6pt]
+    com. & commission & & commer. & commercial &\\
+    &  &  &  &  & \\[-6pt]
+    commn. & commission & & commun. & communication &\\
+    &  &  &  &  & \\[-6pt]
+    communs. & communications & & comp. & compensation &\\
+    &  &  &  &  & \\[-6pt]
+    condo. & condominium & & conn. & connecticut &\\
+    &  &  &  &  & \\[-6pt]
+    consol. & consolidated & & const. & construction &\\
+    &  &  &  &  & \\[-6pt]
+    constr. & construction & & contr. & contractor &\\
+    &  &  &  &  & \\[-6pt]
+    contrs. & contractors & & coop. & cooperative &\\
+    &  &  &  &  & \\[-6pt]
+    coops. & cooperatives & & corp. & corporation &\\
+    &  &  &  &  & \\[-6pt]
+    corr. & correction & & crim. & criminal &\\
+    &  &  &  &  & \\[-6pt]
+    ctr. & center & & ctrs. & centers &\\
+    &  &  &  &  & \\[-6pt]
+    cty. & city & & def. & defense &\\
+    &  &  &  &  & \\[-6pt]
+    del. & delaware & & dept. & department &\\
+    &  &  &  &  & \\[-6pt]
+    dev. & development & & det. & detention &\\
+    &  &  &  &  & \\[-6pt]
+    dir. & director & & disc. & discipline &\\
+    &  &  &  &  & \\[-6pt]
+    discrim. & discrimination & & dist. & district &\\
+    &  &  &  &  & \\[-6pt]
+    distrib. & distribution & & distribs. & distributors &\\
+    &  &  &  &  & \\[-6pt]
+    div. & division & & econ. & economic &\\
+    &  &  &  &  & \\[-6pt]
+    educ. & education & & elec. & electric &\\
+    &  &  &  &  & \\[-6pt]
+    elecs. & electronics & & emples. & employees &\\
+    &  &  &  &  & \\[-6pt]
+    emplr. & employer & & emplrs. & employers &\\
+    &  &  &  &  & \\[-6pt]
+    enter. & enterprise & & enters. & enterprises &\\
+    &  &  &  &  & \\[-6pt]
+    envtl. & environmental & & equal. & equality &\\
+    &  &  &  &  & \\[-6pt]
+    equip. & equipment & & exch. & exchange &\\
+    &  &  &  &  & \\[-6pt]
+    exec. & executive & & exp. & export &\\
+    &  &  &  &  & \\[-6pt]
+    fed. & federal & & fedn. & federation &\\
+    &  &  &  &  & \\[-6pt]
+    fid. & fidelity & & fin. & finance &\\
+    &  &  &  &  & \\[-6pt]
+    fla. & florida & & found. & foundation &\\
+    &  &  &  &  & \\[-6pt]
+    ga. & georgia & & gen. & general &\\
+    &  &  &  &  & \\[-6pt]
+    grp. & group & & guar. & guarantee &\\
+    &  &  &  &  & \\[-6pt]
+    hon. & honorable & & hosp. & hospital &\\
+    &  &  &  &  & \\[-6pt]
+    hosps. & hospitals & & hous. & houston &\\
+    &  &  &  &  & \\[-6pt]
+    ill. & illinois & & imp. & import &\\
+    &  &  &  &  & \\[-6pt]
+    imps. & importers & & inc. & incorporated &\\
+    &  &  &  &  & \\[-6pt]
+    indem. & indemnity & & indus. & industry &\\
+    &  &  &  &  & \\[-6pt]
+    info. & information & & ins. & insurance &\\
+    &  &  &  &  & \\[-6pt]
+    inst. & institute & & intern. & international &\\
+    &  &  &  &  & \\[-6pt]
+    intl. & international & & inv. & investment &\\
+    &  &  &  &  & \\[-6pt]
+    invest. & investment & & invs. & investments &\\
+    &  &  &  &  & \\[-6pt]
+    kan. & kansas & & ky. & kentucky &\\
+    &  &  &  &  & \\[-6pt]
+    la. & lousiana & & lab. & laboratory &\\
+    &  &  &  &  & \\[-6pt]
+    labs. & laboratories & & liab. & liability &\\
+    &  &  &  &  & \\[-6pt]
+    litig. & litigation & & ltd. & limited &\\
+    &  &  &  &  & \\[-6pt]
+    mach. & machine & & maint. & maintenance &\\
+    &  &  &  &  & \\[-6pt]
+    md. & maryland & & me. & maine &\\
+    &  &  &  &  & \\[-6pt]
+    mech. & mechanical & & med. & medical &\\
+    &  &  &  &  & \\[-6pt]
+    mem. & memorial & & merch. & merchant &\\
+    &  &  &  &  & \\[-6pt]
+    metro. & metropolitan & & mfg. & manufacturing &\\
+    &  &  &  &  & \\[-6pt]
+    mfrs. & manufacturers & & mgmt. & management &\\
+    &  &  &  &  & \\[-6pt]
+    mich. & michigan & & minn. & minnesota &\\
+    &  &  &  &  & \\[-6pt]
+    miss. & mississippi & & mkt. & market &\\
+    &  &  &  &  & \\[-6pt]
+    mktg. & marketing & & mkts. & markets &\\
+    &  &  &  &  & \\[-6pt]
+    mo. & missouri & & mont. & montana &\\
+    &  &  &  &  & \\[-6pt]
+    mortg. & mortgage & & mr. & mister &\\
+    &  &  &  &  & \\[-6pt]
+    mun. & municipal & & mut. & mutual &\\
+    &  &  &  &  & \\[-6pt]
+    n.c. & north carolina & & n.h. & new hampshire &\\
+    &  &  &  &  & \\[-6pt]
+    n.j. & new jersey & & n.m. & new mexico &\\
+    &  &  &  &  & \\[-6pt]
+    n.y. & new york & & natl. & national &\\
+    &  &  &  &  & \\[-6pt]
+    nev. & nevada & & no. & number &\\
+    &  &  &  &  & \\[-6pt]
+    new eng. & new england & & ofc. & office &\\
+    &  &  &  &  & \\[-6pt]
+    off. & office & & okla. & oklahoma &\\
+    &  &  &  &  & \\[-6pt]
+    or. & oregon & & org. & organization &\\
+    &  &  &  &  & \\[-6pt]
+    pa. & pennsylvania & & pac. & pacific &\\
+    &  &  &  &  & \\[-6pt]
+    par. & parish & & pers. & personnel &\\
+    &  &  &  &  & \\[-6pt]
+    pharm. & pharmaceutical & & pharms. & pharmaceuticals &\\
+    &  &  &  &  & \\[-6pt]
+    phila. & philadelphia & & reprod. & reproductive &\\
+    &  &  &  &  & \\[-6pt]
+    prod. & product & & prods. & products &\\
+    &  &  &  &  & \\[-6pt]
+    prop. & property & & props. & properties &\\
+    &  &  &  &  & \\[-6pt]
+    prot. & protection & & pshp. & partnership &\\
+    &  &  &  &  & \\[-6pt]
+    pub. & public & & publ. & publishing &\\
+    &  &  &  &  & \\[-6pt]
+    publs. & publishers & & r.i. & rhode island &\\
+    &  &  &  &  & \\[-6pt]
+    rd. & road & & rds. & roads &\\
+    &  &  &  &  & \\[-6pt]
+    rec. & recreation & & rehab. & rehabilitation &\\
+    &  &  &  &  & \\[-6pt]
+    rels. & relations & & rest. & restaurant &\\
+    &  &  &  &  & \\[-6pt]
+    rests. & restaurants & & ret. & retirement &\\
+    &  &  &  &  & \\[-6pt]
+    rev. & revenue & & ry. & railway &\\
+    &  &  &  &  & \\[-6pt]
+    s.c. & south carolina & & s.d. & south dakota &\\
+    &  &  &  &  & \\[-6pt]
+    sch. & school & & schs. & schools &\\
+    &  &  &  &  & \\[-6pt]
+    soc. sec. & social secutity & & homeland sec. & homeland security &\\
+    &  &  &  &  & \\[-6pt]
+    sec. for & secretary for & & sec. of & secretary of &\\
+    &  &  &  &  & \\[-6pt]
+    serv. & service & & servs. & services &\\
+    &  &  &  &  & \\[-6pt]
+    std. & standard & & sys. & system &\\
+    &  &  &  &  & \\[-6pt]
+    tel. & telephone & & tenn. & tennessee &\\
+    &  &  &  &  & \\[-6pt]
+    tex. & texas & & transp. & transportation &\\
+    &  &  &  &  & \\[-6pt]
+    twp. & township & & univ. & university &\\
+    &  &  &  &  & \\[-6pt]
+    va. & virginia & & wash. & washington &\\
+    \hline\\[-6pt]
+    \label{tab:titleSubPhrase}
+\end{longtable}
+\end{footnotesize}
+
+\clearpage
+
+\begin{footnotesize}
+\begin{longtable}[H]{>{\raggedright}p{2in}>{\raggedright}p{2in}>{\raggedright}p{2in}p{0in}}
+    \caption{Titles for cases with multiple records containing a common short title, court, and decision date}\\
+    \hline\\[-6pt]
+    Short title & Long title & LN title &\\[2pt]
+    \hline\\[-4pt]
+    \endhead
+        United States v. Baggett & UNITED STATES OF AMERICA, Plaintiff-Appellee, v. JOANN BAGGETT, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. CURTIS BURNEY, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. VICTORIA HAYES, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. MARK GRZESCZUK, Defendant-Appellant. & United States v. Baggett, 129 F.3d 128 &\\
+        & & &\\[-4pt]
+        United States v. Baggett & UNITED STATES OF AMERICA, Plaintiff-Appellee, v. JOANN BAGGETT, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. CURTIS BURNEY, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. VICTORIA HAYES, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. MARK GRZESCZUK, Defendant-Appellant. & United States v. Baggett, 1997 U.S. App. LEXIS 27100 &\\
+        & & &\\[-4pt]
+        United States v. Baggett & UNITED STATES OF AMERICA, Plaintiff-Appellee, v. JOANN BAGGETT, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. CURTIS BURNEY, Defendant-Appellant.  UNITED STATES OF AMERICA, Plaintiff-Appellee, v. VICTORIA HAYES, Defendant-Appellant. UNITED STATES OF AMERICA, Plaintiff-Appellee, v. MARK GRZESCZUK, Defendant-Appellant. & United States v. Baggett, 125 F.3d 1319 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        Guam v. Ibanez & THE PEOPLE OF THE TERRITORY OF GUAM, Plaintiff-Appellee, v. IRVIN IBANEZ, Defendant-Appellant. & Guam v. Ibanez, 1993 U.S. App. LEXIS 7897 &\\
+        & & &\\[-4pt]
+        Guam v. Ibanez & THE PEOPLE OF THE TERRITORY OF GUAM, Plaintiff-Appellee, v. IRVIN IBANEZ, Defendant-Appellant. & Guam v. Ibanez, 1993 U.S. App. LEXIS 7898 &\\
+        & & &\\[-4pt]
+        Guam v. Ibanez & THE PEOPLE OF THE TERRITORY OF GUAM, Plaintiff-Appellee, v. IRVIN IBANEZ, Defendant-Appellant. & Guam v. Ibanez, 993 F.2d 884 &\\
+        & & &\\[-4pt]
+        Guam v. Ibanez & THE PEOPLE OF THE TERRITORY OF GUAM, Plaintiff-Appellee, v. IRVIN IBANEZ, Defendant-Appellant. & Guam v. Ibanez, 993 F.2d 884 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        Mulato v. Wells Fargo Bank, N.A. & YOLANDA BUMATAY MULATO and ZOSIMA BUMATAY MULATO, Plaintiffs-Appellants, v. WELLS FARGO BANK, N.A. and WELLS FARGO HOME MORTGAGE, a division of Wells Fargo Bank NA, Defendants-Appellees. & Mulato v. Wells Fargo Bank, N.A., 738 Fed. Appx. 429 &\\
+        & & &\\[-4pt]
+        Mulato v. Wells Fargo Bank, N.A. & YOLANDA BUMATAY MULATO and ZOSIMA BUMATAY MULATO, Plaintiffs-Appellants, v. WELLS FARGO BANK, N.A. and WELLS FARGO HOME MORTGAGE, a division of Wells Fargo Bank NA, Defendants-Appellees. YOLANDA BUMATAY MULATO and ZOSIMA BUMATAY MULATO, Plaintiffs-Appellants. & Mulato v. Wells Fargo Bank, N.A., 2018 U.S. App. LEXIS 26003 &\\
+        & & &\\[-4pt]
+        Mulato v. Wells Fargo Bank, N.A. & YOLANDA BUMATAY MULATO and ZOSIMA BUMATAY MULATO, Plaintiffs-Appellants, v. WELLS FARGO BANK, N.A. and WELLS FARGO HOME MORTGAGE, a division of Wells Fargo Bank NA, Defendants-Appellees. & Mulato v. Wells Fargo Bank, N.A., 2018 U.S. App. LEXIS 25999 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        Norman v. Lynaugh & Norman v. Lynaugh & Norman v. Lynaugh, 851 F.2d 1419 &\\
+        & & &\\[-4pt]
+        Norman v. Lynaugh & Norman v. Lynaugh & Norman v. Lynaugh, 851 F.2d 1419 &\\
+        & & &\\[-4pt]
+        Norman v. Lynaugh & Norman v. Lynaugh & Norman v. Lynaugh, 851 F.2d 1419 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        USA v. Nunn & USA v. Austin Nunn & USA v. Nunn, 519 F.2d 1404 &\\
+        & & &\\[-4pt]
+        USA v. Nunn & USA v. Austin Nunn and Nell Nunn & USA v. Nunn, 519 F.2d 1404 &\\
+        & & &\\[-4pt]
+        USA v. Nunn & USA v. Nell Nunn & USA v. Nunn, 519 F.2d 1404 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles, 67 Fed. Appx. 244 &\\
+        & & &\\[-4pt]
+        Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles, 67 Fed. Appx. 244 &\\
+        & & &\\[-4pt]
+        Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles, 67 Fed. Appx. 245 &\\
+        & & &\\[-4pt]
+        Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles & Rutherford v. Bd Pardons \& Paroles, 67 Fed. Appx. 245 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        R.E. Serv. Co. v. Johnson \& Johnston Assocs. & R.E. SERVICE CO., INC., Plaintiff-Appellant, v. JOHNSON \& JOHNSTON ASSOCIATES, INC., Defendant-Appellee. & R.E. Serv. Co. v. Johnson \& Johnston Assocs., 1995 U.S. App. LEXIS 35050 &\\
+        & & &\\[-4pt]
+        R.E. Serv. Co. v. Johnson \& Johnston Assocs. & R.E. SERVICE CO., INC., Plaintiff, and MARK FRATER, Plaintiff-Appellant, v. JOHNSON \& JOHNSTON ASSOCIATES, INC., Defendant-Appellee. & R.E. Serv. Co. v. Johnson \& Johnston Assocs., 1995 U.S. App. LEXIS 35051 &\\
+        & & &\\[-4pt]
+        R.E. Serv. Co. v. Johnson \& Johnston Assocs. & R.E. SERVICE CO., INC., Plaintiff, and MARK FRATER, Plaintiff-Appellant, v. JOHNSON \& JOHNSTON ASSOCIATES, INC., Defendant-Appellee. & R.E. Serv. Co. v. Johnson \& Johnston Assocs., 73 F.3d 376 &\\
+        & & &\\[-4pt]
+        R.E. Serv. Co. v. Johnson \& Johnston Assocs. & R.E. SERVICE CO., INC., Plaintiff-Appellant, v. JOHNSON \& JOHNSTON ASSOCIATES, INC., Defendant-Appellee. & R.E. Serv. Co. v. Johnson \& Johnston Assocs., 73 F.3d 376 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        Riddick v. Warden of Brunswick Correctional Ctr. & JEROME ALEXANDER RIDDICK, Petitioner - Appellant, versus WARDEN OF BRUNSWICK CORRECTIONAL CENTER, Respondent - Appellee. & Riddick v. Warden of Brunswick Correctional Ctr., 1999 U.S. App. LEXIS 4627 &\\
+        & & &\\[-4pt]
+        Riddick v. Warden of Brunswick Correctional Ctr. & JEROME ALEXANDER RIDDICK, Petitioner - Appellant, versus WARDEN OF BRUNSWICK CORRECTIONAL CENTER, Respondent - Appellee. & Riddick v. Warden of Brunswick Correctional Ctr., 1999 U.S. App. LEXIS 4628 &\\
+        & & &\\[-4pt]
+        RIDDICK v. WARDEN OF BRUNSWICK CORRECTIONAL CTR. & JEROME ALEXANDER RIDDICK, Petitioner - Appellant, versus WARDEN OF BRUNSWICK CORRECTIONAL CENTER, Respondent - Appellee. & RIDDICK v. WARDEN OF BRUNSWICK CORRECTIONAL CTR., 173 F.3d 851 &\\
+        & & &\\[-4pt]
+        RIDDICK v. WARDEN OF BRUNSWICK CORRECTIONAL CTR. & JEROME ALEXANDER RIDDICK, Petitioner - Appellant, versus WARDEN OF BRUNSWICK CORRECTIONAL CENTER, Respondent - Appellee. & RIDDICK v. WARDEN OF BRUNSWICK CORRECTIONAL CTR., 173 F.3d 851 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        United States v. Nichols & UNITED STATES OF AMERICA, Plaintiff-Appellee, v. HAROLD E. NICHOLS, Defendant-Appellant. & United States v. Nichols, 9 F.3d 1420 &\\
+        & & &\\[-4pt]
+        United States v. Nichols & UNITED STATES OF AMERICA, Plaintiff-Appellee, v. HAROLD E. NICHOLS, Defendant-Appellant. & United States v. Nichols, 1993 U.S. App. LEXIS 31071 &\\
+        & & &\\[-4pt]
+        United States v. Nichols & UNITED STATES OF AMERICA, Plaintiff-Appellee, v. HAROLD E. NICHOLS, Defendant-Appellant. & United States v. Nichols, 10 F.3d 808 &\\
+        & & &\\[-4pt]
+        \hline\\[-4pt]
+        United States v. Tolliver & UNITED STATES OF AMERICA, Plaintiff-Appellee, versus SYLVESTER TOLLIVER, ET AL., Defendants-Appellants. UNITED STATES OF AMERICA, Plaintiff-Appellee, versus NOAH MOORE, JR., Defendant-Appellant. & United States v. Tolliver, 70 F.3d 1270 &\\
+        & & &\\[-4pt]
+        United States v. Tolliver & UNITED STATES OF AMERICA, Plaintiff-Appellee, versus SYLVESTER TOLLIVER, ET AL., Defendants-Appellants. UNITED STATES OF AMERICA, Plaintiff-Appellee, versus NOAH MOORE, JR., Defendant-Appellant. & United States v. Tolliver, 70 F.3d 1270 &\\
+        & & &\\[-4pt]
+        United States v. Tolliver & UNITED STATES OF AMERICA, Plaintiff-Appellee, versus SYLVESTER TOLLIVER, ET AL., Defendants-Appellants. & United States v. Tolliver, 1995 U.S. App. LEXIS 33242 &\\
+        \hline\\[-6pt]
+    \label{tab:exampleCaseTitlesDup}
+\end{longtable}
+\end{footnotesize}
+
+\clearpage
+
+\begin{table}[H]
+    \centering
+    \caption{Distribution of case frequency (common court, date, title) using original and alternate titles}
+    \begin{tabular}{rrr}
+    \hline\\[-6pt]
+    Court, date, title frequency & Cases in original data & Cases after abbreviation substitution\\[4pt]
+    \hline\\[-6pt]
+    2 & 133,841 & 137,544\\
+    3 &   1,434 &   1,492\\
+    4 &     554 &     570\\
+    5 &      62 &      64\\
+    6 &      43 &      43\\
+    7 &       9 &       9\\
+    8 &      10 &      10\\
+    9 &       6 &       7\\
+    10 &       4 &       4\\
+    11 &       3 &       3\\
+    14 &       1 &       1\\
+    15 &       1 &       1\\
+    25 &       1 &       1\\[4pt]
+    \hline\\[-6pt]
+    \end{tabular}
+    \label{tab:caseTitleDuplicateFreq}
+\end{table}
+
+\vspace{0.25in}
+
+\begin{figure}[H]
+    \includegraphics[width=5in, trim={0 0 0 0.0}, clip]{{CaseTitleDuplicateCourtYearHeatMap}.png}
+    \centering
+    \caption{Distribution of duplicated case records (court, date, and alternate title) by court and year}
+    \label{fig:CaseTitleDuplicateCourtYearHeatMap}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \caption{Distribution of cases by frequencies of distinct outcomes, panels, opinion authors, concurring authors, dissenting authors, per curiam indicators, and publication statii.  Cases with at least one duplicate record  (common court, date, title).}
+    \begin{tabular}{rrrrrrrr}
+        \hline\\[-6pt]
+        & \multicolumn{7}{c}{Number of cases by}\\[2pt]
+        \cline{2-8}\\[-6pt]
+        n-distinct & outcome & panel & opinion auth & concur auth & dissent auth & percuriam & pubstatus\\[2pt]
+        \hline\\[-6pt]
+        0 & 64,703 & 4,099 & 103,264 & 138,181 & 137,287 & 0 & 0\\
+        1 & 72,719 & 130,379 & 36,030 & 1,535 & 2,369 & 87,946 & 18,603\\
+        2 & 2,251 & 5,136 & 447 & 32 & 92 & 51,803 & 121,146\\
+        3 & 59 & 114 & 6 & 1 & 1 & 0 & 0\\
+        4 & 13 & 13 & 2 & 0 & 0 & 0 & 0\\
+        5 & 2 & 6 & 0 & 0 & 0 & 0 & 0\\
+        6 & 1 & 1 & 0 & 0 & 0 & 0 & 0\\
+        9 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
+        7 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\[4pt]
+        \hline\\[-6pt]
+    \end{tabular}
+    \label{tab:varFrequencyDupCases}
+\end{table}
+
+\begin{footnotesize}
+    \begin{longtable}[H]{lp{6in}}
+        \caption{Cases with multiple outcomes, opinions, and authors}\\[-4pt]
+        \arrayrulecolor{black}\hline\\[-6pt]
+        \endhead
+        Title: & MacCollom v. United States, 511 F.2d 1116\\[2pt]
+        Outcome: & The judgment dismissing appellant inmate's his action for preparation of a verbatim transcript of his criminal trial was reversed and remanded because appellant had a right to a verbatim transcript of his criminal trial, at the government's expense, to assist him in the preparation of a postconviction motion.\\[2pt]
+        Panel: & Hufstedler and Goodwin, Circuit Judges and Taylor, * The Honorable Fred M. Taylor, Senior United States District Judge for the District of Idaho. District Judge. Taylor, District Judge, Dissenting. \\[2pt]
+        Op. by: & GOODWIN \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & TAYLOR \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & MacCollom v. United States, 511 F.2d 1116\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & Wallace, Circuit Judge, with whom Judges Wright, Trask, Choy and Sneed concur, dissenting from Order Denying Petition for Rehearing En Banc. Hufstedler and Goodwin, Circuit Judges and Taylor, *The Honorable Fred M. Taylor, Senior United States District Judge for the District of Idaho, sitting by designation. District Judge. \\[2pt]
+        Op. by: &  WALLACE \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & WALLACE \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Conner v. Burford, 836 F.2d 1521\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & Before: Alfred T. Goodwin, J. Clifford Wallace and William A. Norris, Circuit Judges. Opinion by Judge Norris; Partial Concurrence Partial Dissent by Judge Wallace.  \\[2pt]
+        Op. by: & William A. Norris\\[2pt]
+        Conc. by: & WALLACE (In Part) \\[2pt]
+        Diss. by: &  WALLACE (In Part) \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Conner v. Burford, 848 F.2d 1441\\[2pt]
+        Outcome: & On the issues of the National Environmental Policy Act, the court reversed the decision relating to "no surface occupancy" (NSO) leases and remanded with instructions for the district court to determine which leases were NSO leases; however, the court affirmed the ruling with respect to those leases which were not NSO leases. The court also affirmed judgment in favor of appellees regarding violations of the Endangered Species Act.\\[2pt]
+        Panel: &  Goodwin, Wallace and Norris, Circuit Judges.  Wallace, Circuit Judge, concurring in part and dissenting in part.  \\[2pt]
+        Op. by: & NORRIS \\[2pt]
+        Conc. by: & WALLACE (In Part) \\[2pt]
+        Diss. by: & WALLACE (In Part) \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & United States v. Kent, 912 F.2d 277\\[2pt]
+        Outcome: & Court reversed conviction because ambiguities in the law did not provide defendant with sufficient notice to form the mens rea necessary to convict her for knowingly violating the law.\\[2pt]
+        Panel: &  Harry Pregerson, William C. Canby, Jr. and Robert R. Beezer, Circuit Judges.  \\[2pt]
+        Op. by: & PREGERSON \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & CANBY, JR.  \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & United States v. Kent, 945 F.2d 1441\\[2pt]
+        Outcome: & The court affirmed the judgment of the district court convicting appellant of unauthorized residential occupancy of a national forest because appellant failed to establish she was entitled to individual aboriginal title.\\[2pt]
+        Panel: &  Harry Pregerson, William C. Canby, Jr. and Robert R. Beezer, Circuit Judges. Opinion by Judge William C. Canby, Jr.; Dissent by Judge Harry Pregerson.  Pregerson, Circuit Judge, dissenting.  \\[2pt]
+        Op. by: & CANBY, JR.  \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & PREGERSON \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Alliance Ins. Co. v. Colella, 1993 U.S. App. LEXIS 14480\\[2pt]
+        Outcome: & The court vacated, holding that there was a genuine triable issue of fact as to whether appellee insurer timely reserved its rights to assert defenses to coverage under its insureds' policy. The case was remanded for trial on that issue.\\[2pt]
+        Panel: & Before: Jerome Farris, William A. Norris, and Stephen Reinhardt, Circuit Judges.  \\[2pt]
+        Op. by: & PER CURIAM; DISSENT BY JUDGE FARRIS \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: &  FARRIS \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Alliance Ins. Co. v. Colella, 995 F.2d 944\\[2pt]
+        Outcome: & The court vacated, holding that there was a genuine triable issue over whether appellee insurer timely reserved its rights to assert defenses to coverage under its insureds' policy. The case was remanded for trial on that issue.\\[2pt]
+        Panel: & Before: Jerome Farris, William A. Norris, and Stephen Reinhardt, Circuit Judges. PER CURIAM; DISSENT BY JUDGE FARRIS \\[2pt]
+        Op. by: & PER CURIAM \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & FARRIS \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+
+        Title: & Mendoza Manimbao v. Ashcroft, 2002 U.S. App. LEXIS 28158\\[2pt]
+        Outcome: & The petition was granted in part and remanded. The court did not reach the issue of the alien's statutory eligibility for asylum because the BIA never reached it. Rather, the court remanded the issue for an initial determination by the BIA.\\[2pt]
+        Panel: & Before: Stephen S. Trott, Sidney R. Thomas, and Kim McLane Wardlaw, Circuit Judges. TROTT, Circuit Judge, dissenting.  \\[2pt]
+        Op. by: & WARDLAW\\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & TROTT\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Mendoza Manimbao v. Ashcroft, 298 F.3d 852\\[2pt]
+        Outcome: & Petitioner was eligible for asylum. The instant court remanded the case to the BIA for a determination with respect to whether petitioner's asylum request should have been granted. Petitioner's request for withholding of deportation was denied.\\[2pt]
+        Panel: & Before: Stephen S. Trott, Sidney R. Thomas, and Kim McLane Wardlaw, Circuit Judges. Opinion by Judge Wardlaw; Dissent by Judge Trott.  \\[2pt]
+        Op. by: & Kim Mclane Wardlaw \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & Stephen S. Trott\\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Gaston v. Palmer, 417 F.3d 1030\\[2pt]
+        Outcome: & The court reversed the district court's decision and remanded the case for further proceedings.\\[2pt]
+        Panel: & Before: Andrew J. Kleinfeld, Kim McLane Wardlaw, and William A. Fletcher, Circuit Judges. Opinion by Judge William A. Fletcher; Dissent by Judge Kleinfeld.  \\[2pt]
+        Op. by: & William A.  Fletcher \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & Andrew J. Kleinfeld\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Gaston v. Palmer, 417 F.3d 1050\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & Before: Andrew J. Kleinfeld, Kim McLane Wardlaw, and William A. Fletcher, Circuit Judges. Order; Dissent by Judge O'Scannlain.  \\[2pt]
+        Op. by: & O'Scannlain\\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & O'Scannlain\\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Multi Time Mach., Inc. v. Amazon.com, Inc., 792 F.3d 1070\\[2pt]
+        Outcome: & Grant of summary judgment reversed and case remanded.\\[2pt]
+        Panel: & Before: Barry G. Silverman and Carlos T. Bea, Circuit Judges and Gordon J. Quist,*The Honorable Gordon J. Quist, Senior District Judge for the U.S. District Court for the Western District of Michigan, sitting by designation. Senior District Judge. Opinion by Judge Bea; Dissent by Judge Silverman.\\[2pt]
+        Op. by: & Carlos T. Bea\\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & Barry G. Silverman\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Multi Time Mach., Inc. v. Amazon.com, Inc., 804 F.3d 930\\[2pt]
+        Outcome: & Judgment affirmed.\\[2pt]
+        Panel: & Before: Barry G. Silverman and Carlos T. Bea, Circuit Judges and Gordon J. Quist,*The Honorable Gordon J. Quist, Senior District Judge for the U.S. District Court for the Western District of Michigan, sitting by designation. Senior District Judge. Dissent by Judge Bea.\\[2pt]
+        Op. by: & Barry G. Silverman\\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & Carlos T. Bea\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Multi Time Mach., Inc. v. Amazon.com, Inc., 804 F.3d 930\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & Before: Barry G. Silverman and Carlos T. Bea, Circuit Judges and Gordon J. Quist,*The Honorable Gordon J. Quist, Senior District Judge for the U.S. District Court for the Western District of Michigan, sitting by designation. Senior District Judge.\\[2pt]
+        Op. by: & NA\\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & NA\\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Sanchez v. Sessions, 870 F.3d 901\\[2pt]
+        Outcome: & Judgment reversed and remanded.\\[2pt]
+        Panel: & Before: Harry Pregerson, Richard A. Paez, and Morgan B. Christen, Circuit Judges. Opinion by Judge Pregerson; Concurrence by Judge Pregerson; Concurrence by Judge Christen.\\[2pt]
+        Op. by: & PREGERSON\\[2pt]
+        Conc. by: & PREGERSON; CHRISTEN\\[2pt]
+        Diss. by: & NA\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Sanchez v. Sessions, 904 F.3d 643\\[2pt]
+        Outcome: & Petition for review granted. Case remanded.\\[2pt]
+        Panel: & Before: Kim McLane Wardlaw, Richard A. Paez, and Morgan B. Christen, Circuit Judges. Opinion by Judge Paez; Concurrence by Judge Paez.\\[2pt]
+        Op. by: & Richard A. Paez\\[2pt]
+        Conc. by: & Richard A. Paez\\[2pt]
+        Diss. by: & NA\\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Torres v. Wisconsin Dep't of Health \& Social Services, 838 F.2d 944\\[2pt]
+        Outcome: & The court affirmed the trial court's judgment.\\[2pt]
+        Panel: & Before CUDAHY and RIPPLE, Circuit Judges, and WILL, Senior District Judge. *The Honorable Hubert L. Will, Senior District Judge for the Northern District of Illinois, is sitting by designation. \\[2pt]
+        Op. by: & CUDAHY \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & RIPPLE \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Torres v. Wisconsin Dep't of Health \& Social Services, 859 F.2d 1523\\[2pt]
+        Outcome: & The court reversed and remanded the decision of the district court, which found that defendants, Department of Health and Social Services and others, did not establish a valid bona fide occupational qualification (BFOQ) in response to plaintiff male employees' sex discrimination action because defendants were required to meet an unrealistic burden when they were required to produce objective evidence on the validity of their BFOQ theory.\\[2pt]
+        Panel: &  William J. Bauer, Chief Judge, Walter J. Cummings, Harlington Wood, Jr., Richard D. Cudahy, Richard A. Posner, John J. Coffey, Joel M. Flaum, Frank H. Easterbrook, Kenneth F. Ripple, Daniel A. Manion, and Michael S. Kanne, Circuit Judges.  Cudahy, Circuit Judge, with whom Circuit Judges Cummings and Easterbrook join, dissenting.  Easterbrook, Circuit Judge, dissenting.  \\[2pt]
+        Op. by: & RIPPLE \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & CUDAHY; EASTERBROOK \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Billish v. Chicago, 962 F.2d 1269\\[2pt]
+        Outcome: & The court affirmed summary judgment on the equal protection claims the district court subjected to strict scrutiny because appellee city had a compelling governmental interest justifying its affirmative action program, and the program was narrowly tailored to accomplish its remedial purpose. The court reversed summary judgment on other equal protection claims, which were not strictly scrutinized, and remanded for the proper analysis.\\[2pt]
+        Panel: & Before POSNER and RIPPLE, Circuit Judges, and GRANT, Senior District Judge. **The Honorable Robert A. Grant, Senior District Judge, United States District Court for the Northern District of Indiana, is sitting by designation.\\[2pt]
+        Op. by: & RIPPLE \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & POSNER \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Billish v. Chicago, 989 F.2d 890\\[2pt]
+        Outcome: & The court reversed and remanded the district court's decision granting summary judgment in favor of defendant union and defendant city, holding that the district court prematurely dismissed plaintiff white firefighter's case.\\[2pt]
+        Panel: & Before BAUER, Chief Judge, and CUMMINGS, CUDAHY, POSNER, COFFEY, EASTERBROOK, RIPPLE, MANION, and KANNE, Circuit Judges.  \\[2pt]
+        Op. by: & POSNER \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & RIPPLE; BAUER; CUMMINGS; CUDAHY \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Maness v. Wainwright, 528 F.2d 1381\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & John R. Brown, Chief Judge, Wisdom, Gewin, Bell, * This order was concurred in by Judge Bell prior to his resignation from the Court on March 1, 1976. Thornberry, Coleman, Goldberg, Ainsworth, Godbold, Dyer, Morgan, Clark, Roney, Gee and Tjoflat, Circuit Judges.  Goldberg, Circuit Judge, with whom Wisdom, Godbold, Clark and Gee, Circuit Judges, join, dissenting.\\[2pt]
+        Op. by: & BY THE COURT \\[2pt]
+        Conc. by: & BROWN \\[2pt]
+        Diss. by: & BROWN; GOLDBERG \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Maness v. Wainwright, 528 F.2d 1382\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & Morgan and Clark, Circuit Judges and Gordon, District Judge.  Clark, Circuit Judge.  \\[2pt]
+        Op. by: & PER CURIAM \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & CLARK \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & UNITED STATES v. GAF CORP., 1979 U.S. App. LEXIS 16192\\[2pt]
+        Outcome: & The court denied the petition of intervenor camera company, here, as appellee, for a rehearing of certain limited aspects of the court's prior opinion. The court found that the opinion struck a balance between the equities of the new statutory mandate and the existence of a protective order.\\[2pt]
+        Panel: & NA\\[2pt]
+        Op. by: &  GURFEIN \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & MULLIGAN \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & United States v. GAF Corp., 596 F.2d 10\\[2pt]
+        Outcome: & The court granted rehearing and excised one footnote and amended a sentence as requested, but denied the petition in all other respects. The court reasoned that under its previous ruling the government had won only a very limited victory because the case was remanded with a strong suggestion that the trial court judge superimpose upon any enforcement orders such protective orders as were required to safeguard the interests of the parties.\\[2pt]
+        Panel: & Before MULLIGAN and GURFEIN, Circuit Judges, and WEINSTEIN, District Judge.  *The Honorable Jack B. Weinstein, U. S. District Judge, for the Eastern District of New York, sitting by designation.\\[2pt]
+        Op. by: & GURFEINGURFEIN \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & MULLIGANMULLIGAN \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Shop \& Save Food Markets, Inc. v. Pneumo Corp., 1982 U.S. App. LEXIS 22492\\[2pt]
+        Outcome: & The court reversed the district court's judgment, which granted defendant grocery store chain summary judgment on plaintiff grocery store's claims of two violations under the Sherman Act because a genuine issue of fact existed as to whether there was a tying violation.\\[2pt]
+        Panel: & NA\\[2pt]
+        Op. by: & PALMIERI \\[2pt]
+        Conc. by: & MESKILL (In Part) \\[2pt]
+        Diss. by: & MESKILL (In Part) \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Shop \& Save Food Markets, Inc. v. Pneumo Corp., 683 F.2d 27\\[2pt]
+        Outcome: & Judgment granting summary judgment for defendants was affirmed; there was no tying arrangement because plaintiff was not actually coerced into buying groceries only from defendant lessor, and there were no injuries causally related to an alleged concerted refusal to deal. Defendant lessor's actions resulted in an agreement to pay a higher price, but did not constitute a tying violation of the applicable antitrust act.\\[2pt]
+        Panel: & Feinberg, Chief Judge, Meskill, Circuit Judge, and Edmund L. Palmieri, District Judge. *Hon. Edmund L. Palmieri, United States District Judge for the Southern District of New York, sitting by designation. Feinberg, Chief Judge, concurring.  \\[2pt]
+        Op. by: & MESKILL \\[2pt]
+        Conc. by: & FEINBERG \\[2pt]
+        Diss. by: & NA\\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Coalition to End Permanent Congress v. Runyon, 1992 U.S. App. LEXIS 17788\\[2pt]
+        Outcome: & The court reversed the trial court's judgment.\\[2pt]
+        Panel: & Before: WALD, SILBERMAN, and RANDOLPH, Circuit Judges \\[2pt]
+        Op. by: & PER CURIAM; RANDOLPH; SILBERMAN \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & WALD \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Coalition to End Permanent Congress v. Runyon, 971 F.2d 765\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & NA\\[2pt]
+        Op. by: & NA\\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & NA\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Coalition to End Permanent Congress v. Runyon, 979 F.2d 219\\[2pt]
+        Outcome: & The court decided to not issue expanded opinion for the case.\\[2pt]
+        Panel: & Before: WALD, SILBERMAN, and RANDOLPH, Circuit Judges. Separate statement dissenting from the per curiam disposition filed by Circuit Judge SILBERMAN. Separate opinion on the merits filed by Circuit Judge SILBERMAN.  \\[2pt]
+        Op. by: & PER CURIAM \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & SILBERMAN \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Ortiz-Diaz v. United States HUD, 831 F.3d 488\\[2pt]
+        Outcome: & Judgment affirmed.\\[2pt]
+        Panel: & Before: HENDERSON, ROGERS and KAVANAUGH, Circuit Judges. Concurring opinion filed by Circuit Judge HENDERSON. Concurring opinion filed by Circuit Judge KAVANAUGH. Dissenting opinion filed by Circuit Judge ROGERS.\\[2pt]
+        Op. by: & KAREN LECRAFT HENDERSON\\[2pt]
+        Conc. by: & KAREN LECRAFT HENDERSON; KAVANAUGH\\[2pt]
+        Diss. by: & ROGERS\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Ortiz-Diaz v. United States HUD, 867 F.3d 70\\[2pt]
+        Outcome: & Judgment reversed. Case remanded.\\[2pt]
+        Panel: & Before: HENDERSON, ROGERS and KAVANAUGH, Circuit Judges. Opinion for the Court filed by Circuit Judge ROGERS. Opinion concurring in the judgment filed by Circuit Judge HENDERSON. Concurring opinion filed by Circuit Judge ROGERS. Concurring opinion filed by Circuit Judge KAVANAUGH.\\[2pt]
+        Op. by: & ROGERS\\[2pt]
+        Conc. by: & KAREN LECRAFT HENDERSON; ROGERS; KAVANAUGH\\[2pt]
+        Diss. by: & NA\\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Kenny A. v. Perdue, 532 F.3d 1209\\[2pt]
+        Outcome: & The court affirmed the district court's $6 million lodestar award as well as its $4.5 million enhanced fee award to class counsel. The court denied class counsel's cross-appeal.\\[2pt]
+        Panel: & Before CARNES, WILSON and HILL, Circuit Judges. WILSON, Circuit Judge, specially concurring. Hill, J., concurring.\\[2pt]
+        Op. by: & CARNES\\[2pt]
+        Conc. by: & WILSON; Hill\\[2pt]
+        Diss. by: & NA\\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Kenny A. v. Perdue, 547 F.3d 1319\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & Before EDMONDSON, Chief Judge, TJOFLAT, ANDERSON, BIRCH, DUBINA, BLACK, CARNES, BARKETT, HULL, MARCUS, WILSON, and PRYOR, Circuit Judges.\\[2pt]
+        Op. by: & J. L. Edmondson\\[2pt]
+        Conc. by: & WILSON\\[2pt]
+        Diss. by: & TJOFLAT; CARNES; DUBINA\\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & United States v. Abreu, 962 F.2d 1425\\[2pt]
+        Outcome: & The court affirmed defendant's convictions and affirmed defendant's sentence with the exception of an enhancement for a second gun conviction. The court held that because the underlying gun conviction did not take place before a judgment was entered on another offense, defendant's sentence could not be enhanced as a second conviction under sentencing guidelines.\\[2pt]
+        Panel: & Before SEYMOUR and EBEL, Circuit Judges, and BROWN, *Honorable Wesley E. Brown, Senior District Judge for the District of Kansas, sitting by designation. District Judge.\\[2pt]
+        Op. by: & EBEL \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & WESLEY E. BROWN \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & United States v. Abreu, 962 F.2d 1447\\[2pt]
+        Outcome: & The court reversed and remanded for resentencing on defendants' convictions because defendants could not receive an enhanced sentence for a second or subsequent conviction unless the offense underlying the conviction took place after a judgment of conviction had been entered on the prior offense.\\[2pt]
+        Panel: & EN BANC. Before McKAY, Chief Judge, HOLLOWAY, LOGAN, SEYMOUR, MOORE, ANDERSON, TACHA, BALDOCK, BRORBY, and EBEL, Circuit Judges.  \\[2pt]
+        Op. by: & SEYMOUR \\[2pt]
+        Conc. by: & NA\\[2pt]
+        Diss. by: & BRORBY \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+        Title: & Halderman v. Pennhurst State Sch. \& Hosp., 673 F.2d 628\\[2pt]
+        Outcome: & The court affirmed, holding that, although the contempt order was not a final order, it was appealable. If the order were to remain unreviewed while lengthy hearings went forward, possible irreparable consequences to the parties might result. But, the merits of the underlying order could not be considered. Only issues not otherwise subject to appellate review by the ordinary processes of the Federal Rules of Civil Procedure could be considered.\\[2pt]
+        Panel: & NA\\[2pt]
+        Op. by: & GIBBONS \\[2pt]
+        Conc. by: & ALDISERT; GARTH (In Part) \\[2pt]
+        Diss. by: & GARTH (In Part); SEITZ \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Halderman v. Pennhurst State Sch. \& Hosp., 673 F.2d 647\\[2pt]
+        Outcome: & On remand, the court affirmed the trial court's judgment. The court held that where a case could have been decided without reference to questions arising under the federal Constitution, that course was usually pursued and was not departed from without important reasons because it was better to decide cases with regard to questions of a local nature, involving state statute's construction, than to unnecessarily decide constitutional questions.\\[2pt]
+        Panel: & Before SEITZ, Chief Judge, and ALDISERT, GIBBONS, HUNTER, WEIS, GARTH, HIGGINBOTHAM and SLOVITER, Circuit Judges.  \\[2pt]
+        Op. by: & GIBBONS, Jr. \\[2pt]
+        Conc. by: & ALDISERT \\[2pt]
+        Diss. by: & SEITZ, III(In part)GARTH(In part) \\[2pt]
+        \arrayrulecolor{gray}\hline\\[-4pt]
+        Title: & Halderman v. Pennhurst State School \& Hospital, 673 F.2d 645\\[2pt]
+        Outcome: & NA\\[2pt]
+        Panel: & NA\\[2pt]
+        Op. by: & PER CURIAM \\[2pt]
+        Conc. by: & SEITZ \\[2pt]
+        Diss. by: & GARTH, III \\[2pt]
+        
+        \arrayrulecolor{black}\hline\\[-4pt]
+
+    \label{tab:exampleCaseDiffOpinions}
+    \end{longtable}
+\end{footnotesize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Elimination of duplicate case records in figure 3 of RD1}
+
+The example cases in table \ref{tab:exampleCaseDiffOpinions} were sampled from a total of twenty nine that had multiple opinion authors and either multiple concurring or dissenting authors.  A review of these cases reveals that, although the author names may be different for two opinions of a case, the number of authors, by type (opinion, concurring, dissenting) tends to be invariant.  This results in an expectation that collapsing records that constitute the red spikes (opinion with no concurring or dissenting authors) in figure 3 of RD1 will not cause cases to be duplicated (it is expected that all outcomes for these cases have an opinion author, but neither concurring nor dissenting authors).  Figure \ref{fig:Fig3-Dups-Omitted} reproduces figure 3 of RD1, limited to data set B, after eliminating duplicate case records.  Pattern of red bars are very similar to those of figure 3 in RD1, for all courts and years.  Spikes are visible between years 1900 and 1994, for the 4th and 11th circuits, as in figure 3 of RD1.  However, there does appear to be a difference in patterns of blue bars (neither opinion, concurring, or dissenting authors) between the two figures.  Querying cases with duplicate records reveals that of the 282,755 records involved in duplicated cases, 205,012 (72.5\%) have no outcome text, which might be consistent with missing authors. 
+
+\begin{figure}[H]
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{Fig3-Dups-Omitted}.png}
+    \centering
+    \caption{Distribution of opinion author combinations by court and year.  Data set B only.  Stacked regions within bars represent number of cases by author type combination (o=opinion, c=concurring, d=dissenting).}
+    \label{fig:Fig3-Dups-Omitted}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Cases with top differences in legal topics counts between data sets B and A}
+
+Interest was expressed in reviewing cases with a large difference in number legal topics assigned between data sets A and B.  Table \ref{tab:topDiffLegalTopicsAssigned} lists the top 100 cases in descending order of absolute difference.
+
+\vspace{0.25in}
+
+\begin{footnotesize}
+\begin{longtable}[H]{p{3.5in}llrr}
+    \caption{Top 100 cases with a difference in legal topics assigned in data sets A and B}\\[-4pt]
+    \hline\\[-6pt]
+    Title & Court & Date & n(set A) & n(set B) \\[2pt]
+    \hline\\[-6pt]
+    \endhead
+United States v. Yousef & 2nd Circuit & 2003-04-04 & 209 & 0\\
+& & & &\\[-6pt]
+United States v. Salameh & 2nd Circuit & 1998-08-04 & 141 & 0\\
+& & & &\\[-6pt]
+Data Gen. Corp. v. Grumman Sys. Support Corp. & 1st Circuit & 1994-09-14 & 137 & 0\\
+& & & &\\[-6pt]
+United States v. Phillips & 5th Circuit & 1981-12-28 & 133 & 0\\
+& & & &\\[-6pt]
+United States v. Soto-Beniquez & 1st Circuit & 2003-11-20 & 129 & 0\\
+& & & &\\[-6pt]
+United States v. Darden & 8th Circuit & 1995-11-22 & 124 & 0\\
+& & & &\\[-6pt]
+United Int'l Holdings, Inc. v. Wharf (Holdings) Ltd. & 10th Circuit & 2000-04-28 & 123 & 0\\
+& & & &\\[-6pt]
+United States v. Allen & 8th Circuit & 2001-04-12 & 119 & 0\\
+& & & &\\[-6pt]
+United States v. Schlei & 11th Circuit & 1997-09-18 & 118 & 0\\
+& & & &\\[-6pt]
+United States v. McVeigh & 10th Circuit & 1998-09-08 & 116 & 0\\
+& & & &\\[-6pt]
+United States v. Hammoud & 4th Circuit & 2004-09-08 & 115 & 0\\
+& & & &\\[-6pt]
+United States v. Haldeman & DC Circuit & 1976-10-12 & 115 & 0\\
+& & & &\\[-6pt]
+United States v. Higgs & 4th Circuit & 2003-12-22 & 113 & 0\\
+& & & &\\[-6pt]
+United States v. Nelson-Rodriguez & 1st Circuit & 2003-02-07 & 113 & 0\\
+& & & &\\[-6pt]
+United States v. Hall & 5th Circuit & 1998-08-21 & 112 & 0\\
+& & & &\\[-6pt]
+Coalition for Gov't Procurement v. Fed. Prison Indus. & 6th Circuit & 2004-04-12 & 110 & 0\\
+& & & &\\[-6pt]
+United States v. Moya-Gomez & 7th Circuit & 1988-09-30 & 108 & 0\\
+& & & &\\[-6pt]
+United States v. Webster & 5th Circuit & 1998-12-03 & 108 & 0\\
+& & & &\\[-6pt]
+United States v. Solis & 5th Circuit & 2002-07-18 & 107 & 0\\
+& & & &\\[-6pt]
+Unitherm Food Sys. v. Swift-Eckrich, Inc. & Federal Circuit & 2004-07-12 & 107 & 0\\
+& & & &\\[-6pt]
+United States v. Cope & 6th Circuit & 2002-11-19 & 106 & 0\\
+& & & &\\[-6pt]
+Gall v. Parker & 6th Circuit & 2000-10-30 & 105 & 0\\
+& & & &\\[-6pt]
+United States v. N. & DC Circuit & 1990-07-20 & 105 & 0\\
+& & & &\\[-6pt]
+United States v. Voigt & 3rd Circuit & 1996-07-09 & 102 & 0\\
+& & & &\\[-6pt]
+United States v. Collazo-Aponte & 1st Circuit & 2000-06-27 & 102 & 0\\
+& & & &\\[-6pt]
+Pennzoil Co. v. Federal Energy Regulatory Com. & 5th Circuit & 1981-05-20 & 99 & 0\\
+& & & &\\[-6pt]
+United States v. Gaskin & 2nd Circuit & 2004-04-16 & 98 & 0\\
+& & & &\\[-6pt]
+United States v. Jackson & 10th Circuit & 2000-06-02 & 98 & 0\\
+& & & &\\[-6pt]
+Byrd v. Collins & 6th Circuit & 2000-04-06 & 97 & 0\\
+& & & &\\[-6pt]
+United States v. Thomas & 5th Circuit & 1993-12-21 & 97 & 0\\
+& & & &\\[-6pt]
+Elliott Indus. v. BP Am. Prod. Co. & 10th Circuit & 2005-05-10 & 95 & 0\\
+& & & &\\[-6pt]
+United States v. Sepulveda & 1st Circuit & 1993-12-20 & 94 & 0\\
+& & & &\\[-6pt]
+United States v. Yarbrough & 9th Circuit & 1988-07-06 & 94 & 0\\
+& & & &\\[-6pt]
+United States v. Tarantino & DC Circuit & 1988-04-12 & 93 & 0\\
+& & & &\\[-6pt]
+Mass. Eye \& Ear Infirmary v. QLT Phototherapeutics, Inc. & 1st Circuit & 2005-06-16 & 92 & 0\\
+& & & &\\[-6pt]
+Hobson v. Wilson & DC Circuit & 1984-06-08 & 91 & 0\\
+& & & &\\[-6pt]
+United States v. Graham & 6th Circuit & 2001-12-17 & 91 & 0\\
+& & & &\\[-6pt]
+Williams v. Bagley & 6th Circuit & 2004-08-13 & 90 & 0\\
+& & & &\\[-6pt]
+United States v. Diaz & 2nd Circuit & 1999-05-04 & 90 & 0\\
+& & & &\\[-6pt]
+United States v. Morrow & 5th Circuit & 1999-05-25 & 90 & 0\\
+& & & &\\[-6pt]
+United States v. Fernandez & 9th Circuit & 2004-10-27 & 90 & 0\\
+& & & &\\[-6pt]
+United States v. Shryock & 9th Circuit & 2003-09-04 & 90 & 0\\
+& & & &\\[-6pt]
+Richardson v. Reno & 11th Circuit & 1998-12-22 & 90 & 0\\
+& & & &\\[-6pt]
+United States v. Blakeney & 6th Circuit & 1991-08-23 & 89 & 0\\
+& & & &\\[-6pt]
+Buell v. Mitchell & 6th Circuit & 2001-12-04 & 89 & 0\\
+& & & &\\[-6pt]
+Hale v. Gibson & 10th Circuit & 2000-09-25 & 89 & 0\\
+& & & &\\[-6pt]
+United States v. Mann & 5th Circuit & 1998-11-23 & 89 & 0\\
+& & & &\\[-6pt]
+Bowers v. NCAA & 3rd Circuit & 2003-08-20 & 89 & 0\\
+& & & &\\[-6pt]
+Williams v. Woodford & 9th Circuit & 2002-09-10 & 89 & 0\\
+& & & &\\[-6pt]
+Bell v. Milwaukee & 7th Circuit & 1984-09-04 & 89 & 0\\
+& & & &\\[-6pt]
+United States v. Gibbs & 6th Circuit & 1999-04-16 & 88 & 0\\
+& & & &\\[-6pt]
+Hemmings v. Tidyman's Inc. & 9th Circuit & 2002-04-11 & 88 & 0\\
+& & & &\\[-6pt]
+United States v. Novaton & 11th Circuit & 2001-10-30 & 87 & 0\\
+& & & &\\[-6pt]
+Cable/Home Commun. Corp. v. Network Prods. & 11th Circuit & 1990-06-04 & 87 & 0\\
+& & & &\\[-6pt]
+United States v. Tolliver & 5th Circuit & 1995-08-14 & 87 & 0\\
+& & & &\\[-6pt]
+United States v. Miller & 2nd Circuit & 1997-06-20 & 86 & 0\\
+& & & &\\[-6pt]
+United States v. Aguilar & 9th Circuit & 1989-03-30 & 86 & 0\\
+& & & &\\[-6pt]
+United States v. McGlory & 3rd Circuit & 1992-06-19 & 86 & 0\\
+& & & &\\[-6pt]
+Shotz v. City of Plantation & 11th Circuit & 2003-09-08 & 86 & 0\\
+& & & &\\[-6pt]
+United States v. Daychild & 9th Circuit & 2004-02-17 & 85 & 0\\
+& & & &\\[-6pt]
+United States v. Souffront & 7th Circuit & 2003-08-06 & 85 & 0\\
+& & & &\\[-6pt]
+Lightfoot v. Union Carbide Corp. & 2nd Circuit & 1997-03-27 & 85 & 0\\
+& & & &\\[-6pt]
+United States v. Sturman & 6th Circuit & 1991-10-24 & 85 & 0\\
+& & & &\\[-6pt]
+Streber v. Hunter & 5th Circuit & 2000-08-04 & 84 & 0\\
+& & & &\\[-6pt]
+United States v. Thomas & 5th Circuit & 1994-01-25 & 84 & 0\\
+& & & &\\[-6pt]
+MASON v. MITCHELL & 6th Circuit & 2003-02-06 & 84 & 0\\
+& & & &\\[-6pt]
+Coleman v. Mitchell & 6th Circuit & 2001-10-10 & 84 & 0\\
+& & & &\\[-6pt]
+Ford Motor Co. v. Summit Motor Prods. & 3rd Circuit & 1991-04-08 & 84 & 0\\
+& & & &\\[-6pt]
+United States v. Pungitore & 3rd Circuit & 1990-08-01 & 84 & 0\\
+& & & &\\[-6pt]
+Rose v. Bartle & 3rd Circuit & 1989-03-20 & 83 & 0\\
+& & & &\\[-6pt]
+Cox v. Administrator United States Steel \& Carnegie & 11th Circuit & 1994-04-05 & 83 & 0\\
+& & & &\\[-6pt]
+Retirement Fund Trust of Plumbing v. Franchise Tax Bd. & 9th Circuit & 1990-07-16 & 83 & 0\\
+& & & &\\[-6pt]
+Atlantic Richfield Co. v. Farm Credit Bank & 10th Circuit & 2000-09-13 & 82 & 0\\
+& & & &\\[-6pt]
+Coosewoon v. Meridian Oil Co. & 10th Circuit & 1994-05-25 & 82 & 0\\
+& & & &\\[-6pt]
+In re Exxon Valdez & 9th Circuit & 2001-11-07 & 82 & 0\\
+& & & &\\[-6pt]
+United States v. Mansoori & 7th Circuit & 2002-08-29 & 82 & 0\\
+& & & &\\[-6pt]
+United States v. Logan & 6th Circuit & 1999-07-19 & 82 & 0\\
+& & & &\\[-6pt]
+United States v. Doerr & 7th Circuit & 1989-10-03 & 81 & 0\\
+& & & &\\[-6pt]
+American-Arab Anti-Discrimination Comm. v. Reno & 9th Circuit & 1995-11-08 & 81 & 0\\
+& & & &\\[-6pt]
+United States v. Baker & 9th Circuit & 1993-10-19 & 81 & 0\\
+& & & &\\[-6pt]
+United States v. Bakhshekooei & 9th Circuit & 1997-03-19 & 81 & 0\\
+& & & &\\[-6pt]
+United States v. Moore & 7th Circuit & 1991-07-19 & 81 & 0\\
+& & & &\\[-6pt]
+United States v. Weiner & 9th Circuit & 1978-05-15 & 81 & 0\\
+& & & &\\[-6pt]
+Transgo, Inc. v. Ajac Transmission Parts Corp. & 9th Circuit & 1985-01-15 & 81 & 0\\
+& & & &\\[-6pt]
+In re Cmty. Bank of N. Va. \& Guar. Nat'l Bank of Tallahassee Second Mortg. Loan Litig. & 3rd Circuit & 2005-08-11 & 80 & 0\\
+& & & &\\[-6pt]
+Koslow v. Pennsylvania & 3rd Circuit & 2002-08-21 & 80 & 0\\
+& & & &\\[-6pt]
+United States v. Peters & 7th Circuit & 1986-05-20 & 80 & 0\\
+& & & &\\[-6pt]
+United States v. Arias-Villanueva & 9th Circuit & 1993-07-20 & 80 & 0\\
+& & & &\\[-6pt]
+Image Tech. Servs. v. Eastman Kodak Co. & 9th Circuit & 1997-08-26 & 80 & 0\\
+& & & &\\[-6pt]
+United States v. Chandler & 11th Circuit & 1993-07-19 & 80 & 0\\
+& & & &\\[-6pt]
+T. J. Stevenson \& Co. v. 81,193 Bags of Flour & 5th Circuit & 1980-10-27 & 79 & 0\\
+& & & &\\[-6pt]
+Permian Petroleum Co. v. Petroleos Mexicanos & 5th Circuit & 1991-06-27 & 78 & 0\\
+& & & &\\[-6pt]
+Loftin \& Woodard, Inc. v. United States & 5th Circuit & 1978-08-09 & 78 & 0\\
+& & & &\\[-6pt]
+United States v. Griffin & 5th Circuit & 2003-03-10 & 78 & 0\\
+& & & &\\[-6pt]
+United States v. Garcia & 9th Circuit & 1994-02-15 & 78 & 0\\
+& & & &\\[-6pt]
+United States v. Briscoe & 7th Circuit & 1990-02-26 & 78 & 0\\
+& & & &\\[-6pt]
+Chavez v. Thomas \& Betts Corp. & 10th Circuit & 2005-01-24 & 78 & 0\\
+& & & &\\[-6pt]
+United States v. Pedraza & 10th Circuit & 1994-06-30 & 78 & 0\\
+& & & &\\[-6pt]
+Carcieri v. Norton & 1st Circuit & 2005-09-13 & 78 & 0\\
+& & & &\\[-6pt]
+United States v. Ramirez-Lopez & 9th Circuit & 2003-01-10 & 78 & 0\\
+    \hline\\[-6pt]
+    \label{tab:topDiffLegalTopicsAssigned}
+\end{longtable}
+\end{footnotesize}
+
+\end{spacing}
+
+\end{document} 

@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Citation file contents}{2}{section.1}
+\contentsline {section}{\numberline {2}Evaluation of citing and cited LNI}{4}{section.2}
+\contentsline {section}{\numberline {3}Distribution of citations per citing case}{5}{section.3}
+\contentsline {section}{\numberline {4}Distribution of citations per cited case}{6}{section.4}
+\contentsline {section}{\numberline {5}Distribution of citations by court and year}{8}{section.5}
+\contentsline {section}{\numberline {6}Citations with LNI that do not appear in case header records}{10}{section.6}
+\contentsline {section}{\numberline {7}Duplication of citations by reporter}{11}{section.7}
+\contentsline {section}{\numberline {8}Distribution of the difference in number of citations by Shepard's treatment letter}{12}{section.8}

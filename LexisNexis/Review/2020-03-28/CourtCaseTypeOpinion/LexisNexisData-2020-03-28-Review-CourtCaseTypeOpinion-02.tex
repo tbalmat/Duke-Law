@@ -1,0 +1,996 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage{setspace}
+\usepackage[letterpaper, margin=1.0in]{geometry}
+\addtolength{\topmargin}{-0.25in}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    %linkcolor=,
+    %citecolor=blue,
+    %urlcolor=blue
+    allcolors=[rgb]{0, 0, 0.65}
+}
+%\titleformat*{\section}{\large\bfseries}
+\titleformat*{\section}{\large}
+\titleformat*{\subsection}{\normalsize}
+\usepackage{longtable}
+\usepackage{float} % H causes tables and figures to appear where specified
+\usepackage{array} % ragged right alignment in table cells
+\usepackage{ragged2e} % ragged right alignment
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amsmath}   % includes \boldmath(), \boldsymbol{()}
+\usepackage{bm}        % math fonts, \boldmath{}, \boldsymbol{}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{subcaption}
+\usepackage{xcolor, colortbl}
+\definecolor{gray}{gray}{0.9}
+\definecolor{ltBlue}{rgb}{0.75, 0.85, 0.975}
+\definecolor{medBlue}{rgb}{0.75, 0.8, 0.9}
+\definecolor{white}{rgb}{1, 1, 1}
+%\rowcolor{ltBlue}
+\usepackage{changepage}
+\usepackage{pdflscape}
+\bibliographystyle{plainnat}
+\usepackage[authoryear, round, semicolon]{natbib}
+\newcommand{\mt}[1]{\bm{#1}^{\prime}}
+\newcommand{\mtm}[2]{\bm{#1}^{\prime}\bm{#2}}
+\newcommand{\mi}[1]{\bm{#1}^{-1}}
+\newcommand{\mest}[1]{\hat{\bm{#1}}}
+\usepackage[bottom]{footmisc}
+\setlength{\skip\footins}{12pt}
+\setlength\parindent{0pt}
+
+\title{\large LexisNexis Appeals Data Review\\[4pt]LNI Format, Court, Case Type, Opinions\\[4pt]
+       \normalsize Version 2.0, April 7, 2020\\[4pt]Tom Balmat, Duke University\\[-20pt]}
+
+%\author{Tom Balmat}
+\date{}
+
+\begin{document}
+    
+\begin{spacing}{1.0}
+
+\maketitle
+
+To date, two primary data sets have been received from LexisNexis (LN):  set A (3/13/2019) and set B (12/3/2019).  The following summarizes the results of several tests of integrity and comparisons of data sets received.
+
+\vspace{0.25in}
+
+\renewcommand\cfttoctitlefont{\large}
+\renewcommand\cftsecfont{\normalsize}
+\renewcommand\cftsecpagefont{\normalsize}
+\renewcommand\cftsubsecfont{\normalsize}
+\renewcommand\cftsubsecpagefont{\normalsize}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand*\contentsname{List of Sections}
+\begin{center}
+    \begin{minipage}{5.5in}
+        \tableofcontents
+    \end{minipage}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of LNI}
+
+LNIs are formatted strings that uniquely identify a decision record.  A valid LNI is composed of six dash-separated fields.  Individual field formats are listed in table \ref{tab:LNIField}.  An example, valid, LNI is 45CC-WT50-FM72-200M-00000-04.\\
+
+Observations:
+
+\begin{itemize}\setlength\itemsep{1pt}
+  \item All LNIs in case records of data sets A and B consist of 28 characters, as required by the above pattern
+  \item All LNIs in case records of data sets A and B are properly formatted
+  \item Due to the appearance of extraneous text (opinion text) in the opinion-by field of set A, two cases were excluded from import into the March SQL databases (from which queries are executed).  These cases are (LNI) 3T3Y-TS60-0038-X1MJ-00000-00 and 3T8C-CSW0-0038-X3XN-00000-00.  The number of LNIs appearing in the March SQL database equals the number appearing in the source set A, after exclusion of the LNIs stated here (n=1,083,600).
+  \item Case records for LNIs 3T3Y-TS60-0038-X1MJ-00000-00 and 3T8C-CSW0-0038-X3XN-00000-00 also appeared in set B and also had extraneous text in their opinion-by fields.  These records and ten additional records that duplicated LNI 3S4X-1450-003B-G54N-00000-00 were excluded from import into the December SQL database.  The number of LNIs appearing in the December SQL database equals the number appearing in the source set B, after exclusion of the LNIs stated here (n=1,124,500).
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \caption{Valid LNI format, as defined by LexisNexis}
+    \small
+    \begin{tabular}{p{0.25in}p{6in}}
+        \hline\\[-6pt]
+        Field & Contents\\[4pt]
+        \hline\\[-6pt]
+        1 & Four positions, one character from \{3, 4, 5, 7, 8\} followed by three characters from set c*\\
+        2 & Four positions, three characters from set c* followed by one character from \{0, 1, 2\} followed by three characters from set c*\\
+        3 & Four positions, one character from \{0, 2, 6, D, F, J, K, T, Y\} followed by three characters from set c*\\
+        4 & Four positions, one character from set c* followed by one character from \{0, 1, 2, 3, 4, 5\} followed by two characters from set c*\\
+        5 & Five positions, each containing 0\\
+        6 & Two positions, a 0 followed by one character from \{0, 1, 2, 3, 4, 5\}\\[4pt]
+        \hline\\[-6pt]
+        \multicolumn{2}{l}{* c = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, B, C, D, F, G, H, J, K, M, N, P, R, S, T, V, W, X, Y\}}\\
+    \end{tabular}
+    \label{tab:LNIField}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of decision date}
+
+Valid decision dates in the source data have format yyyy-mm-dd, with the following constraints:
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item yyyy $\in$ \{1973 ... 2018\}
+    \item mm $\in$ \{01 ... 12\}
+    \item dd $\in$ \{01 ... 31\} when mm $\in$ \{01, 03, 05, 07, 08, 10, 12\}
+    \item dd $\in$ \{01 ... 30\} when mm $\in$ \{04, 06, 09, 11\}
+    \item dd $\in$ \{01 ... 29\} when mm=02 and yyyy is a leap year
+    \item dd $\in$ \{01 ... 28\} when mm=02 and yyyy is not a leap year
+\end{itemize}
+
+\vspace{6pt}
+
+Table \ref{tab:invalidDate} lists LNIs for cases with an invalid decision date (dates are missing).  Note that cases for LNIs appearing in table \ref{tab:invalidDate} do not appear in data set B.  All decision dates in data set B are valid.  Data set A records for listed LNIs are also missing a court name and case title.
+
+\vspace{6pt}
+    
+\begin{table}[H]
+    \centering
+    \caption{Cases with an invalid (missing) decision date}
+    \begin{tabular}{p{2.5in}cc}
+        \hline\\[-6pt]
+        LNI & Exists in set A & Exists in set B\\[4pt]
+        \hline\\[-6pt]
+        3RHM-PKM0-0038-X3K4-00000-00 & yes & no\\
+        3S12-VYB0-0038-X3BN-00000-00 & yes & no\\
+        3S4X-6M00-008H-V0GV-00000-00 & yes & no\\
+        3S4X-6M00-008H-V0GW-00000-00 & yes & no\\
+        3S4X-C0G0-001T-D46N-00000-00 & yes & no\\
+        4F7Y-YXX0-TVRV-K31B-00000-00 & yes & no\\
+        4G24-T8Y0-TVRV-K2NF-00000-00 & yes & no\\
+        5NMN-RCM1-DYTB-X1V5-00000-00 & yes & no\\
+        5NMN-RCT1-DYTB-X1V9-00000-00 & yes & no\\
+        5NMN-RCT1-DYTB-X1VC-00000-00 & yes & no\\
+        5NMN-RCY1-DYTB-X1VF-00000-00 & yes & no\\
+        5NMN-RD71-JCB9-61DG-00000-00 & yes & no\\
+        5NMN-RD81-JCB9-61DM-00000-00 & yes & no\\
+        5NMN-RD91-JCB9-61DP-00000-00 & yes & no\\
+        5NMN-RDC1-JCB9-61DX-00000-00 & yes & no\\
+        5NMN-RDF1-JCB9-61F0-00000-00 & yes & no\\
+        5NMN-RDN1-JCB9-61F1-00000-00 & yes & no\\
+        5NMN-RDR1-JCB9-61F4-00000-00 & yes & no\\
+        5NMN-RFF1-DYTB-X1VK-00000-00 & yes & no\\
+        5NMN-RGW1-DYTB-X1VV-00000-00 & yes & no\\
+        5NMN-RH11-JCB9-61FX-00000-00 & yes & no\\
+        5NMN-RH41-JCB9-61G4-00000-00 & yes & no\\
+        5NMN-RJ11-JCB9-61GD-00000-00 & yes & no\\
+        5NMN-RJ41-JCB9-61GJ-00000-00 & yes & no\\
+        5NYK-PX51-DYTB-X4WP-00000-00 & yes & no\\
+        5NYK-PXX1-DYTB-X4XM-00000-00 & yes & no\\
+        5NYK-PXX1-DYTB-X4XP-00000-00 & yes & no\\
+        5NYK-PY01-DYTB-X4XR-00000-00 & yes & no\\
+        5RJ8-3DP1-F04K-S2GK-00000-00 & yes & no\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:invalidDate}
+\end{table}
+
+%\vspace{20pt}
+
+Of all cases appearing in both data sets A and B, one had differing decision dates between sets: LNI 3S4W-X6F0-0039-M2H4-00000-00, with dates 1978-01-01 (in set A) and 1978-11-07 (in set B).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of case type}
+
+Cases in the source data are classified as either civil, criminal, civil and criminal, or are not assigned a type.  Table \ref{tab:distCaseType} shows the distribution of cases by type.  Table \ref{tab:diffCaseType} lists cases with differing case types between data sets A and B.
+
+\vspace{20pt}
+
+\begin{table}[H]
+    \centering
+    \caption{Distribution of cases by type}
+    \begin{tabular}{lrr}
+        \hline\\[-6pt]
+        Case type & n(set A) & n(set B)\\[4pt]
+        \hline\\[-6pt]
+        civ & 192,675 (17.8\%) & 197,553 (17.6\%)\\
+        crim &  16,114 (1.5\%) &  17,591 (1.6\%)\\
+        civ-crim & 364,456 (33.6\%) & 368,010 (32.7\%)\\
+        none & 510,355 (47.1\%) & 541,346 (48.1\%)\\
+        \hline\\
+    \end{tabular}
+    \label{tab:distCaseType}
+\end{table}
+
+\vspace{20pt}
+
+\begin{table}[H]
+    \centering
+    \caption{Cases with different classifications in data sets A and B}
+    \begin{tabular}{lcccc}
+        \hline\\[-6pt]
+        & \multicolumn{2}{c}{Civil} & \multicolumn{2}{c}{Criminal}\\
+        LNI & Set A & Set B & set A & set B\\[4pt]
+        \hline\\[-6pt]
+        3S4X-9FW0-001B-K3G7-00000-00 & no & yes & no & no\\
+        3S4X-9GP0-003B-51GH-00000-00 & no & yes & no & no\\
+        3S4X-G600-003B-P1JH-00000-00 & no & yes & no & no\\
+        4076-FFT0-0038-X2JM-00000-00 & no & yes & no & yes\\
+        4239-4R30-0038-X3TJ-00000-00 & no & yes & no & no\\
+        4344-WKG0-0038-X04X-00000-00 & no & yes & no & yes\\
+        43CB-G040-0038-X4NG-00000-00 & no & yes & no & no\\
+        43XX-3MG0-0038-X0YJ-00000-00 & no & yes & no & no\\
+        44BG-8ST0-0038-X0F2-00000-00 & no & yes & no & no\\
+        45V7-KX00-0038-X2R7-00000-00 & no & yes & no & no\\
+        469G-P1T0-0038-X485-00000-00 & no & yes & no & no\\
+        46RD-5520-0038-X3S7-00000-00 & no & yes & no & yes\\
+        46VM-M2T0-0038-X0T3-00000-00 & no & yes & no & no\\
+        47TG-1WB0-0038-X10M-00000-00 & no & yes & no & no\\
+        48WJ-V5N0-0038-X2BG-00000-00 & no & no & no & yes\\
+        4CGP-WYW0-0038-X1K2-00000-00 & no & yes & no & no\\
+        4CT5-XYH0-0038-X09G-00000-00 & no & no & no & yes\\
+        4F80-5950-0038-X3JB-00000-00 & no & yes & no & no\\
+        4GC3-XC80-0038-X2BT-00000-00 & no & yes & no & no\\
+        4GM4-Y5S0-0038-X4WH-00000-00 & no & yes & no & no\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:diffCaseType}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of court name}
+
+Table \ref{tab:distCourt} lists court names appearing in data sets A and B, along with corresponding observation frequencies.  \textit{empty} indicates records with a zero-length string appearing in the court short or long name field.  Table \ref{tab:emptyCourtName} lists LNIs for cases with an empty court name.  Table \ref{tab:caseDiffCourt} lists cases that appear in both data sets A and B, but with different court assignments.\\
+
+Observations:
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item Judicial Conference, Committee on Judicial Conduct appears in data set B only
+    \item Temporary Emergency Court of Appeals appears with two different long names in data set B
+    \item Tennessee Eastern District Court appears in data set A only
+    \item Texas Southern District Court appears in data set B only
+\end{itemize}
+
+\vspace{20pt}
+
+\begin{table}[H]
+    \centering
+    \caption{Court names appearing in sets A and B}
+    \footnotesize
+    \begin{tabular}{p{1.75in}p{2.25in}rr}
+        \hline\\[-6pt]
+        Short name & Long name & n(set A) & n(set B)\\[4pt]
+        \hline\\[-6pt]
+        \textit{empty} & \textit{empty} & 41 (0\%) & 11 (0\%)\\
+        & & &\\[-6pt]
+        1st Circuit Court of Appeals & US Court of Appeals for the First Circuit & 23,423 (2.2\%) & 23,886 (2.1\%)\\
+        & & &\\[-6pt]
+        2nd Circuit Court of Appeals & US Court of Appeals for the Second Circuit & 67,158 (6.2\%) & 69,081 (6.1\%)\\
+        & & &\\[-6pt]
+        3rd Circuit Court of Appeals & US Court of Appeals for the Third Circuit & 60,888 (5.6\%) & 62,392 (5.5\%)\\
+        & & &\\[-6pt]
+        4th Circuit Court of Appeals & US Court of Appeals for the Fourth Circuit & 137,324 (12.7\%) & 140,583 (12.5\%)\\
+        & & &\\[-6pt]
+        5th Circuit Court of Appeals & US Court of Appeals for the Fifth Circuit & 149,096 (13.8\%) & 153,966 (13.7\%)\\
+        & & &\\[-6pt]
+        6th Circuit Bankruptcy Appellate Panel & Bankruptcy Appellate Panel for the Sixth Circuit & 1 (0\%) & 3 (0\%)\\
+        & & &\\[-6pt]
+        6th Circuit Court of Appeals & US Court of Appeals for the Sixth Circuit & 98,452 (9.1\%) & 102,807 (9.1\%)\\
+        & & &\\[-6pt]
+        7th Circuit Court of Appeals & US Court of Appeals for the Seventh Circuit & 60,329 (5.6\%) & 62,243 (5.5\%)\\
+        & & &\\[-6pt]
+        8th Circuit Court of Appeals & US Court of Appeals for the Eighth Circuit & 69,797 (6.4\%) & 71,950 (6.4\%)\\
+        & & &\\[-6pt]
+        9th Circuit Court of Appeals & US Court of Appeals for the Ninth Circuit & 183,961 (17\%) & 196,492 (17.5\%)\\
+        & & &\\[-6pt]
+        10th Circuit Court of Appeals & US Court of Appeals for the Tenth Circuit & 55,946 (5.2\%) & 57,275 (5.1\%)\\
+        & & &\\[-6pt]
+        11th Circuit Court of Appeals & US Court of Appeals for the Eleventh Circuit & 87,296 (8.1\%) & 91,797 (8.2\%)\\
+        & & &\\[-6pt]
+        Court of Federal Claims & United States Court of Federal Claims & 1 (0\%) & 1 (0\%)\\
+        & & &\\[-6pt]
+        DC Circuit Court of Appeals & US Court of Appeals for the D.C. Circuit & 36,245 (3.3\%) & 37,579 (3.3\%)\\
+        & & &\\[-6pt]
+        Federal Circuit Court of Appeals & US Court of Appeals for the Federal Circuit & 53,328 (4.9\%) & 54,081 (4.8\%)\\
+        & & &\\[-6pt]
+        Judicial Conference, Committee on Judicial Conduct & Judicial Conference of the United States, Committee on Judicial Conduct and Disability & 0 (0\%) & 2 (0\%)\\
+        & & &\\[-6pt]
+        Temporary Emergency Court of Appeals & United States Temporary Emergency Appeals Court (1971-1992) & 0 (0\%) & 12 (0\%)\\
+        & & &\\[-6pt]
+        Temporary Emergency Court of Appeals & United States Temporary Emergency Court of Appeals & 313 (0\%) & 338 (0\%)\\
+        & & &\\[-6pt]
+        Tennessee Eastern District Court & US District Court for the Eastern District of Tennessee & 1 (0\%) & 0 (0\%)\\
+        & & &\\[-6pt]
+        Texas Southern District Court & US District Court for the Southern District of Texas & 0 (0\%) & 1 (0\%)\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:distCourt}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Cases with an empty court name in source records}
+    \begin{tabular}{p{2.5in}cc}
+        \hline\\[-6pt]
+        LNI & Exists in set A & Exists in set B\\[4pt]
+        \hline\\[-6pt]
+        3RHM-PKM0-0038-X3K4-00000-00 & yes & no\\
+        3RV5-KP00-008H-V07P-00000-00 & yes & yes\\
+        3RV5-KSB0-003B-50M4-00000-00 & yes & yes\\
+        3S12-VYB0-0038-X3BN-00000-00 & yes & no\\
+        3S4W-T920-0039-M08N-00000-00 & yes & yes\\
+        3S4W-WSK0-0039-M0TG-00000-00 & yes & no\\
+        3S4X-0650-0039-W4RT-00000-00 & yes & no\\
+        3S4X-1PS0-001B-K1XV-00000-00 & yes & yes\\
+        3S4X-5JR0-003B-50T8-00000-00 & yes & yes\\
+        3S4X-6M00-008H-V0GV-00000-00 & yes & no\\
+        3S4X-6M00-008H-V0GW-00000-00 & yes & no\\
+        3S4X-BYM0-001B-K3HW-00000-00 & yes & yes\\
+        3S4X-C0G0-001T-D46N-00000-00 & yes & no\\
+        3S4X-CSF0-003B-5370-00000-00 & yes & yes\\
+        4F7Y-YXX0-TVRV-K31B-00000-00 & yes & no\\
+        4G24-T8Y0-TVRV-K2NF-00000-00 & yes & no\\
+        4KND-FMG0-TVRV-K3DG-00000-00 & yes & yes\\
+        5CK5-5WW1-F04K-M22K-00000-00 & no & yes\\
+        5NMN-RCM1-DYTB-X1V5-00000-00 & yes & no\\
+        5NMN-RCT1-DYTB-X1V9-00000-00 & yes & no\\
+        5NMN-RCT1-DYTB-X1VC-00000-00 & yes & no\\
+        5NMN-RCY1-DYTB-X1VF-00000-00 & yes & no\\
+        5NMN-RD71-JCB9-61DG-00000-00 & yes & no\\
+        5NMN-RD81-JCB9-61DM-00000-00 & yes & no\\
+        5NMN-RD91-JCB9-61DP-00000-00 & yes & no\\
+        5NMN-RDC1-JCB9-61DX-00000-00 & yes & no\\
+        5NMN-RDF1-JCB9-61F0-00000-00 & yes & no\\
+        5NMN-RDN1-JCB9-61F1-00000-00 & yes & no\\
+        5NMN-RDR1-JCB9-61F4-00000-00 & yes & no\\
+        5NMN-RFF1-DYTB-X1VK-00000-00 & yes & no\\
+        5NMN-RGW1-DYTB-X1VV-00000-00 & yes & no\\
+        5NMN-RH11-JCB9-61FX-00000-00 & yes & no\\
+        5NMN-RH41-JCB9-61G4-00000-00 & yes & no\\
+        5NMN-RJ11-JCB9-61GD-00000-00 & yes & no\\
+        5NMN-RJ41-JCB9-61GJ-00000-00 & yes & no\\
+        5NRR-WCV1-F04K-W0B6-00000-00 & yes & no\\
+        5NYK-PX51-DYTB-X4WP-00000-00 & yes & no\\
+        5NYK-PXX1-DYTB-X4XM-00000-00 & yes & no\\
+        5NYK-PXX1-DYTB-X4XP-00000-00 & yes & no\\
+        5NYK-PY01-DYTB-X4XR-00000-00 & yes & no\\
+        5RJ8-3DP1-F04K-S2GK-00000-00 & yes & no\\
+        5RK7-J161-DYFH-X0W8-00000-00 & yes & no\\
+        5V50-0W61-JGBH-B2TG-00000-00 & no & yes\\
+        8R3J-55T2-DHRX-K007-00000-00 & no & yes\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:emptyCourtName}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Cases appearing in data sets A and B, but with different courts}
+    \footnotesize
+    \begin{tabular}{llp{2.25in}}
+        \hline\\[-6pt]
+        LNI & Court set A & Court set B\\[4pt]
+        \hline\\[-6pt]
+        3S4W-WSK0-0039-M0TG-00000-00 & \textit{empty} & 5th Circuit Court of Appeals\\\\[-4pt]
+        58YB-N3S1-F04K-G01C-00000-00 & 11th Circuit Court of Appeals & 5th Circuit Court of Appeals\\\\[-4pt]
+        5RK7-J161-DYFH-X0W8-00000-00 & \textit{empty} & 5th Circuit Court of Appeals\\\\[-4pt]
+        5RJ8-N4C1-F361-M16P-00000-00 & 7th Circuit Court of Appeals & 11th Circuit Court of Appeals\\\\[-4pt]
+        5RF1-H0G1-FJDY-X26K-00000-00 & 9th Circuit Court of Appeals & 6th Circuit Court of Appeals\\\\[-4pt]
+        5NRR-WCV1-F04K-W0B6-00000-00 & \textit{empty} & 10th Circuit Court of Appeals\\\\[-4pt]
+        3S4X-0650-0039-W4RT-00000-00 & \textit{empty} & 3rd Circuit Court of Appeals\\\\[-4pt]
+        5PTK-GP41-F2TK-23SR-00000-00 & 5th Circuit Court of Appeals & 1st Circuit Court of Appeals\\\\[-4pt]
+        5RG5-6JJ1-JBT7-X08T-00000-00 & 5th Circuit Court of Appeals & 1st Circuit Court of Appeals\\\\[-4pt]
+        3RV5-F210-0039-P06K-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4W-V570-0039-X2GT-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4W-VBF0-0039-M4VW-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4W-X0C0-0039-X410-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4W-XB90-0039-X4GW-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4X-12X0-0039-M49S-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4X-12X0-0039-M49T-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4X-2J90-0039-M45P-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4X-2WJ0-0039-M0N5-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4X-68W0-0039-W32D-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4X-K050-0039-W4FW-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        3S4X-KMP0-0039-W0FK-00000-00 & Federal Circuit Court of Appeals & Temporary Emergency Court of Appeals\\\\[-4pt]
+        5CK5-5WW1-F04K-M22K-00000-00 & 5th Circuit Court of Appeals & \textit{empty}\\\\[-4pt]
+        56F6-GPM1-F04K-P21S-00000-00 & 9th Circuit Court of Appeals & Judicial Conference, Committee on Judicial Conduct\\\\[-4pt]
+        5BWH-9G81-F04K-J00J-00000-00 & 9th Circuit Court of Appeals & Judicial Conference, Committee on Judicial Conduct\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:caseDiffCourt}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Distribution of cases by court and year}
+
+Figure \ref{fig:distCasesCourtYear} shows the distribution of cases by court and year.  A difference in case frequency between data sets A and B is apparent, primarily, in early and late years for which additional observations were included in data set B.  Figure \ref{fig:diffCasesCourtYear} plots the difference in cases between data sets B and A by court and year.  Red points indicate a negative difference, black indicates a positive difference.
+
+\begin{figure}[H]
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{CourtYearFrequency}.png}
+    \centering
+    \caption{Distribution of cases by court and year}
+    \label{fig:distCasesCourtYear}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{CourtYearFrequencyDiff}.png}
+    \centering
+    \caption{Difference in cases between sets B and A by court and year}
+    \label{fig:diffCasesCourtYear}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Comparison of data set A and Set B case titles}
+
+617 of 1,083,552 cases appearing in both data sets A and B have different short case names between data sets.  Table \ref{tab:diffShortName} lists a sample of such cases, along with short names as they appear in source records.  Most involve a difference in spelling of abbreviations or expansion of personal and organizational titles.  Although differences presented may seem merely semantic, a question arises as to what caused the change in LN's records or extraction procedure between data releases.  Eleven cases appearing in both data sets A and B have different long case names between data sets.  They are listed in table \ref{tab:diffLongName}.  Most differences in long case names appear to be due to changes of plaintiff or defendant names (Berman instead of Herman), correction of typographic errors (fulfillment instead of fullfilment), and alternate placement of plaintiff and defendant (Texas Pig Stands v. Hard Rock Cafe instead of Hard Rock Cafe v. Texas Pig Stands).  One results from removal of special characters appearing in the title in one set (``$<$" and ``$>$" in Charter Communications Investments v. Charter Communications).
+
+\begin{table}[H]
+    \centering
+    \caption{Sample cases with different short names in data sets A and B}
+    \small
+    \begin{tabular}{lcl}
+        \hline\\[-6pt]
+        LNI & Set & Short name set A (above) set B (below)\\[4pt]
+        \hline\\[-6pt]
+        3V02-HR70-0038-X108-00000-00 & A & Harger v. Commissioner\\ & B & Harger v. C.I.R.\\[6pt]
+        3S4X-1S20-001B-K23G-00000-00 & A & Sochin v. Commissioner\\ & B & Sochin v. Comm'r\\[6pt]
+        3T8X-0G10-003B-9029-00000-00 & A & Qantas Airways v. United States\\ & B & Qantas Airways Ltd. v. United States\\[6pt]
+        3S4X-06X0-008H-V27X-00000-00 & A & Huffman v. Commissioner\\ & B & Huffman v. Comm'r\\[6pt]
+        3S4W-YDJ0-001B-K275-00000-00 & A & Wheby v. Maryland Cas. Co.\\ & B & Wheby v. Md. Cas. Co.\\[6pt]
+        5MT0-7651-F04K-N00M-00000-00 & A & Hometown 2006-1 1925 Valley View, LLC v. Prime Income Asset Mgmt., LLC\\ & B & Hometown 2006-1 1925 Valley View, L.L.C. v. Prime Income Asset Mgmt., L.L.C.\\[6pt]
+        3S4W-X340-001B-K0BW-00000-00 & A & United States v. Millstone Enters.\\ & B & United States v. Millstone Enters., Inc.\\[6pt]
+        3S42-C2W0-008H-V0FB-00000-00 & A & Baldwin County Sav. \& Loan Ass'n v. IRS\\ & B & Baldwin Cty. S\&L Ass'n v. IRS\\[6pt]
+        3VWF-27D0-0038-X182-00000-00 & A & Ballantyne v. Commissioner\\ & B & Ballantyne v. Comm'r\\[6pt]
+        3V9P-4D40-0038-X334-00000-00 & A & Beery v. Commissioner\\ & B & Beery v. C.I.R.\\[6pt]
+        3S4X-BD80-003B-P0X5-00000-00 & A & Villalpando v. Untied States\\ & B & Villalpando v. United States\\[6pt]
+        3T2P-0KS0-0038-X194-00000-00 & A & Eddie's Auction v. United States\\ & B & Eddie's Auction, Inc. v. United States\\[6pt]
+        3WB7-95R0-0038-X0CJ-00000-00 & A & Clevenger v. Commissioner\\ & B & Clevenger v. Comm'r\\[6pt]
+        3XC7-B900-0038-X1Y3-00000-00 & A & Kikalos v. Commissioner\\ & B & Kikalos v. Comm'r\\[6pt]
+        3TC7-NDS0-0038-X0BK-00000-00 & A & Geftman v. Comm'r\\ & B & Geftman v. C.I.R.\\[6pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:diffShortName}
+\end{table}
+
+\begin{small}
+\begin{longtable}[H]{lcp{4in}}
+    \caption{Sample cases with different short names in data sets A and B}\\
+    \hline\\[-6pt]
+    LNI & Set & Short names\\[4pt]
+    \hline\\[-6pt]
+    \endhead
+    523D-5881-652G-20C2-00000-00 & A & ROBERT A. HERMAN, Petitioner, v. DEPARTMENT OF THE INTERIOR, Respondent.\\[4pt] & B & ROBERT A. BERMAN, Petitioner, v. DEPARTMENT OF THE INTERIOR, Respondent.\\[6pt]
+    5KVV-8W21-F04K-K32P-00000-00 & A & GREGORY HICKMAN, Appellant v. AMAZON FULLFILMENT\\[4pt] & B & GREGORY HICKMAN, Appellant v. AMAZON FULFILLMENT\\[6pt]
+    549X-YN71-F04K-V031-00000-00 & A & CENTRAL REGISRATION DEPOSITORY, \#1346377 (Paul Merritt Christiansen), Plaintiff - Appellant, v. FINRA [FINANCIAL INDUSTRY REGULATORY AUTHORITY], successor in interest of NASDDefendant[s], Defendant - Appellee.\\[4pt] & B & CENTRAL REGISTRATION DEPOSITORY, \#1346377 (Paul Merritt Christiansen), Plaintiff - Appellant, v. FINRA [FINANCIAL INDUSTRY REGULATORY AUTHORITY], successor in interest of NASDDefendant[s], Defendant - Appellee.\\[6pt]
+    59XY-XGH1-F04K-M4S6-00000-00 & A & Coley Copeland, Plaintiff-Appellant, v. Otis R. Bowen, Secretary, Department of Health and Human Services, Defendant-Appellee\\[4pt] & B & Coley Copeland, Plaintiff-Appellant, versus Otis R. Bowen, Secretary, Department of Health and Human Services, Defendant-Appellee.\\[6pt]
+    5NFV-TRD1-F04K-H00C-00000-00 & A & VICTOR GARCIA GARCIA, Petitioner, v. JEFFERSON B. SESSIONS, III, Attorney General of the United States,*Pursuant to Fed. R. App. P. 4(c)(2), Attorney General Jefferson B. Sessions, III has been substituted for former Attorney General Loretta E. Lynch as the respondent. Respondent.\\[4pt] & B & VICTOR GARCIA GARCIA, Petitioner, v. JEFFERSON B. SESSIONS, III, Attorney General of the United States,*Pursuant to Fed. R. App. P. 43(c)(2), Attorney General Jefferson B. Sessions, III has been substituted for former Attorney General Loretta E. Lynch as the respondent. Respondent.\\[6pt]
+    4MG2-6F50-0038-X06M-00000-00 & A & WENDEL R. WARDELL, JR., Plaintiff-Appellant, v. SANDRA MAGGARD, individually and officially; GLORIA MASTERSON; JOSEPH G. ORTIZ, officially; TONEY WELCH, individually and officially, Defendants-Appellees.\\[4pt] & B & WENDEL R. WARDELL, JR., Plaintiff-Appellant, v. SONDRA DUNCAN, individually and officially; GLORIA MASTERSON; JOSEPH G. ORTIZ, officially; TONEY WELCH, individually and officially, Defendants-Appellees.\\[6pt]
+    5JDY-H8C1-F04B-M0P0-00000-00 & A & SCOTT CLARE, NEIL LONG, INNOVATIVE TRUCK STORAGE, INC., Plaintiffs-Appellants v. CHRYSLER GROUP LLC, Defendant-Appellee\\[4pt] & B & SCOTT CLARE, NEIL LONG, INNOVATIVE TRUCK STORAGE, INC., Plaintiffs-Appellants v. CHRYSLER GROUP, LLC, Defendant-Appellee\\[6pt]
+    3S4X-61D0-008H-V3HX-00000-00 & A & HARD ROCK CAFE INTERNATIONAL, INC., Defendant-Appellee-Cross-Appellant. TEXAS PIG STANDS, INC., Plaintiff-Appellee, v. HARD ROCK CAFE INTERNATIONAL, INC., Defendant-Appellant.\\[4pt] & B & TEXAS PIG STANDS, INC., Plaintiff-Appellant-Cross-Appellee, v. HARD ROCK CAFE INTERNATIONAL, INC., Defendant-Appellee-Cross-Appellant. TEXAS PIG STANDS, INC., Plaintiff-Appellee v. HARD ROCK CAFE INTERNATIONAL, INC., Defendant-Appellant.\\[6pt]
+    3S4X-CP20-0039-W520-00000-00 & A & HOWARD MORSEBURG, Plaintiff-Appellant, v. ANDRE BAYLON and CALIFORNIA ARTS COUNCIL, an agency of the State of California, Defendants-Appellees, v. RICHARD MAYER and PETER ALEXANDER, Defendants in Intervention-Appellees\\[4pt] & B & HOWARD MORSEBURG, Plaintiff-Appellant, v. ANDRE BALYON and CALIFORNIA ARTS COUNCIL, an agency of the State of California, Defendants-Appellees, v. RICHARD MAYER and PETER ALEXANDER, Defendants in Intervention-Appellees\\[6pt]
+    56G1-RFS1-F04K-J1R3-00000-00 & A & In re CHARTER COMMUNICATIONS, INC. R$<$2$>$ INVESTMENTS, LDC, Appellant, -- v. -- CHARTER COMMUNICATIONS, INC., CCH I, LLC, CCH I CAPITAL CORPORATION, CCH II, LLC, CCH II CAPITAL CORPORATION, Debtors-Appellees, PAUL G. ALLEN, OFFICIAL COMMITTEE OF UNSECURED CREDITORS, Appellees. LAW DEBENTURE TRUST COMPANY OF NEW YORK, Appellant, -- v. -- CHARTER COMMUNICATIONS, INC., CCH I, LLC, CCH I CAPITAL CORPORATION, CCH II, LLC, CCH II CAPITAL CORPORATION, Debtors-Appellees, PAUL G. ALLEN, OFFICIAL COMMITTEE OF UNSECURED CREDITORS, Appellees.*The Clerk of the Court is directed to amend the official captions as set forth above, which reflects the true status of the parties.\\[4pt] & B & In re CHARTER COMMUNICATIONS, INC. R2 INVESTMENTS, LDC, Appellant, -- v. -- CHARTER COMMUNICATIONS, INC., CCH I, LLC, CCH I CAPITAL CORPORATION, CCH II, LLC, CCH II CAPITAL CORPORATION, Debtors-Appellees, PAUL G. ALLEN, OFFICIAL COMMITTEE OF UNSECURED CREDITORS, Appellees. LAW DEBENTURE TRUST COMPANY OF NEW YORK, Appellant, -- v. -- CHARTER COMMUNICATIONS, INC., CCH I, LLC, CCH I CAPITAL CORPORATION, CCH II, LLC, CCH II CAPITAL CORPORATION, Debtors-Appellees, PAUL G. ALLEN, OFFICIAL COMMITTEE OF UNSECURED CREDITORS, Appellees.*The Clerk of the Court is directed to amend the official captions as set forth above, which reflects the true status of the parties.\\[6pt]
+    5JYW-TFC1-F04K-V0TR-00000-00 & A & JAMUL ACTION COMMITTEE; JAMUL COMMUNITY CHURCH; DARLA KASMEDO; PAUL SCRIPPS; GLEN REVELL; WILLIAM HENDRIX, Plaintiffs-Appellants, v. JONODEV CHAUDHURI, Chairwoman of the National Indian Gaming Commission; SALLY JEWELL, Secretary of the U.S. Department of the Interior; KEVIN K. WASHBURN, Esquire, Assistant Secretary - Indian Affairs, U.S. Department of the Interior; AMY DUTSCHKE, Regional Director, Bureau of Indian Affairs; PAULA L. HART, Director of the Office of Inidan Gaming, Bureau of Indian Affairs; JOHN RYDZIK, Chief, Division of Environmental, Cultural Resources Management and Safety of the Bureau of Indian Affairs; DAWN HOULE, Chief of Staff for the National Indian Gaming Commission; U.S. DEPARTMENT OF THE INTERIOR; NATIONAL INDIAN GAMING COMMISSION; RAYMOND HUNTER, Chairman, Jamul Indian Village; CHARLENE CHAMBERLAIN; ROBERT MESA; RICHARD TELLOW; JULIA LOTTA; PENN NATIONAL, INC.; SAN DIEGO GAMING VILLAGE, LLC; C.W. DRIVER, INC., Defendants-Appellees.\\[4pt] & B & JAMUL ACTION COMMITTEE; JAMUL COMMUNITY CHURCH; DARLA KASMEDO; PAUL SCRIPPS; GLEN REVELL; WILLIAM HENDRIX, Plaintiffs-Appellants, v. JONODEV CHAUDHURI, Chairwoman of the National Indian Gaming Commission; SALLY JEWELL, Secretary of the U.S. Department of the Interior; KEVIN K. WASHBURN, Esquire, Assistant Secretary - Indian Affairs, U.S. Department of the Interior; AMY DUTSCHKE, Regional Director, Bureau of Indian Affairs; PAULA L. HART, Director of the Office of Indian Gaming, Bureau of Indian Affairs; JOHN RYDZIK, Chief, Division of Environmental, Cultural Resources Management and Safety of the Bureau of Indian Affairs; DAWN HOULE, Chief of Staff for the National Indian Gaming Commission; U.S. DEPARTMENT OF THE INTERIOR; NATIONAL INDIAN GAMING COMMISSION; RAYMOND HUNTER, Chairman, Jamul Indian Village; CHARLENE CHAMBERLAIN; ROBERT MESA; RICHARD TELLOW; JULIA LOTTA; PENN NATIONAL, INC.; SAN DIEGO GAMING VILLAGE, LLC; C.W. DRIVER, INC., Defendants-Appellees.\\[4pt]
+    \hline\\
+    \label{tab:diffLongName}
+\end{longtable}
+\end{small}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of opinion, concurring, and dissenting authors}\label{sec:evalOpAuthor}
+
+Opinion, concurring, and dissenting author fields in the source data contain a combination of LN assigned judge IDs and textual names.  Table \ref{tab:exampleOpinionJudge} contains example author entries.  Table \ref{tab:distOpinionType} lists the distribution of cases by all combinations of opinion, concurring, and dissenting author existence.\\
+
+Observations (in both data sets):
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item No single, consistent method is used to identify authoring judges
+    \item Approximately 68\% of cases have no opinion, concurring, or dissenting authors recorded
+    \item Approximately 28\% of cases have opinion, but no concurring or dissenting authors recorded
+    \item Approximately 3\% of cases have opinion and either concurring or dissenting (not both) authors recorded
+    \item Approximately 1\% of cases have opinion, concurring, and dissenting authors recorded
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \caption{Example opinion, concurring, and dissenting author entries}
+    \small
+    \begin{tabular}{cll}
+        \hline\\[-6pt]
+        Data set & Type & Author(s)\\[4pt]
+        \hline\\[-6pt]
+        A & Opinion & ROBERT H. HENRY\textasciitilde\textasciitilde\\
+        A & Opinion & DEANELL REECE TACHA\textasciitilde\textasciitilde jud-100095850\\
+        A & Concurring & PHILLIPS$\vert$\textasciitilde\textasciitilde|HAMILTON\textasciitilde\textasciitilde jud-100047518\\
+        A & Concurring & MICHAEL DALY HAWKINS\textasciitilde\textasciitilde jud-100034989$\vert$HARRY PREGERSON\textasciitilde\ jud-100032654\\
+        A & Concurring & Murphy, Circuit Judge, concurring in part and dissenting in part.  \textasciitilde\textasciitilde\\
+        A & Dissenting & WARREN J. FERGUSON\textasciitilde\textasciitilde jud-100056013\\
+        A & Dissenting & MERRITT; KAREN NELSON MOORE\textasciitilde\textasciitilde \\
+        A & Dissenting & TJOFLAT; KRAVITCH (In Part) \textasciitilde\textasciitilde\\
+        B & Opinion & GREENBERG \textasciitilde\textasciitilde\\
+        B & Opinion & WILKINSON\textasciitilde\textasciitilde urn:entity:jud-100022691\\
+        B & Opinion & ROBERT H. HENRY\textasciitilde\textasciitilde\\
+        B & Opinion & ROBERT H. HENRY\textasciitilde\textasciitilde urn:entity:jud-100034658\\
+        B & Concurring & PHILLIPS\textasciitilde\textasciitilde urn:entity:jud-100008167$\vert$HAMILTON\textasciitilde\textasciitilde urn:entity:jud-100047518\\
+        B & Concurring & WILLIAMS \textasciitilde\textasciitilde\\
+        B & Concurring & BETTY B. FLETCHER (In Part) \textasciitilde\textasciitilde\\
+        B & Concurring & Murphy, Circuit Judge, concurring in part and dissenting in part.  \textasciitilde\textasciitilde\\
+        B & Dissenting & MERRITT\textasciitilde\textasciitilde urn:entity:jud-100026008\\
+        B & Dissenting & RANDOLPH \textasciitilde\textasciitilde\\
+        B & Dissenting & LAY; JOHN GIBBONS\textasciitilde\textasciitilde\\
+        B & Dissenting & RYAN (In Part) \textasciitilde\textasciitilde\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:exampleOpinionJudge}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Distribution of cases by combinations of opinion, concurring, and dissenting authors}
+    \begin{tabular}{cccrr}
+        \hline\\[-6pt]
+        Opinion author & Concurring author & Dissenting author & n(set A) & n(set B)\\[4pt]
+        \hline\\[-6pt]
+        y & y & y &   7,625 (0.7\%) &   7,885 (0.7\%)\\
+        y & y & n &  10,388 (1\%) &  10,754 (1\%)\\
+        y & n & y &  18,859 (1.7\%) &  19,501 (1.7\%)\\
+        y & n & n & 308,576 (28.5\%) & 318,669 (28.3\%)\\
+        n & y & y &   1,248 (0.1\%) &   1,314 (0.1\%)\\
+        n & y & n &   2,036 (0.2\%) &   2,172 (0.2\%)\\
+        n & n & y &   3,954 (0.4\%) &   4,123 (0.4\%)\\
+        n & n & n & 730,914 (67.5\%) & 760,082 (67.6\%)\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:distOpinionType}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\subsection{Distribution of opinion, concurring, and dissenting authors by court and year}
+
+Figure \ref{fig:distOpinionTypeCourtYear} compares case frequency by data set, court, year, and author type combination (o=opinion, c=concurring, d=dissenting).  Gray vertical lines separate pairs of bars, one pair for each year, the left bar indicating data set A case frequency, the right bar indicating data set B frequency.  Stacked regions within bars are color coded by author type combination and indicate associated case frequencies.\\
+
+Observations:
+
+\begin{itemize}\setlength\itemsep{1pt}
+    \item Cases with decision dates in 1973 appear to be absent in data set A
+    \item The frequency of 2018 cases in data set B appears significantly greater than that in data set A, especially for the 9th Circuit
+    \item Slight differences, between sets B and A, in case frequency are apparent for certain courts, years, and author type
+    \begin{itemize}[noitemsep]
+      \item 2nd Circuit, 2016 and 2017:  decrease in o-- cases (opinion with no concurring or dissenting authors) with slight increase in --- cases (no opinions)
+      \item 3rd Circuit, 2017:  increase in o-- and --- cases
+      \item 5th Circuit
+      \begin{itemize}[noitemsep]
+        \item 2011:  increase in o-- cases with corresponding decrease in --- cases
+        \item 2013:  decrease in o-- cases with corresponding increase in -c- cases
+        \item 2015:  increase in o-- cases with corresponding decrease in -c- cases
+        \item 2016:  increase in --- cases
+        \item 2017:  increase in -c- and --- cases
+      \end{itemize}
+      \item 6th Circuit, 2011-2017:  increase in --- cases
+      \item 7th Circuit, 2014, 2016, 2017:  increase in --- cases
+      \item 8th Circuit, 2017:  increase in --- cases
+      \item 9th Circuit, 2016-2017:  increase in --- cases
+      \item 9th Circuit, 2017:  increase in -c- cases
+      \item 10th Circuit, 2017:  increase in --- cases and possible increase in -cd cases
+      \item 11th Circuit, 2015-2017:  increase in --- cases
+      \item 11th Circuit, 2017:  increase in -c- cases
+      \item Federal Circuit, 2017:  increase in -c- cases
+    \end{itemize}
+    \item All discernible differences appear in years 1973 and 2011-2018
+    \item Above patterns of increase in frequency are consistent those observed in figure \ref{fig:diffCasesCourtYear}.
+\end{itemize}
+
+\begin{figure}[H]
+    \includegraphics[width=6.5in, trim={0 0 0 0.0}, clip]{{OpinionTypeCourtYearFrequency}.png}
+    \centering
+    \caption{Distribution of opinion author combinations by court, year, and data set.  One pair of bars per year, left bar represents data set A, right bar represents data set B.  Stacked regions within bars represent number of cases by author type combination (o=opinion, c=concurring, d=dissenting).}
+    \label{fig:distOpinionTypeCourtYear}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\subsection{Comparison of data sets A and B opinion, concurring, and dissenting author types by case}
+
+Two cases, of 1,083,552 appearing in both data sets A and B, exhibit a difference in opinion author types between sets.  These appear in table \ref{tab:diffCaseOpinionAuthType}.  All other cases appearing in both data sets have identical opinion, concurring, and dissenting author type combinations in both sets.
+
+\vspace{20pt}
+
+\begin{table}[H]
+    \centering
+    \caption{Cases with a difference in opinion author types between data sets A and B}
+    \footnotesize
+    \begin{tabular}{lllp{2in}cc}
+        \hline\\[-6pt]
+        & & & & \multicolumn{2}{c}{Author types} \\
+        LNI & Court & Decision date & Title & Set A & Set B\\[4pt]
+        \hline\\[-6pt]
+        51W7-JP81-F04K-W0CK-00000-00 & 10th Circuit & 2011-01-05 & Riviera Drilling \& Exploration Co. v. Gunnison Energy Corp. & oc- & o--\\
+        & & & & &\\
+        5FWH-68J1-F04K-Y087-00000-00 & DC Circuit & 2015-05-01 & Morgan Drexen, Inc. v. Consumer Fin. Prot. Bureau & oc- & o-d\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:diffCaseOpinionAuthType}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\subsection{Comparison of data sets A and B opinion, concurring, and dissenting author IDs and names by case}
+
+As seen in table \ref{tab:exampleOpinionJudge}, various methods of identifying authors are employed in both data sets.  After removal of ``urn:entity:" from and conversion of ``\textasciitilde\textasciitilde" to ``\textasciitilde" in author fields, 33,753 cases, of 1,083,564 appearing in both data sets, have unequal entries in author fields.  Differences are typically due to a judge ID appearing in an author field of one data set but not the other.  Examples of differing authors, by case, appear in table \ref{tab:exampleDiffAuthor}.  Although clear, visual associations are apparent in set A and set B judge identifier text, a question arises regarding changes in LN's data extraction methods that cause observed differences.  Is one method preferred?  Do observed differences raise the possibility of differences in other fields that are not observed?
+
+\vspace{0.25in}
+
+\begin{table}[H]
+    \centering
+    \caption{Cases with a difference in author between data sets}
+    \footnotesize
+    \RaggedRight
+    \begin{tabular}{llp{1.5in}p{2in}}
+        \hline\\[-6pt]
+        Author type & LNI & Author set A & Author set B\\[4pt]
+        \hline\\[-6pt]
+        Opinion & 3RGS-0N70-0038-X1MH-00000-00 & MICHAEL R. MURPHY~ & MICHAEL R. MURPHY~jud-100080638\\
+        & & &\\[-6.25pt]
+        Opinion & 3RGY-YRN0-00B1-D098-00000-00 & WILLIAMS~jud-100022613 & WILLIAMS~\\
+        & & &\\[-6.25pt]
+        Opinion & 3RH4-4MF0-0038-X237-00000-00 & LEVIN H. CAMPBELL~ & LEVIN H. CAMPBELL~jud-100063416\\
+        & & &\\[-6.25pt]
+        Opinion & 3RHM-PSM0-0038-X3PV-00000-00 & BRORBY ~ & BRORBY~jud-100060646\\
+        & & &\\[-6.25pt]
+        Opinion & 3RHM-YYB0-003N-4039-00000-00 & LOURIE ~ & LOURIE~jud-100029645\\
+        & & &\\[-6.25pt]
+        Opinion & 3RJ6-G2W0-00B1-D0PS-00000-00 & WIENER ~ & WIENER~jud-100017214\\
+        & & &\\[-6.25pt]
+        Opinion & 3RJ6-G930-0038-X45P-00000-00 & JOHN M. DUHE~ & JOHN M. DUHE~jud-100044088\\
+        & & &\\[-6.25pt]
+        Opinion & 3RJG-HSR0-001T-D092-00000-00 & JEROME FARRIS~ & JEROME FARRIS~jud-100046755\\
+        & & &\\[-6.25pt]
+        Opinion & 3RJP-N0X0-00B1-D16C-00000-00 & MICHAEL~jud-100095931 & MICHAEL~\\
+        & & &\\[-6.25pt]
+        Opinion & 3RK4-CJ20-006F-M2GP-00000-00 & WILLIAMS~jud-100022133 & WILLIAMS~\\
+        & & &\\[-6.25pt]
+        Concurring & 3RFG-6T90-0038-X0C1-00000-00 & PHILLIPS~|HAMILTON~jud-100047518 & PHILLIPS~jud-100008167|HAMILTON~jud-100047518\\
+        & & &\\[-6.25pt]
+        Concurring & 3RFX-46S0-0038-X0S6-00000-00 & BENAVIDES~jud-100069212 & BENAVIDES~\\
+        & & &\\[-6.25pt]
+        Concurring & 3RFX-46T0-0038-X0S9-00000-00 & KING~ & KING~jud-100040390\\
+        & & &\\[-6.25pt]
+        Concurring & 3RTS-KG70-003B-G01W-00000-00 & VAN PELT~ & VAN PELT~jud-100000146\\
+        & & &\\[-6.25pt]
+        Concurring & 3RTX-FFR0-003B-P042-00000-00 & REYNOLDS~ & REYNOLDS~jud-100002330\\
+        & & &\\[-6.25pt]
+        Concurring & 3RWN-4D90-001T-D14W-00000-00 & BENNETT~ & BENNETT~jud-100069180\\
+        & & &\\[-6.25pt]
+        Concurring & 3RYC-0940-00B1-D55V-00000-00 & KAREN NELSON MOORE~jud-100016013 & KAREN NELSON MOORE~\\
+        & & &\\[-6.25pt]
+        Concurring & 3S2B-9CX0-00B1-D14B-00000-00 & RYAN~jud-100000581 & RYAN~\\
+        & & &\\[-6.25pt]
+        Concurring & 3S3V-4D50-00B1-D1PY-00000-00 & PREGERSON~ & PREGERSON~jud-100032654\\
+        & & &\\[-6.25pt]
+        Concurring & 3S42-C3X0-008H-V0HN-00000-00 & STUART~ & STUART~jud-100013588\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RFG-6T90-0038-X0C1-00000-00 & PHILLIPS~|HAMILTON~jud-100047518 & PHILLIPS~jud-100008167|HAMILTON~jud-100047518\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RFX-46T0-0038-X0S9-00000-00 & KING~ & KING~jud-100040390\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RHM-PPF0-0038-X3M5-00000-00 & HATCHETT~jud-100093240 & HATCHETT~\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RJX-J870-0038-X09C-00000-00 & McKEE~ & McKEE~jud-100032231\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RSF-P9M0-00B1-D39V-00000-00 & REINHARDT~ & REINHARDT~jud-100002521\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RTX-6400-001B-K01X-00000-00 & THOMPSON~ & THOMPSON~jud-100019111\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RTX-FFR0-003B-P042-00000-00 & REYNOLDS~ & REYNOLDS~jud-100002330\\
+        & & &\\[-6.25pt]
+        Dissenting & 3RYC-0940-00B1-D55V-00000-00 & KAREN NELSON MOORE~jud-100016013 & KAREN NELSON MOORE~\\
+        & & &\\[-6.25pt]
+        Dissenting & 3S06-V4F0-00B1-D0F8-00000-00 & PREGERSON~ & PREGERSON~jud-100032654\\
+        & & &\\[-6.25pt]
+        Dissenting & 3S2B-9CX0-00B1-D14B-00000-00 & RYAN~jud-100000581 & RYAN~\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:exampleDiffAuthor}
+\end{table}
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of case outcome}
+
+Case outcome type is assigned by the SQL import algorithm using the following classification rules (the first rule satisfied assigns outcome type):\\
+
+If outcome contains ``reversed" then outcome type = reversed\\
+Else if outcome contains ``vacated" then outcome type = vacated\\
+Else if outcome contains ``affirmed" then outcome type = affirmed\\
+Else if outcome contains ``denied" then outcome type = denied\\
+Else outcome type = other\\
+
+Table \ref{tab:distOutcomeType} shows the distribution of cases by outcome type.  Of the 649,399 and 677,892 cases in data sets A and B, respectively, having an outcome type of ``Other," 623,492 and 651,314, respectively, have empty outcome text.  Another 12,676 and 12,915, respectively, contain the text ``dismiss."   Perhaps the classification rules could be amended to include one for ``Dismissed" cases.  Table \ref{tab:otherNonEmptuOutcome} lists example outcome text for cases with outcome type classification of ``Other" and not containing the text ``dismiss."  One case appearing in both data sets has outcome text that is different between sets:  5PDP-0CD1-F04K-X0N0-00000-00 (11th Circuit, 2017-09-06, Sears v. Hardin), with empty outcome text in data set A and outcome text ``Affirmed" in data set B.
+
+\vspace{20pt}
+
+\begin{table}[H]
+    \centering
+    \caption{Distribution of cases by outcome type}
+    \begin{tabular}{lrr}
+        \hline\\[-6pt]
+        Outcome type & n(set A) & n(set B)\\[4pt]
+        \hline\\[-6pt]
+        Affirmed & 285,430 (26.3\%) & 293,413 (26.1\%)\\
+        Denied &  32,536 (3\%) &  33,584 (3\%)\\
+        Reversed &  77,788 (7.2\%) &  80,049 (7.1\%)\\
+        Vacated &  38,447 (3.5\%) &  39,562 (3.5\%)\\
+        Other & 649,399 (59.9\%) & 677,892 (60.3\%)\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:distOutcomeType}
+\end{table}
+
+\vspace{20pt}
+
+\begin{small}
+\begin{longtable}[H]{llp{4in}}
+    \caption{Example outcome text of cases with outcome type of ``Other"}\\
+    \hline\\[-6pt]
+    Data set & LNI & Outcome text\\[2pt]
+    \hline\\[-6pt]
+    \endhead
+    A & 4B6V-2J90-0038-X3TK-00000-00 & The petition was granted in part and remanded. The court did not reach the issue of the alien's statutory eligibility for asylum because the BIA never reached it. Rather, the court remanded the issue for an initial determination by the BIA.\\
+    & &\\[-4pt]
+    A & 5G68-RG91-F04K-R003-00000-00 & Limited remand ordered.\\
+    & &\\[-4pt]
+    A & 57GC-Y911-F04K-S4H2-00000-00 & The court granted the petition for review and remanded to the BIA for further proceedings not inconsistent with the court's opinion.\\
+    & &\\[-4pt]
+    A & 5MSW-FY31-F04K-X00J-00000-00 & Motion for stay pending appeal granted.\\
+    & &\\[-4pt]
+    A & 5K03-F2T1-F04K-Y076-00000-00 & Petition for review granted in part.\\
+    & &\\[-4pt]
+    A & 3S4X-6PY0-001B-K1XS-00000-00 & The court granted plaintiff financial corporation's requested writ of mandamus as to a ruling that its jury demand in an action against defendant saving association was untimely. The court held that the period for jury demands under a civil procedure rule triggered a weekends and holidays exclusion as to the time for a jury demand and that a litigant that was served by mail should not have had less time than if it was served personally.\\
+    & &\\[-4pt]
+    A & 3S4X-40G0-0039-M2RH-00000-00 & The court reduced the multi-million dollar bond ordered by the lower court to a nominal bond because the bond amount was unreasonable and because the non profit environmental organization and thirteen individuals had a likelihood of success.\\
+    & &\\[-4pt]
+    A & 58CB-C3J1-F04K-S07T-00000-00 & The case was remanded to the district court for the purpose of making findings of fact concerning the supervisor's citizenship, but the court retained jurisdiction over the appeal. Once the district court's supplemental findings were entered, the clerk should return the case to the panel for disposition of the appeal.\\
+    & &\\[-4pt]
+    A & 47YR-FH20-0038-X2XV-00000-00 & The appellate court remanded the matter to the tax court for the purpose of resolving the Commissioner's alternative argument that the SCIN constituted a bargain sale that subjected the estate to gift taxation.\\
+    & &\\[-4pt]
+    A & 7XBC-RC20-YB0V-K006-00000-00 & The court certified to the Indiana Supreme Court the question whether an entity that purchased and later sold a wrecked vehicle was required to apply for a salvage title under Ind. Code Â§ 9-22-3-11(e) when it no longer owned the vehicle upon receipt of the certificate of title.\\
+    & &\\[-4pt]
+    A & 3WFT-1210-0038-X1ST-00000-00 & Court granted the state's motion for summary disposition of defendant's appeal, affirming the judgment, because there was no plain error where the court's findings supported the sentence enhancement.\\
+    & &\\[-4pt]
+    A & 4T52-J960-TX4N-G0RY-00000-00 & The court certified to the New York Court of Appeals, the question of whether N.Y. Gen. Oblig. Law Â§ 15-301(1) abrogated, in the case of a contract where the second of two irreconcilable provisions required that any modifications to the agreement be made in writing, the common law rule that where two contractual provisions were irreconcilable, the one appearing first was to be given effect rather than the one appearing subsequent.\\
+    & &\\[-4pt]
+    A & 4KW4-PF70-0038-X039-00000-00 & The court granted the petition for review and remanded for further proceedings.\\
+    & &\\[-4pt]
+    A & 3S4X-29H0-003B-P2M3-00000-00 & The court remanded for reassignment to a different district court judge of the insured's action to collect insurance proceeds from the insurer. The district court judge, having recused himself, could not thereafter reconsider his recusal and reinstate the judgment.\\
+    & &\\[-4pt]
+    A & 3S4W-Y6B0-003B-G2BC-00000-00 & The court declined to enforce the order to the extent the it required collective bargaining and made the employer to pay backpay as of the date of the mailgram. In all other respects the court enforced the order.\\
+    & &\\[-4pt]
+    A & 481P-3J90-0038-X3VN-00000-00 & The court granted the petition for review, and remanded the case to the BIA to consider whether petitioners had shown persecution or a well-founded fear of persecution in Italy.\\
+    & &\\[-4pt]
+    A & 3S4X-7FS0-003B-P16F-00000-00 & The court granted the Board's application for enforcement of its order.\\
+    & &\\[-4pt]
+    A & 4H4V-Y0G0-0038-X4CV-00000-00 & The petition for review was granted and the case was remanded for further proceedings.\\
+    & &\\[-4pt]
+    A & 3S4W-TWG0-0039-M30G-00000-00 & In the employer's appeal, the court remanded the employee's action with instructions to void the portion of the judgment that awarded statutory wage penalties.\\
+    & &\\[-4pt]
+    A & 3VWF-27P0-0038-X187-00000-00 & The court amended its previous order by indicating that admission of petitioner's statement amounted to harmless error.\\
+    & &\\[-4pt]
+    B & 5KV0-11K1-F04K-Y15B-00000-00 & Motion granted.\\
+    & &\\[-4pt]
+    B & 5BBC-BBG1-F04K-V485-00000-00 & Petition granted and remanded.\\
+    & &\\[-4pt]
+    B & 48CF-1KN0-0038-X0R3-00000-00 & The alien's petition for review of the BIA's decision was granted and the case was remanded to the BIA for further proceedings regarding the alien's application.\\
+    & &\\[-4pt]
+    B & 3S4X-06D0-008H-V20V-00000-00 & The court modified the decision to award the injured party an excessive amount of attorneys' fees in a civil rights action.\\
+    & &\\[-4pt]
+    B & 4JDN-9FS0-TVT3-B1Y7-00000-00 & The court granted the motion for summary affirmance.\\
+    & &\\[-4pt]
+    B & 4JRT-G410-TVRV-K1WX-00000-00 & The court granted the petition for review and remanded the case further proceedings concerning the nature of petitioner's contact with immigration officials in 2000.\\
+    & &\\[-4pt]
+    B & 5G5W-FG11-F04K-N01P-00000-00 & Questions certified to Texas Supreme Court.\\
+    & &\\[-4pt]
+    B & 3S4X-3P40-001B-K1P3-00000-00 & Judgment was modified, as trial court's determinations of liability concerning product design and breach of the warranty of merchantability were unrelated to controlling case law issued subsequent to trial court's decision; thus, retrial on these issues was unnecessary.\\
+    & &\\[-4pt]
+    B & 3S4W-YJ40-003B-G4T5-00000-00 & The court rejected the suggestion for a rehearing en banc because only Congress could have authorized the legislature of appellant, people of the territory of Guam, to permit an appeal to a court in the United States.\\
+    & &\\[-4pt]
+    B & 42R1-HNH0-0038-X2GT-00000-00 & Because plaintiff failed to present evidence that either her hypertension or her migraine headaches substantially limited any of her major life activities, she failed to demonstrate that she was disabled under the ADA. Summary judgment for the defendant was therefore proper.\\
+    & &\\[-4pt]
+    B & 3S4W-Y8F0-0039-M0MJ-00000-00 & The court granted petitioner National Labor Relations Board (board) enforcement of its order against respondent company for violations of the National Labor Relations Act. The court held that the findings of the board on each issue were supported by substantial evidence.\\
+    & &\\[-4pt]
+    B & 57G6-96M1-F04K-V32T-00000-00 & The following question was certified to the Supreme Court of Delaware: whether, under the "fraud exception" to Delaware's continuous ownership rule, shareholder plaintiffs could maintain a derivative suit after a merger that divested them of their shares in the corporation on whose behalf they sued by alleging that the merger was necessitated by, and inseparable from, the alleged fraud that was the subject of their derivative claims.\\
+    & &\\[-4pt]
+    B & 3S4W-W5R0-0039-M2MF-00000-00 & The court granted respondent National Labor Relations Board's application for enforcement of its order, finding that petitioner union's enforcement of collective bargaining agreement provision requiring employees, as a condition of employment, to be full-fledged union members constituted an unfair labor practice.\\
+    & &\\[-4pt]
+    B & 3S4X-4SS0-001B-K3V1-00000-00 & The court granted the petition for a writ of mandamus.\\
+    & &\\[-4pt]
+    B & 3S4X-HP40-0039-P1SN-00000-00 & The court transferred the review of the order from the district court that granted plaintiff insurance company's motion for summary judgment in its suit against defendants, helicopter company and decedent's parents. The court held that whether plaintiff's policy form was excepted from filing requirement, its declaratory judgment action was timely filed, and what was statutorily required coverage were certified questions to the supreme court.\\
+    & &\\[-4pt]
+    B & 8314-MVR1-652R-331H-00000-00 & The case was remanded to the district court for the limited purpose of considering whether a COA should issue.\\
+    & &\\[-4pt]
+    B & 3S4X-DGC0-003B-P1D5-00000-00 & The court remanded the case to the district court for reconsideration of appellant's claims to access those documents to which the Freedom of Information Act was found to apply.\\
+    & &\\[-4pt]
+    B & 3S4X-0050-003B-G2SK-00000-00 & The court elected to certify certain questions to the Louisiana Supreme Court, because there was no controlling precedent in the decisions, which would govern all aspects of the case. The court requested that counsel submit a joint statement of facts and proposed an agreed certificate of questions.\\
+    & &\\[-4pt]
+    B & 4H9Y-2R10-TVRV-K2J8-00000-00 & The case was remanded for the district court to determine whether it would have imposed a different sentence under an advisory-guidelines regime, and, if necessary, to resentence defendant.\\
+    & &\\[-4pt]
+    B & 4SHF-NFM0-TXFX-7345-00000-00 & The court granted petitioner's request for review and remanded this proceeding to the FTC for modification of the remedial order in a manner consistent with the opinion.\\[4pt]
+    \hline\\
+    \label{tab:otherNonEmptuOutcome}
+\end{longtable}
+\end{small}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\subsection{Distribution of cases by outcome type and year}
+
+Figure \ref{fig:distOutcomeTypeYear} shows the distribution of cases by outcome type, year, and data set.  Since only one case appearing in both data sets has different outcome text between sets, discrepancies in case frequencies between data sets (primarily in 1973 and 2016-2018) is due to case additions in data set B.
+
+\vspace{20pt}
+
+\begin{figure}[H]
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{OutcomeTypeYearFrequency}.png}
+    \centering
+    \caption{Distribution of cases by outcome type, year, and data set}
+    \label{fig:distOutcomeTypeYear}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of publication status}
+
+Each case record has publication status of either ``Reported" or ``Unreported."  Table \ref{tab:distPubStat} lists the distribution of cases by data set and status.  Table \ref{tab:changePubStat} lists the number of cases, by year of decision date in data set A, that have different publication status values in the two data sets.  Note that cases with (set A) decision dates in years 1974, 1976, 1979, and 1981 have consistent status values in both data sets.  Data set A contains no cases with a decision date in 1973.\\[-6pt]
+
+%\vspace{0.25in}
+
+\begin{table}[H]
+    \centering
+    \caption{Distribution of publication status}
+    \begin{tabular}{lrr}
+        \hline\\[-6pt]
+        Status & n(set A) & n(set B)\\[4pt]
+        \hline\\[-6pt]
+        Reported & 542,869 (50.1\%) & 553,475 (49.2\%)\\
+        Unreported & 540,729 (49.9\%) & 571,025 (50.8\%)\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:distPubStat}
+\end{table}
+
+\vspace{-10pt}
+
+\begin{table}[H]
+    \centering
+    \caption{Number of cases with different publication status values in data sets A and B}
+    \footnotesize
+    \begin{tabular}{lrr}
+        \hline\\[-6pt]
+        Year & n(set A rep $\rightarrow$ set B unrep) & n(set A unrep $\rightarrow$ set B rep)\\[4pt]
+        \hline\\[-6pt]
+        1975 & 0 & 1\\
+        1977 & 0 & 1\\
+        1978 & 0 & 1\\
+        1980 & 0 & 1\\
+        1982 & 0 & 7\\
+        1983 & 0 & 7\\
+        1984 & 0 & 4\\
+        1985 & 0 & 8\\
+        1986 & 0 & 4\\
+        1987 & 0 & 6\\
+        1988 & 0 & 16\\
+        1989 & 0 & 15\\
+        1990 & 0 & 10\\
+        1991 & 0 & 6\\
+        1992 & 0 & 26\\
+        1993 & 2 & 18\\
+        1994 & 0 & 24\\
+        1995 & 0 & 15\\
+        1996 & 0 & 19\\
+        1997 & 1 & 46\\
+        1998 & 1 & 47\\
+        1999 & 0 & 21\\
+        2000 & 0 & 31\\
+        2001 & 0 & 9\\
+        2002 & 0 & 10\\
+        2003 & 0 & 11\\
+        2004 & 0 & 6\\
+        2005 & 0 & 9\\
+        2006 & 0 & 10\\
+        2007 & 0 & 15\\
+        2008 & 0 & 7\\
+        2009 & 0 & 11\\
+        2010 & 0 & 8\\
+        2011 & 0 & 8\\
+        2012 & 4 & 20\\
+        2013 & 3 & 20\\
+        2014 & 3 & 47\\
+        2015 & 6 & 28\\
+        2016 & 5 & 27\\
+        2017 & 2 & 58\\
+        2018 & 0 & 5\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:changePubStat}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Distribution of publication status by court and year}
+
+Figure \ref{fig:distPubStatCourtYear} plots the proportion of reported cases by court, year and data set.  For most courts and years, proportions are approximately equal between data sets.  Observed differences may be due to the composition of cases added to set B for years 1973 and 2016-2018.  Note that for certain courts and years, set B proportion reported is greater than that of set A (2nd Circuit, 2018; 3rd Circuit, 2018; and Temp Emergency, 1974), while for other courts and years, set B proportion reported is less than that of set A (1st Circuit, 2018; 6th Circuit, 2016; 11th Circuit, 2018).
+
+\vspace{0.5in}
+
+\begin{figure}[H]
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{PubStatCourtYearFrequency}.png}
+    \centering
+    \caption{Distribution of publication status by court, year, and data set}
+    \label{fig:distPubStatCourtYear}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\section{Evaluation of per curiam indicator}
+
+Each case record has per curiam indicator of either True or False.  Table \ref{tab:distPerCuriam} lists the distribution of cases by data set and per curiam indicator.  No cases appearing on both data sets A and B have different per curiam indicators between data sets.  Figure \ref{fig:distPerCuriamCourtYear} plots the proportion of per curiam cases by court, year and data set.  For most courts and years, proportions are approximately equal between data sets.  Observed differences may be due to the composition of cases added to set B for years 1973 and 2016-2018.
+
+\vspace{6pt}
+
+\begin{table}[H]
+    \centering
+    \caption{Distribution of publication status}
+    \begin{tabular}{lrr}
+        \hline\\[-6pt]
+        Per Curiam & n(set A) & n(set B)\\[4pt]
+        \hline\\[-6pt]
+        True & 219,677 (20.3\%) & 226,785 (20.2\%)\\
+        False & 863,923 (79.7\%) & 897.715 (79.8\%)\\[4pt]
+        \hline\\
+    \end{tabular}
+    \label{tab:distPerCuriam}
+\end{table}
+
+\vspace{-18pt}
+
+\begin{figure}[H]
+    \includegraphics[width=6in, trim={0 0 0 0.0}, clip]{{PerCuriamCourtYearFrequency}.png}
+    \centering
+    \caption{Distribution of per curiam indicator by court, year, and data set}
+    \label{fig:distPerCuriamCourtYear}
+\end{figure}
+
+\end{spacing}
+
+\end{document} 

@@ -1,0 +1,14 @@
+The following resulted from the requirement of surrounding column three of the Citations records since some entries had commas
+However some entries also had double quotes, so that forcing quotes caused double quotes within double quotes
+Converting original double quotes with exclamation points resolved the following errors
+A request was made to LexisNexis that they surround column three with double quotes in their source records
+Resulting records must be checked for proper quoting (to verify that they treated the original quotes correctly)
+
+Citations, rec 361511, NormCitation, double quotes wintin double quotes ("Trademarks "Bello"")
+Citations, rec 421077, NormCitation, double quotes wintin double quotes ("Trademarks Otis Observatory "A Universe of Technology"")
+Citations, rec 429567, NormCitation, double quotes wintin double quotes ("Trademarks Better Jacket-Thru Science"")
+Citations, rec 527648, NormCitation, double quotes wintin double quotes ("Trademarks Otis Observatory "A Universe of Technology"")
+Citations, rec 531357, NormCitation, double quotes wintin double quotes ("Trademarks Otis Observatory "A Universe of Technology"")
+Citations, rec 553561, NormCitation, double quotes wintin double quotes ("Trademarks Better Jacket-Thru Science"")
+Citations, rec 591448, NormCitation, double quotes wintin double quotes ("Trademarks Otis Observatory "A Universe of Technology"")
+Citations, rec 728981, NormCitation, double quotes wintin double quotes ("Trademarks Otis Observatory "A Universe of Technology"")

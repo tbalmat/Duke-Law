@@ -1,0 +1,187 @@
+First three are covered in previous e-mail.  Final four appear in data, the “U.S. App.” versions have panels, “F.” versions do not.
+
+From: Stuart M. Benjamin <benjamin@law.duke.edu> 
+Sent: Wednesday, May 29, 2019 10:28 AM
+To: Tom Balmat <thomas.balmat@duke.edu>
+Subject: RE: Outstanding LN items
+
+I’m going over the cases now. One key question for you: are the cites in my email to you (I’ll paste them below) in our data from LN?
+
+Amoco Prod. Co. v. Davies, 1997 U.S. App. LEXIS 42415
+Pine v. FERC, 1996 U.S. App. LEXIS 3685
+Coleman v. Chater, 1996 U.S. App. LEXIS 17289
+Recinos v. INS, 1997 U.S. App. LEXIS 30118
+Schwarz v. Clinton, 1996 U.S. App. LEXIS 33425
+Wilder v. Knight, 1997 U.S. App. LEXIS 18859
+Crable v. Brown, 1997 U.S. App. LEXIS 24666
+
+
+Stuart M. Benjamin
+Douglas B. Maggs Professor of Law
+Duke Law School 
+210 Science Drive
+Box 90360
+Durham, NC 27708
+benjamin@law.duke.edu
+(919) 613-7275 (phone)
+(919) 613-7231 (fax)
+
+From: Tom Balmat <thomas.balmat@duke.edu> 
+Sent: Wednesday, May 29, 2019 9:51 AM
+To: Stuart M. Benjamin <benjamin@law.duke.edu>
+Subject: RE: Outstanding LN items
+
+Hi Stuart,
+
+A list of cases with missing panel and broader date range is attached.  There is nothing in the data supplied by LN that indicates a link to any other case so that, with what we have, there does not appear to be a way to determine if one case record supersedes another.  At present, if two records actually represent a single case, then a query would duplicate that case.  My opinion is that if we do not want duplicated (linked?) cases then LN should omit them from their query when constructing our data set.  We do not have a method to reconstruct your analysis, below, using only the data provided.  With over 200,000 cases having no panel and an apparent association between missing panels and links, I think we definitely need to address (get clarification from LN) the scenarios under which the panel is missing and develop a method of omitting any unwanted duplicate cases.
+
+Tom  
+
+From: Stuart M. Benjamin <benjamin@law.duke.edu> 
+Sent: Tuesday, May 28, 2019 4:41 PM
+To: Tom Balmat <thomas.balmat@duke.edu>
+Subject: RE: Outstanding LN items
+
+OK, so this is a bit complex, and requires a little more digging.
+
+First thing: all the cases you sent me are from a narrow date range. Can you send me some examples of panels with no judges from much earlier and later years? (Or do they not exist, which itself would be good to know.)
+
+Now, on to the issue: I looked up the 10 cases you list below, and for each of them LN doesn’t list any judges. That surprised me, b/c usually even for unpublished opinions that affirm in very few words, members of the panel are usually listed. So I looked them up on Westlaw, and Westlaw shows the names of judges (and opinions ranging from a sentence to a few paragraphs, although all are applying settled law and are very cut-and-dried). So I then went back to LN, and noticed that 7 of the 10 cases on LN has a notation that says “Reported in Full-Text Format at” and then has a Lexis citation number (see below). And at that link there is the full opinion and a list of judges. So: so long as we have all the *linked to* opinions, we are in good shape. Indeed, if we have the linked to opinion, we wouldn’t want to get the judges’ names for the citations you list in your 3:14pm email, b/c then we would be double-counting a given case (b/c, again, LN includes each case in two places – one with no judges listed, and one with judges listed and the opinion).
+               Note: two of the 10 opinions (USA v. McNeese, 127 F.3d 37 and USA v. Garrett, 131 F.3d 155) don’t link to another opinion, b/c there appears to be no opinion and no panel. Also, one of the opinions (United States v. Hanson, 1997 U.S. App. LEXIS 30475) is a denial of a petition for rehearing en banc (such denials of rehearing are very common); such rehearings don’t list panel members and don’t have opinions. So the point in the paragraph above doesn’t apply to all 10 opinions you sent me. But we don’t need to worry about cases like USA v. McNeese and US v. Hanson, b/c there are no judges listed for those cases *anywhere* -- the court never listed the judges.
+
+Bottom line: *if* we have the *linked to* opinions, then we are in good shape. So: can you determine if the linked to opinions are in our dataset from LN? Specifically, can you look up to see if the following are in our dataset, separate from the entries you list in the email you sent me at 3:14pm today:
+
+Amoco Prod. Co. v. Davies, 1997 U.S. App. LEXIS 42415
+Pine v. FERC, 1996 U.S. App. LEXIS 3685
+Coleman v. Chater, 1996 U.S. App. LEXIS 17289
+Recinos v. INS, 1997 U.S. App. LEXIS 30118
+Schwarz v. Clinton, 1996 U.S. App. LEXIS 33425
+Wilder v. Knight, 1997 U.S. App. LEXIS 18859
+Crable v. Brown, 1997 U.S. App. LEXIS 24666
+
+
+ 
+
+
+Stuart M. Benjamin
+Douglas B. Maggs Professor of Law
+Duke Law School 
+210 Science Drive
+Box 90360
+Durham, NC 27708
+benjamin@law.duke.edu
+(919) 613-7275 (phone)
+(919) 613-7231 (fax)
+
+From: Tom Balmat <thomas.balmat@duke.edu> 
+Sent: Tuesday, May 28, 2019 3:14 PM
+To: Stuart M. Benjamin <benjamin@law.duke.edu>
+Subject: RE: Outstanding LN items
+
+Here are a few examples (LNI; title; date):
+
+3RH6-V180-0038-X2BJ-00000-00; Amoco Prod. v. Davis, 127 F.3d 34; 1997-09-08
+3RHD-JC60-006F-M180-00000-00; Pine v. FERC, 79 F.3d 169; 1996-02-05
+3RHK-X3J0-0038-X37N-00000-00; Coleman v. Chater, 86 F.3d 1155; 1996-05-24
+3RHS-4HV0-0038-X3TR-00000-00; USA v. McNeese, 127 F.3d 37; 1997-09-19
+3RK3-PP80-0038-X0DB-00000-00; Recinos v. INS, 127 F.3d 1106; 1997-10-27
+3RK4-CJ90-006F-M2M8-00000-00; Schwarz v. Clinton, 104 F.3d 1407; 1996-11-29
+3RM0-CB00-0038-X1S3-00000-00; USA v. Garrett, 131 F.3d 155; 1997-11-19
+3RR4-V5J0-00B1-D2M3-00000-00; Wilder v. Knight, 120 F.3d 272; 1997-07-23
+3RR4-V980-00B1-D4PS-00000-00; United States v. Hanson, 1997 U.S. App. LEXIS 30475; 1997-10-29
+3RR4-V9K0-00B1-D51S-00000-00; Crable v. Brown, 124 F.3d 197; 1997-09-11'
+
+I listed this issue in the original excerpt document, but did not color it red since there was enough red already.  I was basically asking if there is a valid reason for a case not having a panel.   
+
+From: Stuart M. Benjamin <benjamin@law.duke.edu> 
+Sent: Tuesday, May 28, 2019 2:51 PM
+To: Tom Balmat <thomas.balmat@duke.edu>
+Subject: RE: Outstanding LN items
+
+Can you give me some random citations from among the 200,000 cases that don’t have judges listed, so I can look at them?
+
+I’m very sorry we didn’t raise this with them earlier. I had not understood that this huge lacuna existed.
+
+Stuart M. Benjamin
+Douglas B. Maggs Professor of Law
+Duke Law School 
+210 Science Drive
+Box 90360
+Durham, NC 27708
+benjamin@law.duke.edu
+(919) 613-7275 (phone)
+(919) 613-7231 (fax)
+
+From: Tom Balmat <thomas.balmat@duke.edu> 
+Sent: Tuesday, May 28, 2019 2:47 PM
+To: Stuart M. Benjamin <benjamin@law.duke.edu>
+Subject: RE: Outstanding LN items
+
+There are two, separate issues:
+
+•	200,000 cases have no judge listed in the panel, so we have no data on the panel whatsoever
+•	Seven-teen judge IDs that do appear in panels are missing a name (judge IDs are listed in the excerpt document)
+
+From: Stuart M. Benjamin <benjamin@law.duke.edu> 
+Sent: Tuesday, May 28, 2019 2:39 PM
+To: Tom Balmat <thomas.balmat@duke.edu>
+Subject: RE: Outstanding LN items
+
+Tom,
+
+I don’t understand what the 200,000 cases missing judge panels actually means. Can you give me some examples? (Does it mean that no judges are listed? Something else?) I’m just trying to understand what we have. We clearly want the names of all the judges for all the cases. Some examples of what is missing would help me understand.
+
+From: Stuart M. Benjamin 
+Sent: Tuesday, May 28, 2019 2:30 PM
+To: Tom Balmat <thomas.balmat@duke.edu>
+Subject: Re: Outstanding LN items
+
+So what are the 200000 that we are missing?
+Sent from my smartphone
+
+________________________________________
+From: Tom Balmat
+Sent: Tuesday, May 28, 2019 2:28:46 PM
+To: Stuart M. Benjamin
+Subject: RE: Outstanding LN items 
+ 
+Yes, except the seven-teen for which we have IDs but no name. 
+ 
+From: Stuart M. Benjamin <benjamin@law.duke.edu> 
+Sent: Tuesday, May 28, 2019 2:12 PM
+To: Tom Balmat <thomas.balmat@duke.edu>
+Subject: RE: Outstanding LN items
+ 
+I want to review this carefully, but I just want to make on one thing, because the previous emails between you and me have confused me: based on what they have given us, can we identify the judges on the panels?
+ 
+Stuart M. Benjamin
+Douglas B. Maggs Professor of Law
+Duke Law School 
+210 Science Drive
+Box 90360
+Durham, NC 27708
+benjamin@law.duke.edu
+(919) 613-7275 (phone)
+(919) 613-7231 (fax)
+ 
+From: Tom Balmat <thomas.balmat@duke.edu> 
+Sent: Tuesday, May 28, 2019 2:01 PM
+To: Stuart M. Benjamin <benjamin@law.duke.edu>
+Subject: Outstanding LN items
+ 
+Hi Stuart,
+ 
+Following is a list of outstanding items for LN to address.
+ 
+•	Empty decision dates:  Joselyn responded to this, stating “All the records (missing date) below were shelled by the Content Analysis group.”  I have asked for clarification on what “shelling” means and whether or not associated opinions are considered valid by the court.
+•	Approximately forty cases are missing a court identifier.  They are listed in the 2019-03-12 validation excerpt document.  Without this, we do not know jurisdiction.
+•	Over 200,000 cases are missing a judge panel.  Is this OK?  LN has given no explanation for missing panels.  Without this, we do not know panel composition.
+•	Approximately twenty judge records are missing the judge’s name.  IDs are listed in the 2019-03-12 validation excerpt document.  Without judge names, we cannot combine ancillary data for judge ideology.
+•	Judge names, and not IDs, were supplied for opinion, concurring, and dissenting judges.  Judge IDs are needed to resolve name ambiguities (John Smith).
+•	Obsolete treatment letters.  As listed in the 2019-01-13 validation excerpt, twenty letters are used in citations (LNItoLNITreatments file), but are flagged as obsolete in the supplied ShepardTreatment file.  Should citations using these letters be ignored?  Are any of these letters superseded and, if so, do associated citations with updated letter appear in the citations file?
+•	Definitions for legal topics are required.  Without these, topic codes are fairly nondescript.
+•	Over 600,000 cases have no legal topics.  Is this because they have no classification or is there a category of cases that are not classified?  Is this OK?
+ 
+Note that LN is working on various of the above but, as of today, they are not completely resolved.  Perhaps a request for an status update would be a tactful way to remind LN of these outstanding requirements.
+ 
+Tom
