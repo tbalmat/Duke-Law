@@ -1,0 +1,118 @@
+0 createImportRec
+0 loadData
+0 del erroneous
+0 create court recs   11:50:02 AM    5.095
+0 create case recs   11:50:03 AM    6.331
+0 create case extension recs   11:50:04 AM    7.259
+0 create case type recs   11:54:47 AM    290.421
+0 create panel recs   12:13:59 PM    1441.801
+0 create case legal topics recs   12:42:12 PM    3134.986
+1 createImportRec
+1 loadData
+1 del erroneous
+1 create court recs   12:42:16 PM    3138.87
+1 create case recs   12:42:17 PM    3140.277
+1 create case extension recs   12:42:18 PM    3141.186
+1 create case type recs   12:52:18 PM    3741.295
+1 create panel recs   01:08:35 PM    4718.064
+1 create case legal topics recs   01:25:42 PM    5745.364
+2 createImportRec
+2 loadData
+2 del erroneous
+2 create court recs   01:25:46 PM    5749.07
+2 create case recs   01:25:48 PM    5750.522
+2 create case extension recs   01:25:48 PM    5751.493
+2 create case type recs   01:34:58 PM    6300.711
+2 create panel recs   01:47:29 PM    7051.638
+2 create case legal topics recs   01:47:56 PM    7079.08
+3 createImportRec
+3 loadData
+3 del erroneous
+3 create court recs   01:48:00 PM    7082.569
+3 create case recs   01:48:01 PM    7083.85
+3 create case extension recs   01:48:02 PM    7084.76
+3 create case type recs   01:55:59 PM    7562.032
+3 create panel recs   02:06:40 PM    8203.156
+3 create case legal topics recs   02:07:12 PM    8235.512
+4 createImportRec
+4 loadData
+4 del erroneous
+4 create court recs   02:07:16 PM    8238.929
+4 create case recs   02:07:17 PM    8240.275
+4 create case extension recs   02:07:18 PM    8241.194
+4 create case type recs   02:16:04 PM    8767.438
+4 create panel recs   02:28:03 PM    9486.271
+4 create case legal topics recs   02:28:44 PM    9526.825
+5 createImportRec
+    Level Code                                            Message
+1 Warning 1265 Data truncated for column 'OpinionBy' at row 64963
+2 Warning 1265 Data truncated for column 'OpinionBy' at row 66732
+5 loadData
+5 del erroneous
+5 create court recs   02:28:47 PM    9530.252
+5 create case recs   02:28:49 PM    9531.542
+5 create case extension recs   02:28:49 PM    9532.46
+5 create case type recs   02:36:48 PM    10011.28
+5 create panel recs   02:49:12 PM    10755.24
+5 create case legal topics recs   02:49:24 PM    10767.44
+6 createImportRec
+6 loadData
+6 del erroneous
+6 create court recs   02:49:28 PM    10770.82
+6 create case recs   02:49:29 PM    10772.12
+6 create case extension recs   02:49:30 PM    10773.04
+6 create case type recs   02:57:00 PM    11222.61
+6 create panel recs   03:08:46 PM    11929.26
+6 create case legal topics recs   03:08:48 PM    11931.43
+7 createImportRec
+7 loadData
+7 del erroneous
+7 create court recs   03:08:52 PM    11934.93
+7 create case recs   03:08:53 PM    11936.14
+7 create case extension recs   03:08:54 PM    11937.16
+7 create case type recs   03:19:05 PM    12547.95
+7 create panel recs   03:35:59 PM    13562.24
+7 create case legal topics recs   03:36:02 PM    13565.47
+8 createImportRec
+8 loadData
+8 del erroneous
+8 create court recs   03:36:07 PM    13569.71
+8 create case recs   03:36:08 PM    13570.98
+8 create case extension recs   03:36:09 PM    13572.05
+8 create case type recs   03:48:49 PM    14331.83
+8 create panel recs   04:07:48 PM    15471.07
+8 create case legal topics recs   04:40:41 PM    17444.01
+9 createImportRec
+9 loadData
+9 del erroneous
+9 create court recs   04:40:46 PM    17448.58
+9 create case recs   04:40:47 PM    17449.85
+9 create case extension recs   04:40:48 PM    17451.04
+9 create case type recs   04:55:04 PM    18307.35
+9 create panel recs   05:14:52 PM    19494.82
+9 create case legal topics recs   05:57:23 PM    22046.27
+10 createImportRec
+    Level Code                                                 Message
+1 Warning 1265  Data truncated for column 'CourtShortName' at row 4579
+2 Warning 1265 Data truncated for column 'CourtShortName' at row 67099
+10 loadData
+10 del erroneous
+10 create court recs   05:57:27 PM    22050.39
+10 create case recs   05:57:29 PM    22051.65
+10 create case extension recs   05:57:30 PM    22052.69
+10 create case type recs   06:05:00 PM    22502.81
+10 create panel recs   06:24:06 PM    23649.15
+10 create case legal topics recs   06:54:17 PM    25459.56
+11 createImportRec
+11 loadData
+11 del erroneous
+11 create court recs   06:54:18 PM    25460.64
+11 create case recs   06:54:18 PM    25460.92
+11 create case extension recs   06:54:18 PM    25461.19
+11 create case type recs   06:54:18 PM    25461.27
+11 create panel recs   06:54:19 PM    25461.81
+11 create case legal topics recs   06:54:21 PM    25463.98
+data frame with 0 columns and 0 rows
+data frame with 0 columns and 0 rows
+data frame with 0 columns and 0 rows
+data frame with 0 columns and 0 rows
