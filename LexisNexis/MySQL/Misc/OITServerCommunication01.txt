@@ -1,0 +1,220 @@
+Hi Mike,
+
+This is good.  Restricting Shiny Server to local access is good, since it is not intended to be globally public.  We will likely limit Shiny content to published results, so that access is not a problem.  I believe that the pro version of Shiny does offer security features and we may have to consider it if the need arises.  As for file transfers, SFTP should be fine, since some of the researchers are Windows users. 
+ I tried to establish SFTP connections from a Linux VM and from Filezilla on my laptop, but both timed out (that is why I wanted to restart the ssh service).  Should I specify a certain port?
+
+Thanks,
+
+Tom
+
+
+From: Mark Delong <mark.delong@duke.edu> 
+Sent: Wednesday, March 27, 2019 2:44 PM
+To: Mike Newton <jmnewton@duke.edu>; Tom Balmat <thomas.balmat@duke.edu>; Mark Delong <mark.delong@duke.edu>
+Subject: Re: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+
+Thanks, Mike.  I always thought that FTPS was just SFTP! I learned something today.
+On 3/27/19 2:25 PM, Mike Newton wrote:
+Tom,
+ 
+I’ve moved the server to a new IP address. I’ve given you sudo rights for systemctl to restart the services. You shouldn’t need to restart sshd as you don’t have any rights to manage the sshd configuration. We manage that via Puppet and use a standard configuration. Also, I don’t have FTP over SSL configured (ftps), however you can use sftp. This is an FTP like interface for SSH. Though I’m not sure of any advantage vs just using scp. 
+ 
+Also, I didn’t like the fact that RStudio does not use SSL and your password would be sent in the clear when logging in, so I set up RStudio behind an Apache reverse proxy. To access RStudio just go to https:// lexnex-smben-01.oit.duke.edu. The Shiny server is listening on port 3838, but doesn’t seem to require a login, so I left it as is and just opened that port. I’m not familiar with the service so I could be wrong. If so we may proxy that as well. I open the host firewall and you canm reach it at http:// lexnex-smben-01.oit.duke.edu:3838.
+ 
+The database user and password is in a file named Mariadb_user_password in your home directory.
+ 
+Mike
+ 
+From: Tom Balmat <thomas.balmat@duke.edu>
+Date: Wednesday, March 27, 2019 at 12:03 PM
+To: Mike Newton <jmnewton@duke.edu>, Mark Delong <mark.delong@duke.edu>
+Subject: RE: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+Hi Mike,
+ 
+Thanks for all of your help .  Yes, boot me.  I am just knocking around.  While you are in there, please grant me perms to restart MySQL, Shiny server, and sshd.  I am able to ssh to the server, but cannot establish a ftps connection.
+ 
+Thanks,
+ 
+Tom
+ 
+From: Mike Newton <jmnewton@duke.edu> 
+Sent: Wednesday, March 27, 2019 11:51 AM
+To: Mark Delong <mark.delong@duke.edu>; Tom Balmat <thomas.balmat@duke.edu>
+Subject: Re: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+Mark/Tom,
+ 
+I’ve installed Mariadb(MYSQL) server, R, RStudio , and Shiny Server. I’m going to create a database user and grant it full admin rights in Mariadb. I’ll create a file with the username an password an put it in Tom’s home directory. We’ve run into a slight issue however. The VM was built in the subnet used for the DCC, which means that the network firewall rules will not allow connections to port 8787 (which I assume you want since you asked for the install of RStudio). I can re-IP the VM and put it on another private subnet that does not have the network firewall restriction. Tom I see you’re logged in. Let me know if I can do this (it will kick you off).
+ 
+Mike
+ 
+From: Mark Delong <mark.delong@duke.edu>
+Date: Wednesday, March 27, 2019 at 10:18 AM
+To: Tom Balmat <thomas.balmat@duke.edu>, Mark Delong <mark.delong@duke.edu>, Mike Newton <jmnewton@duke.edu>
+Subject: Re: FW: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+I'll take Mike out of the conversation next.
+I contacted Stuart about getting a guest account for Kevin, since he'll need a NetID in order to get in. I think we'll have him covered OK. Mike or you may have to activate sftp (no ftp around here -- inherently vulnerable if passwords used!). I think it's an option that need activation in the sshconfig somewhere.
+m
+On 3/27/19 10:08 AM, Tom Balmat wrote:
+Sounds good.  Then having an account on the server will permit a login to ftp, correct?  How do we create an account for Kevin (U Michigan)?  His access will be exclusively over a VPN connection.  I know that this is routine, but we will have to provide instructions to him or introduce him to the appropriate people who can.
+ 
+Tom
+ 
+From: Mark Delong <mark.delong@duke.edu> 
+Sent: Wednesday, March 27, 2019 9:03 AM
+To: Tom Balmat <thomas.balmat@duke.edu>; Mike Newton <jmnewton@duke.edu>
+Cc: Mark Delong <mark.delong@duke.edu>
+Subject: Re: FW: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+I think that scp or sftp would do the trick.  There are GUI clients, and those are encrypted transfers. I think that Stuart and Kevin are actually pretty savvy, and they can handle the command line.
+m
+On 3/26/19 9:57 PM, Tom Balmat wrote:
+Hi Mike,
+ 
+We will also need some way for the researchers to move files (query output, graphs, etc.) from lexnex-smben-01 or access publicly readable directories on the server.  I am able to download files from Duke Box, but uploading is much more complicated.  I suppose that mounting a share that is available to all researchers would work.  Do you know if the Law school has a FS that we could mount?  FTPS might be an option also.  Anyway, I do not think that anyone will object to whatever we provide, as long as it is convenient.  Bare in mind that at least one researcher is with another institution (Michigan).  Let me know what ideas you have on this.
+ 
+Thanks,
+ 
+Tom 
+ 
+From: Tom Balmat 
+Sent: Tuesday, March 26, 2019 3:42 PM
+To: Mike Newton <jmnewton@duke.edu>; Mark Delong <mark.delong@duke.edu>
+Subject: RE: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+Hi Mike,
+ 
+For starters, I think we will need:
+ 
+•	MySQL (MariaDB)
+•	R, RStudio
+•	Shiny Server
+ 
+Later, we will need some database drivers, but we can wait to see what those requirements are once database connections are attempted.
+ 
+Thanks,
+ 
+Tom
+ 
+From: Mike Newton <jmnewton@duke.edu> 
+Sent: Tuesday, March 26, 2019 1:07 PM
+To: Mark Delong <mark.delong@duke.edu>; Tom Balmat <thomas.balmat@duke.edu>
+Subject: Re: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+We can give sudo privileges to start/stop the service.
+ 
+Mike
+ 
+From: Mark Delong <mark.delong@duke.edu>
+Date: Tuesday, March 26, 2019 at 11:14 AM
+To: Mike Newton <jmnewton@duke.edu>, Tom Balmat <thomas.balmat@duke.edu>, Mark Delong <mark.delong@duke.edu>
+Subject: Re: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+Fire away, Tom. I know the MySQL requirement, but I think there might be R and R-Shiny as well?
+Mike, since Tom is doing configuration of MySQL and may need to restart the mysqld daemon, is there a way for him to have sufficient privileges to do that on his own?
+On 3/26/19 11:11 AM, Mike Newton wrote:
+Mark/Tom,
+ 
+The install of this VM was just base OS as an SSI managed VM. It sounds like this server will be a Mariadb/MySQL server. I didn’t install those packages but can do so. Can you give me a background on what will be the use of the server and any other software needed so that we can finish it’s configuration?
+ 
+Mike
+ 
+From: Tom Balmat <thomas.balmat@duke.edu>
+Date: Tuesday, March 26, 2019 at 10:56 AM
+To: Mark Delong <mark.delong@duke.edu>, Mike Newton <jmnewton@duke.edu>
+Subject: RE: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+I am able sudo and can modify the MySQL ini file, but cannot execute the systemctl script.  Happy to initiate tickets for this (and other issues to come I suspect) to account for activity and provide history.  Please instruct on how best to do that.
+ 
+Tom
+ 
+From: Mark Delong <mark.delong@duke.edu> 
+Sent: Tuesday, March 26, 2019 9:42 AM
+To: Tom Balmat <thomas.balmat@duke.edu>; Mark Delong <mark.delong@duke.edu>; Mike Newton <jmnewton@duke.edu>
+Subject: Re: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+I'll cc: Mike Newton.
+Mike do you want a ticket for this kind of thing?
+I wonder if Tom has sudo but mysqld is fussy. The error (see below) he got isn't that "tmdghf984 is not in the sudoers file. This will be reported" thing. Could a change to the permissions on the daemon do the trick for Tom in this case? He'll need to have privs to do the work he needs. Tom is an OIT staff, BTW.
+m
+On 3/25/19 9:28 PM, Tom Balmat wrote:
+Oh, my question is “who should I contact for such issues?”
+
+
+
+
+
+Hi Mark,
+ 
+I attempted to restart the db server process with
+ 
+sudo systemctl stop mysqld
+ 
+but got the message
+ 
+Sorry, user tjb48 is not allowed to execute '/bin/systemctl stop mysqld' as root on lexnex-smben-01.
+ 
+I need to do a restart after setting switches to permit data import.
+ 
+Thanks,
+ 
+Tom
+
+
+
+
+
+From: Mark Delong <mark.delong@duke.edu> 
+Sent: Monday, March 25, 2019 3:51 PM
+To: Tom Balmat <thomas.balmat@duke.edu>; Stuart M. Benjamin <benjamin@law.duke.edu>; Kevin Quinn <kmq@umich.edu>
+Subject: Fwd: Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+The VM has been created, and I let Tom know so that he can check it out. I was able to log in using ssh. Tom will kick other tires, I imagine.
+User access is controlled through a Grouper group. Stuart, I designated you as an owner (along with me for the time being). You, Tom and I are the only users presently. Kevin will need a Duke NetID in order to provide him access, and Stuart can request one of these using this web form: https://oit.duke.edu/what-we-do/applications/sponsored-accounts . (Don't worry about the Duke Health access, since it's irrelevant for this.)
+Tom, I asked that you be given sudo access, so that you can install the things you need.
+m
+
+
+-------- Forwarded Message -------- 
+Subject: 	Request Item RITM2592360 comments added -- VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+Date: 	Mon, 25 Mar 2019 12:04:44 -0700
+From: 	Mike Newton <jmnewton@duke.edu>
+Reply-To: 	Support@Duke <duke@service-now.com>
+To: 	mark.delong@duke.edu
+ 
+An update was made to RITM2592360
+ 
+VM Provisioning Request - lexnex-smben-01.oit.duke.edu
+ 
+________________________________________
+2019-03-25 15:04:14 EDT - Mike Newton User communication
+Mark,
+You should be able to ssh to lexnex-smben-01.oit.duke.edu now. You home directory will be automatically created when you login. There is only 5 GB in /home where everyone's home directory is located, but you have write permissions to /srv/apps as a member of the lexnex group and the /srv partition has 67 GB free.
+ 
+ 
+________________________________________
+ 
+Duke IT will never ask for your password in an email. If you have concerns about the legitimacy of this email, contact the appropriate service desk:
+Duke Health Service Desk
+Duke University Service Desk
+ 
+ 
+Ref:MSG47079832
+-- 
+Mark R DeLong, PhD
+Duke University
+mark.delong@duke.edu
+-- 
+Mark R DeLong, PhD
+Duke University
+mark.delong@duke.edu
+-- 
+Mark R DeLong, PhD
+Duke University
+mark.delong@duke.edu
+-- 
+Mark R DeLong, PhD
+Duke University
+mark.delong@duke.edu

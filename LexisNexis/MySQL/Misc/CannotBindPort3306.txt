@@ -1,0 +1,20 @@
+ssh -L 3306:127.0.0.1:3306 tjb48@lexnex-smben-01.oit.duke.edu
+
+may give this:
+
+bind: Permission denied
+channel_setup_fwd_listener_tcpip: cannot listen to port: 3306
+Could not request local forwarding.
+
+One option is to specify 3305:
+
+ssh -L 3306:127.0.0.1:3306 tjb48@lexnex-smben-01.oit.duke.edu
+
+and use it in local port requests (but that requires application reconfig!)
+
+
+https://stackoverflow.com/questions/48478869/cannot-bind-to-some-ports-due-to-permission-denied
+
+claims that Windows cmd line shutdown /s /f /t 0 corrects bind error (/s=shutdown, /f=force termination of programs, /t=time)
+
+It works!  The GUI shutdown is, apparently, different from shutdown /f /s /t 

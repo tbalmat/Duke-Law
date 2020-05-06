@@ -1,0 +1,1 @@
+ssh -L 3306:127.0.0.1:3306 tjb48@lexnex-smben-01.oit.duke.edu

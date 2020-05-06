@@ -1,0 +1,14 @@
+﻿Shepard Treatment Phrases
+
+Purpose of # and & preceding certain letters (they tend to be repeated without #)
+Exists duplicate letters (c and C, for instance) - note that db does not enforce case sensitivity
+
+
+
+Identified Issues
+-------------------------------------------------------------------------------------------------------------------------------
+
+1.  Appearance of quotes and question marks, as in Usage Notes of record 6:
+    If the entire provision is lettered with ""U"", then all subsections of the provision cited must also be lettered with ?U?.
+
+2.  Invalid character in Usage notes of records 68 and 69:  overrulingÿin

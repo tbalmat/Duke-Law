@@ -1,0 +1,153 @@
+server (ssh):  lexnex-smben-01.oit.duke.edu   (my:  lexnex, t#9mNbon4xms)
+
+root login (Ubuntu VM):  sudo mysql -u root   (must supply Duke acct pw for sudo)
+
+create database Appeals;
+
+add mysql user (identified by = pw):  create user 'tjb48'@'localhost' identified by 'lawful';
+
+The password() function encrypts text to be used as a password
+creat user identified by 'pw' encrypts 'pw' and saves in mysql.user
+
+alter user valid for MySQL, but only in MariaDB 10.2 or later, set password for user = password('text')
+set password for lexnex@localhost = password('lawful0');
+NOTE THAT set password for x = 'pw' does not encrypt 'pw' (generates error)
+
+v:  SHOW VARIABLES LIKE "%version%";
+
+Exists group lexnex (groups tjb48)
+
+grant privs (user):  grant select on Appeals.* to 'newuser'@'localhost';
+grant privs (root access):  grant all on *.* to 'newuser'@'localhost';
+
+create user 'lexnexReader'@'localhost' identified by 'lnread';
+grant select on Appeals.* to 'lexnexReader'@'localhost';
+if necessary:  revoke all on Appeals.* from 'lexnexReader'@'localhost';
+
+set password for 'test'@'localhost' = password('test');
+
+show grants for 'lexnexReader'@'localhost';
++---------------------------------------------------------------------------------------------------------------------+
+| Grants for lexnexReader@localhost                                                                                   |
++---------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'lexnexReader'@'localhost' IDENTIFIED BY PASSWORD '*241A2CE9645F5FEFD6E38385A34C9038EB1CF730' |
+| GRANT SELECT ON `Appeals`.* TO 'lexnexReader'@'localhost'                                                           |
++---------------------------------------------------------------------------------------------------------------------+
+in MySQL USAGE is synonymous with "no privileges"
+
+
+----------------------------------------------------------------
+desc mysql.user;
+select super_priv from mysql.user where user='tjb48';
+update mysql.user set grant_priv='Y' where user='tjb48';
+----------------------------------------------------------------
+
+
+Create file repo on lexnex-smben-01.oit.duke.edu
+mkdir /home/lexnex
+
+Import LN data files from git:  (git has a 25mb file size limit)
+wget [git-resource-url on git server]
+ex: wget https://raw.githubusercontent.com/DukeSynthProj/SyntheticDataXTXResources/master/H2P2Logo.png
+
+Import LN data files from Duke Box:
+1. On Box site, locate file, Share button
+2. Enable Share Link (slider)
+3. Change "Invited People" to "People with Link" (note that this permits anyone with link to access file;
+   remaining options, such as "People in your company causes HTML to be returned by wget - likely crentials prompt;
+   remove share or set perms to "Invited only" after download))
+4. Click "Link settings" and copy the Direct link
+5. In Linux session use:  wget [link from above] -O outfile
+   ex:  wget https://duke.box.com/shared/static/z0f7l1osc8j5vas4uwhihdd6kp4udihs.txt -O boxfile.txt
+6. Disable Share Link (slider) in Box site
+
+Execute shell commands from within MySQL:  \!
+
+Enable MySQL load data statement:
+
+select @@GLOBAL.local_infile;
+set global local_infile=1;
+
+The following my not be necessary (testing on RH reveals no effect)
+
+Ubuntu, from /proc/version
+Note that set secure-file-priv="" permits import from any dir; set "" to restricted dir if warranted
+
+  # sudo vi /etc/mysql/my.cnf
+  sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf (imported by /etc/mysql/my.cnf)
+  # under [mysqld]
+  secure-file-priv=""
+  restart mysql:  sudo /etc/init.d/mysql stop/start/restart
+
+Red Hat (MariaDB)
+It is assumed that loose-local-infile=1 permits import from any directory
+
+  sudoedit /etc/my.cnf
+  # under [client]
+  loose-local-infile=1
+  service:  sudo systemctl stop/start/restart mariadb.service
+
+Queries:
+
+Start MySQL with mysql -vv -p (-u current default) Appeals
+
+List foreign keys:  select * from information_schema.key_column_usage;
+
+Database size:   select table_name from information_schema.tables order by 1;
+                 select * from information_schema.tables where table_name='';
+                 cat /etc/my.cnf (locate "datadir")
+                 ls -al /srv/mysql-data   (permission denied on Appeals directory)
+2019-04-02:
+drwxr-xr-x. 6 mysql mysql        174 Mar 28 20:22 .
+drwxr-xr-x. 8 root  root         100 Mar 27 13:54 ..
+drwx------. 2 mysql mysql        111 Apr  2 14:57 Appeals
+-rw-rw----. 1 mysql mysql      16384 Mar 28 19:07 aria_log.00000001
+-rw-rw----. 1 mysql mysql         52 Mar 28 19:07 aria_log_control
+-rw-rw----. 1 mysql mysql 1797259264 Apr  2 15:01 ibdata1
+-rw-rw----. 1 mysql mysql    5242880 Apr  2 15:01 ib_logfile0
+-rw-rw----. 1 mysql mysql    5242880 Apr  2 15:01 ib_logfile1
+drwx------. 2 mysql mysql       4096 Mar 27 11:00 mysql
+drwx------. 2 mysql mysql       4096 Mar 27 11:00 performance_schema
+drwx------. 2 mysql mysql          6 Mar 27 11:00 test
+
+Case sensitive matching:  select 'ABC' regexp  binary 'ABc';
+
+Exact case and length matching:  char_length(i.ShepardTreatment)=char_length(s.Letter)
+                                 and (i.ShepardTreatment regexp binary s.Letter)=1
+
+
+-- Populate table with a sequence of integers
+drop table k;
+create table k(k int auto_increment primary key, x tinyint);
+insert into k(x) select a.k
+from   (select 1 as k union all select 1 union all select 1 union all select 1) a
+       cross join (select 1 as k union all select 1 union all select 1 union all select 1) b
+       cross join (select 1 as k union all select 1 union all select 1 union all select 1) c
+       cross join (select 1 as k union all select 1 union all select 1 union all select 1) d
+       cross join (select 1 as k union all select 1 union all select 1 union all select 1) e
+       cross join (select 1 as k union all select 1 union all select 1 union all select 1) f
+       cross join (select 1 as k union all select 1 union all select 1 union all select 1) g
+       cross join (select 1 as k union all select 1 union all select 1 union all select 1) h;
+select count(1) from k;
+
+-- Parse delimited text elements and insert intp individual records
+drop table a;
+create table a(a varchar(200));
+insert into a values('abc|def|ghi|jkl'),
+                    ('123|456|789|000|111|222|333|444|555|666|777|888|999'),
+                    ('aaa|bbb|ccc|ddd|eee|fff|ggg|hhh|iii|jjj|kkk|lll|mmm|nnn|ooo|ppp|qqq|rrr|sss|ttt|uuu|vvv|www|xxx|yyy|zzz');
+
+select *, character_length(a)-character_length(replace(a, '|', '')) from a;
+
+select a.*, character_length(a.a)-character_length(replace(a.a, '|', '')) as ndel, k.k,
+       substring_index(substring_index(a.a, '|', k.k), '|', -1) as asub
+from   a join k on k<=character_length(a.a)-character_length(replace(a.a, '|', ''))+1;
+
+-- String ops
+select substring_index('abc|def|ghi|jkl', '|', 3);
+select substring_index('abc|def|ghi|jkl', '|', -5);
+select substring_index(substring_index('abc|def|ghi|jkl', '|', 3), '|', -1);
+select locate('|', 'abc|def|ghi|jkl', 5);
+select character_length('abc|def|ghi|jkl')-character_length(replace('abc|def|ghi|jkl', '|', ''));
+
+-- Command line switches:  https://mariadb.com/kb/en/library/mysql-command-line-client/
