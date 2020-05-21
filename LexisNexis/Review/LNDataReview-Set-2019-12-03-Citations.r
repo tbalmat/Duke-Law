@@ -481,6 +481,8 @@ db <- db2
 x <- dbGetQuery(db, "select distinct LNI from Citation where LNI not in(select LNI from CaseHeader)")[,"LNI"]
 length(x)
 
+writeLines(paste(x, "\\\\", sep=""))
+
 # Citations for existing cases, but where cited LNI does not appear on a case 
 x <- dbGetQuery(db,
        "select distinct b.LNICited

@@ -1222,9 +1222,9 @@ length(which(is.na(x[,"outcome"])))/nrow(x)
 # Sample cases with largest difference in number of legal topics between data sets A and B
 #######################################################################################
 
-x <- dbGetQuery(db1, "select   a.lni, ifnull(t1.n, 0) as n1, ifnull(t2.n, 0) as n2,
+x <- dbGetQuery(db1, "select   a.lni, b.lni, ifnull(t1.n, 0) as n1, ifnull(t2.n, 0) as n2,
                                c.shortname as court, a.decisiondate, a.casetitleshort
-                      from     CaseHeader a 
+                      from     CaseHeader a left join Appeals2.CaseHeader b on a.lni=b.lni
                                left join ( select   lni, count(1) as n
                                            from     CaseLegalTopics
                                            group by lni
@@ -1252,7 +1252,7 @@ writeLines(a)
 x2 <- dbGetQuery(db1, "select LNI, count(1) from CaseLegalTopics group by LNI")
 y2 <- dbGetQuery(db2, "select LNI, count(1) from CaseLegalTopics group by LNI")
 
-# Merge March and Decdmber counts by case
+# Merge March and December counts by case
 # Retain cases that do not appear in the alternate dat set
 z2 <- merge(x2, y2, by="LNI", all=T)
 colnames(z2) <- c("LNI", "n1", "n2")
@@ -1267,6 +1267,10 @@ z2[,"nDiff"] <- z2[,"n2"]-z2[,"n1"]
 # Inspect maximum frequencies
 max(z2[,"n1"])
 max(z2[,"n2"])
+
+lni <- c('4895-3050-0038-X013-00000-00', '3TRW-C880-0038-X28B-00000-00')[2]
+dbGetQuery(db1, paste("select * from CaseHeader where lni='", lni, "'", sep=""))
+dbGetQuery(db2, paste("select * from CaseHeader where lni='", lni, "'", sep=""))
 
 #######################################################################################
 # Sample 4th or 11th circuit cases with each author combination in "spike' period of 1990-1994

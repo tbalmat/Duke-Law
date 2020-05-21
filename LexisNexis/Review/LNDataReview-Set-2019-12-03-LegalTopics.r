@@ -29,6 +29,8 @@ imgdir <- "C:\\Projects\\Duke\\Law\\LexisNexisCaseAnalysis\\MySQL\\Review\\2020-
 #######################################################################################
 
 usr <- "tjb48"
+--dbDisconnect(db1)
+--dbDisconnect(db2)
 db1 <- dbConnect(MySQL(), host="127.0.0.1", port=3306, dbname="Appeals", user=usr, password=rstudioapi::askForPassword("Password:  "))
 db2 <- dbConnect(MySQL(), host="127.0.0.1", port=3306, dbname="Appeals2", user=usr, password=rstudioapi::askForPassword("Password:  "))
 
@@ -50,7 +52,7 @@ dbGetQuery(db1, "describe CaseHeader")
 dbGetQuery(db2, "describe CaseHeader")
 dbGetQuery(db1, "describe Court")
 dbGetQuery(db2, "describe Court")
-
+dbGetQuery(db2, "describe CaseLegalTopics")
 
 #######################################################################################
 #### Review cases with no legal topics
@@ -717,3 +719,81 @@ x <- dbGetQuery(db1, "select distinct a.LNI, a.CaseTitleShort, a.DecisionDate
 
 nrow(x)
 
+#######################################################################################
+#### Compute proprtion of cases with topics in December, but a different set than in March
+#######################################################################################
+
+# Proportion cases with topics
+dbGetQuery(db2, "select count(distinct lni) from CaseLegalTopics")
+dbGetQuery(db2, "select count(1) as n,
+                        sum(case when(b.lni is not null)then 1 else 0 end) as nt,
+                        sum(case when(b.lni is not null)then 1 else 0 end)/count(1) as p
+                 from   CaseHeader a
+                        left join(select distinct lni from CaseLegalTopics) b on a.lni=b.lni")
+
+# Proportion of cases with topics in both data sets and identical topic sets
+dbGetQuery(db1, "select count(1) as n, sum(case when(nt=nt2)then 1 else 0 end) as n2,
+                        sum(case when(nt=nt2)then 1 else 0 end)*1./count(1) as p
+                 from   ( select   count(1) as nt, sum(case when(ID1=ID2)then 1 else 0 end) as nt2
+                          from     ( select a.LNI, a.TopicID as ID1, c.TopicID as ID2
+                                     from   CaseLegalTopics a
+                                            join (select distinct LNI from Appeals2.CaseLegalTopics) b on a.lni=b.lni
+                                            left join Appeals2.CaseLegalTopics c on a.lni=c.lni and a.TopicID=c.TopicID
+                                     union all
+                                     select a.LNI, a.TopicID as ID1, c.TopicID as ID2
+                                     from   Appeals2.CaseLegalTopics a
+                                            join (select distinct LNI from CaseLegalTopics) b on a.lni=b.lni
+                                            left join CaseLegalTopics c on a.lni=c.lni and a.TopicID=c.TopicID
+                                     where  c.LNI is null
+                                   ) a
+                          group by LNI
+                        ) a")
+
+# Proportion of topics appearing in both data sets for cases that have topics in both data sets
+dbGetQuery(db1, "select count(1) as nt, sum(case when(ID1=ID2)then 1 else 0 end) as nt2,
+                        sum(case when(ID1=ID2)then 1 else 0 end)*1./count(1) as p
+                 from   ( select a.LNI, a.TopicID as ID1, c.TopicID as ID2
+                          from   CaseLegalTopics a
+                                 join (select distinct LNI from Appeals2.CaseLegalTopics) b on a.lni=b.lni
+                                 left join Appeals2.CaseLegalTopics c on a.lni=c.lni and a.TopicID=c.TopicID
+                          union all
+                          select a.LNI, a.TopicID as ID1, c.TopicID as ID2
+                          from   Appeals2.CaseLegalTopics a
+                                 join (select distinct LNI from CaseLegalTopics) b on a.lni=b.lni
+                                 left join CaseLegalTopics c on a.lni=c.lni and a.TopicID=c.TopicID
+                          where  c.LNI is null
+                        ) a")
+
+# Substitute December topics with those from March, when missing
+# Compute proportion of combined topics (substitued and not) that were subsituted
+dbGetQuery(db1, "select a.n as n1, b.n as n2, a.n/(a.n+b.n) as p
+                 from   ( select count(1) as n
+                          from   CaseLegalTopics a
+                                 left join Appeals2.CaseLegalTopics c on a.lni=c.lni and a.TopicID=c.TopicID
+                          where  c.lni is null
+                        ) a cross join (select count(1) as n from Appeals2.CaseLegalTopics) b")
+
+# Compute the ratio of numbers of topics (December over March)
+dbGetQuery(db1, "select b.n, a.n, b.n*1./a.n as p
+                 from   (select count(1) as n from CaseLegalTopics) a
+                        cross join (select count(1) as n from Appeals2.CaseLegalTopics) b")
+
+# Compute proportions of March topics that appear in December and the proportion that have a
+# corresponding lni in December, but no corresponding topic
+dbGetQuery(db1, "select ntopic1, ntopic12,
+                        ntopic12*1./ntopic1 as p12,
+                        (ntopic1-ntopic12)*1./ntopic1 as p21
+                 from   ( select count(1) as ntopic1,
+                                 sum(case when(c.lni is not null)then 1 else 0 end) as ntopic12
+                          from   CaseLegalTopics a
+                                 join Appeals2.CaseHeader b on a.lni=b.lni
+                                 left join Appeals2.CaseLegalTopics c on a.lni=c.lni and a.TopicID=c.TopicID
+                        ) a")
+
+# Tabulate year of decision for topics appearing in December but not March
+x <- dbGetQuery(db2, "select   year(a.decisiondate) as y, count(1) as n
+                      from     CaseHeader a join CaseLegalTopics b on a.lni=b.lni
+                               left join Appeals.CaseLegalTopics c on a.lni=c.lni and b.topicid=c.topicid
+                      where    c.lni is null
+                      group by year(a.decisiondate)")
+writeLines(paste(x[,"y"], " & ", x[,"n"], "\\\\", sep=""))
