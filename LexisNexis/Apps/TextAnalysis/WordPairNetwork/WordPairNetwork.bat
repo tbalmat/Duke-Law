@@ -1,0 +1,1 @@
+start /min cmd /c "C:\Program Files\R\R-3.4.2\bin\rscript.exe" C:\Projects\Duke\Law\LexisNexisCaseAnalysis\ModelsAnalysis\OutcomeTextAnalysis\OutcomeTextAnalysisApp\WordPairNetwork\WordPairNetwork.r
