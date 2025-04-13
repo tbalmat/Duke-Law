@@ -4,8 +4,8 @@ Outcome (decision) text analysis apps
 
 Contents:
 <ul>
-  <li>WordPairNetwork: R/Shiny app for generating network diagrams using frequency and correlation of word pairs appearing in outcome text</li>
-  <li>WordProportionXY: R/Shiny app for contrasting proportion word appearance by outcome type</li>
-  <li>OpinionWordDistribution-01.pdf: review of outcome text and example screen shots of text analysis Shiny apps</li>
+  <li>WordPairNetwork: R/Shiny app for generating network diagrams using frequency and correlation of word pairs appearing in opinion text</li>
+  <li>WordProportionXY: R/Shiny app for contrasting proportion opinion word appearance by decision outcome type</li>
+  <li>OpinionWordDistribution-01.pdf: review of opinion text and example screen shots of opinion text analysis Shiny apps</li>
 </ul>
 
