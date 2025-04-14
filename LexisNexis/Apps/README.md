@@ -1,9 +1,9 @@
 # Duke University Circuit Court Appeals Project
 
-Data analysis applications 
+Statistical, graphical, and text analysis applications 
 
 Contents:
 <ul>
-  <li>CaseReview: R/Shiny app to query cases by various descriptors</li>
+  <li>CaseReview: R/Shiny app to query case database by various descriptors</li>
   <li>TextAnalysis: R/Shiny apps for analysis of case opinion text</li>
 </ul>
